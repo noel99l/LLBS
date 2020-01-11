@@ -1,0 +1,2 @@
+module EntryTablesHelper
+end

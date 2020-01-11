@@ -70,6 +70,9 @@ gem 'bootstrap-sass', '~> 3.4.1'
 gem 'enum_help'
 gem 'pry-rails'
 gem 'font-awesome-sass', '~> 5.4.1'
+gem 'omniauth-twitter'
+gem 'omniauth-facebook'
+gem 'omniauth-google-oauth2'
 
 group :production do
   gem 'mysql2'

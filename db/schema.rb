@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_09_061754) do
+ActiveRecord::Schema.define(version: 2020_01_10_155130) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -24,6 +24,80 @@ ActiveRecord::Schema.define(version: 2020_01_09_061754) do
     t.index ["reset_password_token"], name: "index_admins_on_reset_password_token", unique: true
   end
 
+  create_table "after_parties", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.string "party_place", null: false
+    t.integer "party_postalcode"
+    t.string "party_address"
+    t.text "party_overview", null: false
+    t.integer "party_fee", null: false
+    t.string "party_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "entry_tables", force: :cascade do |t|
+    t.integer "event_user_id", null: false
+    t.integer "music_id", null: false
+    t.integer "part_id", null: false
+    t.integer "status", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_users", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.integer "event_id", null: false
+    t.integer "part_id", null: false
+    t.integer "party_participate", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.integer "after_party_id", null: false
+    t.string "event_name", null: false
+    t.string "friendly_url", null: false
+    t.text "overview", null: false
+    t.date "date", null: false
+    t.time "meeting_time", null: false
+    t.time "start_time", null: false
+    t.time "finish_time", null: false
+    t.string "place", null: false
+    t.string "place_url"
+    t.integer "performance_fee"
+    t.integer "visit_fee"
+    t.string "image"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "music_comments", force: :cascade do |t|
+    t.integer "music_id", null: false
+    t.integer "user_id", null: false
+    t.text "comment", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "musics", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.string "title", null: false
+    t.string "artist", null: false
+    t.string "music_url"
+    t.integer "establishment_status", default: 0, null: false
+    t.text "remarks"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "parts", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.string "part_name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -32,6 +106,12 @@ ActiveRecord::Schema.define(version: 2020_01_09_061754) do
     t.datetime "remember_created_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "provider"
+    t.string "uid"
+    t.string "name"
+    t.string "nickname"
+    t.string "image"
+    t.text "introduction"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

@@ -9,7 +9,61 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
+  <body class="wf-notosansjapanese">
+  <header class="navbar header">
+    <div class="container">
+      <div class="row">
+        <h3 class="navbar-left"><br>
+          <%= link_to "LOGO", root_path %>
+        </h3>
+            <div class="nav navbar-nav navbar-right">
+              <% if user_signed_in? %>
+
+                <li>
+                  <%= link_to user_path(current_user.id) do %>
+                  マイページ
+                  <% end %>
+                  <span class="user-name">
+                    <strong>
+                      <%= current_user.name %>さん
+                    </strong>
+                  </span>
+                </li>
+
+                <li>
+                  <%= link_to events_path do %>
+                    イベント一覧
+                  <% end %>
+                </li>
+
+                <li>
+                  <%= link_to destroy_user_session_path, method: :delete do %>
+                    ログアウト
+                  <% end %>
+                </li>
+
+                <% else %>
+
+                <li><%= link_to new_user_registration_path do %>
+                  新規登録
+                  <% end %>
+                </li>
+                <li><%= link_to events_path do %>
+                  イベント一覧
+                  <% end %>
+                <li><%= link_to new_user_session_path do %>
+                  ログイン</li>
+                  <% end %>
+                <% end %>
+            </div>
+      </div>
+    </diV>
+  </header>
+    <% flash.each do |message_type, message| %>
+      <div class="alert alert-<%= message_type %>">
+        <%= message %>
+      </div>
+    <% end %>
     <%= yield %>
   </body>
 </html>

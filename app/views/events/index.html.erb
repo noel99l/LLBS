@@ -1,0 +1,8 @@
+<% @events.each do |event| %>
+	<%= link_to event_path(event.id) do %>
+		<%= event.event_name %><br>
+		<%= event.date %><br>
+		<%= event.meeting_time %>〜<%= event.finish_time %><br>
+		<br>
+	<% end %>
+<% end %>

@@ -1,0 +1,10 @@
+<h1><%= @user.name %>さんのマイページ</h1>
+
+ユーザーID(Twitterより)：<%= @user.uid %><br>
+プロバイダ：<%= @user.provider %><br>
+アカウント：@<%= @user.nickname %><br>
+イメージ画像：<%= @user.image %><br>
+メールアドレス：<%= @user.email %><br>
+自己紹介：<%= @user.introduction %><br>
+
+<%= link_to '編集する', edit_user_path(@user.id) %>

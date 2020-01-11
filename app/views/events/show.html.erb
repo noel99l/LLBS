@@ -1,0 +1,12 @@
+<h2><%= @event.event_name %><br></h2>
+<%= @event.date %><br>
+<%= @event.start_time %>〜<%= @event.finish_time %><br>
+<br>
+概要：<%= @event.overview %><br>
+集合時間：<%= @event.meeting_time %><br>
+場所：<%= @event.place %><br>
+URL:<%= @event.place_url %><br>
+演奏参加費：<%= @event.performance_fee %><br>
+見学参加費：<%= @event.visit_fee %><br>
+
+打ち上げ：<%= link_to '打ち上げ概要はこちら', event_party_path(@event.after_party_id) %>

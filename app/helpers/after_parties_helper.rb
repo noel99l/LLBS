@@ -1,0 +1,2 @@
+module AfterPartiesHelper
+end
