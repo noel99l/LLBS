@@ -8,3 +8,10 @@
 自己紹介：<%= @user.introduction %><br>
 
 <%= link_to '編集する', edit_user_path(@user.id) %>
+
+<h3>参加イベント一覧</h3>
+<% @event_users.each do |event_user| %>
+	<h4><%= event_user.event.event_name %></h4>
+	<%= event_user.event.meeting_time %>〜<%= event_user.event.finish_time %><br>
+	<%= link_to"参加を取り消す", event_event_user_path(event_id: event_user.event.id, event_user_id: event_user.id), method: :delete, class: "btn btn-danger w-50" %><br>
+<% end %>

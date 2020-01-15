@@ -1,0 +1,40 @@
+<section class="slice slice-lg sct-color-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 col-md-offset-3">
+                <div class="form-user style-1 rounded has-shadow-1">
+                    <div class="form-header">
+                      <div class="form-header text-center">
+                        <h2 class="form-header-title">登録情報編集</h2><br>
+                      </div>
+                      <%= form_for(@user, url: admin_user_path, html: {method: 'PATCH'})  do |f| %>
+                        <table class="table table-bordered">
+                          <tbody>
+                            <tr>
+	                            <th class="active"><%= f.label :name, "名前" %></th>
+	                            <td><%= f.text_field :name, autofocus: true, size:10,  :placeholder => "名前" %></td>
+                            </tr>
+                            <tr>
+	                            <th class="active"><%= f.label :introduction, "自己紹介" %></th>
+	                            <td><%= f.text_field :introduction, autofocus: true, :placeholder => "自己紹介" %></td>
+                            </tr>
+                            <tr>
+                                <th class="active"><%= f.label :email, "メールアドレス"　%></th>
+                                <td><%= f.email_field :email, autofocus: true, :placeholder => "llbs@gmail.jp" %></td>
+                            </tr>
+                            <tr>
+                                <th class="active"><%= f.label :image, "イメージ" %></th>
+                                <td><%= f.attachment_field :image %></td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <div class="actions">
+                          <%= f.submit '編集内容を保存する', class:"btn btn-primary btn-block" %>
+                        </div>
+                      <% end %>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

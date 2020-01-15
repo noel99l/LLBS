@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def show
   	@user = User.find(params[:id])
+    @event_users = EventUser.where(user_id: @user.id)
   end
 
   def edit
@@ -15,6 +16,6 @@ class UsersController < ApplicationController
 
   private
   def user_params
-  	params.require(:user).permit(:name, :email, :introduction)
+  	params.require(:user).permit(:name, :email, :introduction, :image)
   end
 end

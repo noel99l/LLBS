@@ -9,61 +9,57 @@
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body class="wf-notosansjapanese">
-  <header class="navbar header">
-    <div class="container">
-      <div class="row">
-        <h3 class="navbar-left"><br>
-          <%= link_to "LOGO", root_path %>
-        </h3>
-            <div class="nav navbar-nav navbar-right">
-              <% if user_signed_in? %>
-
-                <li>
-                  <%= link_to user_path(current_user.id) do %>
-                  マイページ
-                  <% end %>
-                  <span class="user-name">
-                    <strong>
-                      <%= current_user.name %>さん
-                    </strong>
-                  </span>
-                </li>
-
-                <li>
-                  <%= link_to events_path do %>
-                    イベント一覧
-                  <% end %>
-                </li>
-
-                <li>
-                  <%= link_to destroy_user_session_path, method: :delete do %>
-                    ログアウト
-                  <% end %>
-                </li>
-
+<body class="wf-notosansjapanese">
+    <header class="navbar header">
+        <div class="container">
+            <div class="row">
+                <% if user_signed_in? %>
+                    <h3 class="navbar-left"><br>
+                        <%= link_to "LOGO", root_path %>
+                    </h3>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <%= link_to "マイページ", user_path(current_user.id) %>
+                            <span class="user-name">
+                                <strong>
+                                    <%= current_user.name %>さん
+                                </strong>
+                            </span>
+                        </li>
+                        <li><%= link_to "イベント一覧", events_path %></li>
+                        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
+                    </ul>
+                <% elsif admin_signed_in? %>
+                    <h3 class="navbar-left"><br>
+                        <%= link_to"管理者", admin_root_path %>
+                    </h3>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><%= link_to "イベント一覧", admin_events_path %></li>
+                        <li><%= link_to "ユーザー一覧", admin_users_path %></li>
+                        <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
+                    </ul>
                 <% else %>
-
-                <li><%= link_to new_user_registration_path do %>
-                  新規登録
-                  <% end %>
-                </li>
-                <li><%= link_to events_path do %>
-                  イベント一覧
-                  <% end %>
-                <li><%= link_to new_user_session_path do %>
-                  ログイン</li>
-                  <% end %>
+                    <h3 class="navbar-left"><br>
+                        <%= link_to "LOGO", root_path %>
+                    </h3>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><%= link_to "新規登録", new_user_registration_path %></li>
+                        <li><%= link_to "イベント一覧", events_path %></li>
+                        <li><%= link_to "ログイン", new_user_session_path %></li>
+                    </li>
                 <% end %>
             </div>
-      </div>
-    </diV>
-  </header>
-    <% flash.each do |message_type, message| %>
-      <div class="alert alert-<%= message_type %>">
-        <%= message %>
-      </div>
-    <% end %>
-    <%= yield %>
-  </body>
+        </diV>
+    </header>
+    <div class = container >
+        <% flash.each do |message_type, message| %>
+            <div class="alert alert-<%= message_type %>">
+                <%= message %>
+            </div>
+        <% end %>
+    </div>
+    <div class = container >
+        <%= yield %>
+    </div>
+</body>
 </html>

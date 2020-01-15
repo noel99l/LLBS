@@ -1,0 +1,18 @@
+<h1><%= @user.name %>さんのマイページ</h1>
+
+<%= attachment_image_tag @user, :image, :fill, 300, 300, format: 'jpeg' %>
+ユーザーID(Twitterより)：<%= @user.uid %><br>
+プロバイダ：<%= @user.provider %><br>
+アカウント：@<%= @user.nickname %><br>
+イメージ画像：<%= @user.image %><br>
+メールアドレス：<%= @user.email %><br>
+自己紹介：<%= @user.introduction %><br>
+
+<%= link_to "編集する", edit_admin_user_path(@user) %>
+
+<h3>参加イベント一覧</h3>
+<% @event_users.each do |event_user| %>
+	<h4><%= event_user.event.event_name %></h4>
+	<%= event_user.event.meeting_time %>〜<%= event_user.event.finish_time %><br>
+	<%= link_to "参加を取り消す", event_event_user_path(event_id: event_user.event.id, event_user_id: event_user.id), method: :delete, class: "btn btn-danger w-50" %><br>
+<% end %>

@@ -1,2 +1,72 @@
-<h1>Musics#edit</h1>
-<p>Find me in app/views/musics/edit.html.erb</p>
+<section class="slice slice-lg sct-color-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="form-user style-1 rounded has-shadow-1">
+                    <div class="form-header">
+                        <div class="form-header text-center">
+                            <h2 class="form-header-title">曲編集</h2>
+                        </div>
+                        <%= form_for [@event,@music] do |f| %>
+                        <table class="table table-bordered">
+                          	<tbody>
+	                            <tr>
+		                            <th class="active">曲タイトル</th>
+		                            <td><%= f.text_field :title, size: 70, :placeholder => "曲名" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active">アーティスト名</th>
+		                        	<td><%= f.text_field :artist, size: 70, :placeholder => "アーティスト名" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active">参考URL</th>
+		                        	<td><%= f.text_field :music_url, size: 70, :placeholder => "参考URL" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active">パート</th>
+	                        		<td>
+			                        	<table class="table table-bordered">
+				                          	<tbody>
+					                            <tr>
+						                            <th class="active">
+						                            パート
+						                        	</th>
+						                        	<% @parts.each do |part| %>
+						                        	<td>
+						                        		<%= part.part_name %>
+						                        	</td>
+						                        	<% end %>
+						                        </tr>
+						                       	<tr>
+						                       		<th>
+						                       			必須<br>
+						                       			任意<br>
+						                       			不要<br>
+						                            </th>
+						                        	<%= f.fields_for :entry_tables do |entry_table| %>
+						                        	<td>
+														<%= entry_table.radio_button :requirement_status, :必須 %><br>
+														<%= entry_table.radio_button :requirement_status, :任意 %><br>
+														<%= entry_table.radio_button :requirement_status, :不要 %><br>
+													</td>
+													<% end %>
+												</tr>
+											</tbody>
+										</table>
+									</td>
+								</tr>
+								<tr>
+									<th class="active">備考</th>
+									<td><%= f.text_area :remarks, size: "20x5", class: "form-control" %></td>
+								</tr>
+									<%= f.hidden_field :event_id, :value => @event.id %>
+							</tbody>
+						</table>
+							<%= f.submit "送信する", class: "btn btn-lg btn-primary mt-20 pull-right" %>
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</section>

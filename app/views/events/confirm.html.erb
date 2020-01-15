@@ -1,2 +1,44 @@
-<h1>Events#confirm</h1>
-<p>Find me in app/views/events/confirm.html.erb</p>
+<%= form_with(model: @event_user, local: true, url: event_event_users_path ) do |f| %>
+	<%= f.hidden_field :user_id, value: current_user.id %>
+	<%= f.hidden_field :event_id, value: @event.id %>
+	<%= f.select :part_id, @parts.map { |part| [part.part_name, part.id] }, {include_blank: '選択してください'} %>
+	<%= f.select :party_participate, ["参加", "検討中", "不参加"], {include_blank: '選択してください'} %>
+	<%= f.submit "参加する" %>
+<% end %>
+
+<h2><%= @after_party.event_id %>回打ち上げ<br></h2>
+<%= @after_party.party_place %><br>
+<%= @after_party.party_postalcode %><br>
+<%= @after_party.party_address %><br>
+<%= @after_party.party_overview %><br>
+<%= @after_party.party_fee %><br>
+<%= @after_party.party_url %><br>
+
+<h3>参加者一覧</h3>
+<table class="table">
+	<tbody>
+		<tr>
+			<td>参加
+			</td>
+			<td>検討中
+			</td>
+			<td>不参加
+			</td>
+		</tr>
+		<tr>
+			<td><% @event_users.where(party_participate: 1).each do |event_user| %>
+					<%= event_user.user.name %><br>
+				<% end %>
+			</td>
+			<td><% @event_users.where(party_participate: 2).each do |event_user| %>
+					<%= event_user.user.name %><br>
+				<% end %>
+			</td>
+			<td><% @event_users.where(party_participate: 0).each do |event_user| %>
+					<%= event_user.user.name %><br>
+				<% end %>
+			</td>
+		</tr>
+	</tbody>
+</table>
+

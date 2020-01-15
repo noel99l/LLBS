@@ -1,2 +1,33 @@
-<h1>Musics#show</h1>
-<p>Find me in app/views/musics/show.html.erb</p>
+<h2><%= @music.title %><br></h2>
+アーティスト名：<%= @music.artist %><br>
+参考url：<%= @music.music_url %><br>
+成立ステータス：<%= @music.establishment_status %><br>
+備考：<%= @music.remarks %><br>
+<%= link_to "編集する", edit_event_music_path(@music.event_id, @music.id), class: "btn-sm btn-primary" %>　
+<%= link_to "削除する",event_music_path(@music.event_id, @music.id), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger" %><br>
+<br>
+<% if @current_user_entry_tables.presence %>
+<h3>あなたのエントリー状況</h3>
+    <% @current_user_entry_tables.each do |current_user_entry_table| %>
+        <%= current_user_entry_table.part.part_name %>
+        <%= link_to "取消",event_entry_table_path(@event.id, music_id: @music.id, part_id: current_user_entry_table.part_id, name: "cancel"), method: :patch, data: {confirm: "本当にエントリーを取り消してもよろしいですか？"}, class: "btn-sm btn-danger" %><br>
+    <% end %>
+<% end %>
+
+<h3><%= @music_comments.count %>件コメント</h3>
+<% @music_comments.each do |music_comment| %>
+	<%= music_comment.user.name %>　<%= music_comment.created_at.strftime('%Y/%m/%d') %>
+		<% if music_comment.user == current_user %>
+		            	<%= link_to "削除する", event_music_music_comment_path(@event,@music,music_comment), method: :delete, class: "btn-xs btn-danger", data: {confirm: "本当に削除してもよろしいですか？"} %>
+        <% end %><br>
+	<%= music_comment.comment %><br>
+	<br>
+<% end %>
+<%= form_for [@event, @music, @music_comment] do |f| %>
+    <div class="row">
+        <div class="col-sm-12">
+            <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+        </div>
+    </div>
+    <%= f.submit "送信する", class: "btn btn-lg btn-base-1 mt-20 pull-right" %>
+<% end %>

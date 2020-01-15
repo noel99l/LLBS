@@ -73,6 +73,10 @@ gem 'font-awesome-sass', '~> 5.4.1'
 gem 'omniauth-twitter'
 gem 'omniauth-facebook'
 gem 'omniauth-google-oauth2'
+gem 'cocoon'
+gem 'will_paginate'
+gem 'bootstrap-will_paginate'
+
 
 group :production do
   gem 'mysql2'

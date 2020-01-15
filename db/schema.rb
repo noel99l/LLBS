@@ -37,10 +37,11 @@ ActiveRecord::Schema.define(version: 2020_01_10_155130) do
   end
 
   create_table "entry_tables", force: :cascade do |t|
-    t.integer "event_user_id", null: false
+    t.integer "event_user_id"
     t.integer "music_id", null: false
     t.integer "part_id", null: false
-    t.integer "status", null: false
+    t.integer "recruitment_status", null: false
+    t.integer "requirement_status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -67,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_155130) do
     t.string "place_url"
     t.integer "performance_fee"
     t.integer "visit_fee"
-    t.string "image"
+    t.string "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -110,7 +111,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_155130) do
     t.string "uid"
     t.string "name"
     t.string "nickname"
-    t.string "image"
+    t.string "image_id"
     t.text "introduction"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

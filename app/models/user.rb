@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :event_users
   has_many :music_comments
+  attachment :image
 
    def self.find_for_oauth(auth)
    user = User.where(uid: auth.uid, provider: auth.provider).first

@@ -13,7 +13,7 @@ class CreateEvents < ActiveRecord::Migration[5.2]
 	t.string :place_url
 	t.integer :performance_fee
 	t.integer :visit_fee
-	t.string :image
+	t.string :image_id
   	t.timestamps
     end
   end

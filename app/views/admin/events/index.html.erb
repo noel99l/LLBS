@@ -1,0 +1,12 @@
+<% @events.each do |event| %>
+	<%= link_to event_path(event.id) do %>
+		<%= event.event_name %><br>
+		<%= event.date %><br>
+		<%= event.meeting_time %>〜<%= event.finish_time %><br>
+	<% end %>
+	<%= link_to "編集する", edit_admin_event_path(event.id) %><br>
+	<%= link_to "削除する", admin_event_path(event.id), method: :delete %><br>
+	<br>
+<% end %>
+
+<%= link_to "イベントを作成する", new_admin_event_path %>

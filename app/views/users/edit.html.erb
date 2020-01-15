@@ -22,6 +22,10 @@
                                 <th class="active"><%= f.label :email %></th>
                                 <td><%= f.email_field :email, autofocus: true, :placeholder => "llbs@gmail.jp" %></td>
                             </tr>
+                            <tr>
+                                <th class="active"><%= f.label :image, "イメージ" %></th>
+                                <td><%= f.attachment_field :image %></td>
+                            </tr>
                           </tbody>
                         </table>
                         <div class="actions">
