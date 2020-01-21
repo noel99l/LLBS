@@ -15,3 +15,74 @@
  */
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import 'bootstrap-datetimepicker';
+@import url(//fonts.googleapis.com/earlyaccess/notosansjapanese.css);
+
+.wf-notosansjapanese {
+font-family: 'Noto Sans Japanese', serif;
+}
+
+
+header {
+width: 100%;
+  padding: 15px 0;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #777777;
+}
+
+footer {
+  width: 100%;
+  height: 50px;
+  margin: 0 auto;
+  text-align: center;
+  background-color: #777777;
+}
+
+.footer-text {
+  color: #fff;
+}
+
+.event-header {
+  border-radius: 20px;
+  background-color: skyblue;
+  padding: 3px 15px;
+}
+
+.event-container {
+  margin: 10px 10px 200px;
+}
+
+.member_list{
+  width:250px;
+  padding:5px;
+  margin:5px 0 0 5px;
+  min-height:52px;
+}
+
+ul,ol,li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.round_border{
+  border: 1px solid #cdcddd;
+  border-radius: 5px;
+  background:#fcfeff;
+}
+
+.member_list ul{
+  margin:3px 0 0 0;
+}
+
+.member_list li{
+  margin:0;
+  padding:2px 0 2px 0;
+  border-top: 1px solid #eee;
+  border-bottom:none;
+}
+
+.attendance_menu{
+padding: 30px 100;
+}

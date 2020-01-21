@@ -1,0 +1,28 @@
+<table class="table table-bordered">
+  	<tbody>
+        <tr>
+            <th class="active"><%= f.label :party_place, "打ち上げ会場名" %></th>
+            <td><%= f.text_field :party_place, size: 70, :placeholder => "打ち上げ会場名" %></td>
+        </tr>
+        <tr>
+        	<th class="active"><%= f.label :party_postalcode, "郵便番号" %></th>
+        	<td><%= f.text_field :party_postalcode, size: 70, :placeholder => "郵便番号" %></td>
+        </tr>
+        <tr>
+        	<th class="active"><%= f.label :party_address, "住所" %></th>
+        	<td><%= f.text_field :party_address, size: 70, :placeholder => "住所" %></td>
+        </tr>
+        <tr>
+        	<th class="active"><%= f.label :party_url, "会場URL" %></th>
+        	<td><%= f.text_field :party_url, size: 70, :placeholder => "会場URL" %></td>
+        </tr>
+        <tr>
+        	<th class="active"><%= f.label :party_fee, "参加費" %></th>
+        	<td><%= f.text_field :party_fee, size: 70, :placeholder => "参加費" %></td>
+        </tr>
+        <tr>
+        	<th class="active"><%= f.label :party_overview, "概要" %></th>
+        	<td><%= f.text_area :party_overview, size: "20x10", class: "form-control" , :placeholder => "備考" %></td>
+        </tr>
+    </tbody>
+</table>

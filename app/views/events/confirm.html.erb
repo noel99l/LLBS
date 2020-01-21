@@ -1,44 +1,38 @@
+<%= render 'events/event-header', event: @event, event_users: @event_users %>
+
+<h2><%= @event.event_name %>参加確認画面</h2>
+<br>
+参加にあたってのご注意にご同意いただき、パートを選択してください。<br>
+<br>
+<div class="panel panel-default">
+	<div class="panel-heading">
+		注意事項
+	</div>
+	<div class="panel-body">
+		<h4>イベント参加に関する諸注意</h4>
+		・開催日近くのキャンセルは他の参加者に迷惑がかかります。確実に予定を押さえた上で登録しましょう。<br>
+		・キャンセルされた場合、スタジオ代の請求、今後の参加制限などの可能性がありますのでご了承ください。<br>
+		・選択したパートと異なるパートへのエントリーを主目的とした参加登録は原則お控えください。<br>
+		<br>
+		<h4>イベント当日に関する書注意</h4>
+		・セッション参加3つのルール(①怪我をしないさせない　②転換演奏込み10分　③貴重品の管理は自己責任)は全員必ず守りましょう！<br>
+		・機材置き場には限りがございますので、可能な限り荷物は少なめにお願いいたします。<br>
+		・最初の受付時にイベント参加費と打ち上げ参加費を合わせて徴収させていただきますので事前に用意をお願いします。<br>
+		・セッティング完了後の音出し厳禁！！円滑な進行のためにもご協力お願いいたします。<br>
+		<br>
+	</div>
+</div>
+
 <%= form_with(model: @event_user, local: true, url: event_event_users_path ) do |f| %>
 	<%= f.hidden_field :user_id, value: current_user.id %>
 	<%= f.hidden_field :event_id, value: @event.id %>
-	<%= f.select :part_id, @parts.map { |part| [part.part_name, part.id] }, {include_blank: '選択してください'} %>
-	<%= f.select :party_participate, ["参加", "検討中", "不参加"], {include_blank: '選択してください'} %>
-	<%= f.submit "参加する" %>
+	<h4>参加パート：<%= f.select :part_id, @parts.map { |part| [part.part_name, part.id] }, {include_blank: '選択してください'} %></h4><br>
+
+<h3>◆<%= @event.event_name %>打ち上げについて<br></h3>
+<div class="clearfix">
+	<%= render 'after_parties/after_party', event: @event, event_users: @event_users, after_party: @after_party%>
+</div>
+	<h4>打ち上げ出席予定：<%= f.select :party_participate, ["参加", "検討中", "不参加"], {include_blank: '選択してください'} %></h4>
+
+	<%= f.submit "上記の内容で#{@event.event_name}に参加する！", class:"btn btn-lg btn-danger btn-block" %>
 <% end %>
-
-<h2><%= @after_party.event_id %>回打ち上げ<br></h2>
-<%= @after_party.party_place %><br>
-<%= @after_party.party_postalcode %><br>
-<%= @after_party.party_address %><br>
-<%= @after_party.party_overview %><br>
-<%= @after_party.party_fee %><br>
-<%= @after_party.party_url %><br>
-
-<h3>参加者一覧</h3>
-<table class="table">
-	<tbody>
-		<tr>
-			<td>参加
-			</td>
-			<td>検討中
-			</td>
-			<td>不参加
-			</td>
-		</tr>
-		<tr>
-			<td><% @event_users.where(party_participate: 1).each do |event_user| %>
-					<%= event_user.user.name %><br>
-				<% end %>
-			</td>
-			<td><% @event_users.where(party_participate: 2).each do |event_user| %>
-					<%= event_user.user.name %><br>
-				<% end %>
-			</td>
-			<td><% @event_users.where(party_participate: 0).each do |event_user| %>
-					<%= event_user.user.name %><br>
-				<% end %>
-			</td>
-		</tr>
-	</tbody>
-</table>
-

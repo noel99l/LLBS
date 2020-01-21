@@ -2,11 +2,11 @@ class EventUsersController < ApplicationController
   def create
     event_user = current_user.event_users.build(event_users_params)
     event_user.save
-    redirect_to event_path(event_user.event_id)
+    redirect_to event_path(event_user.event.friendly_url), notice: "#{event_user.event.event_name}への参加を受付ました！"
   end
 
   def index
-    @event = Event.find(params[:event_id])
+    @event = Event.friendly.find(params[:event_id])
     @event_users = EventUser.where(event_id: @event.id)
     @parts = Part.where(event_id: @event.id)
     @entry_tables = EntryTable.joins(:part).where(part_id: @parts)
@@ -23,7 +23,7 @@ class EventUsersController < ApplicationController
       event_user.party_participate = 2
     end
     event_user.save
-    redirect_to event_party_path(event)
+    redirect_to event_party_path(event.friendly_url)
   end
 
   def destroy
@@ -35,7 +35,7 @@ class EventUsersController < ApplicationController
       entry_table.event_user_id = nil
       entry_table.save
       end
-    redirect_to root_path
+    redirect_to root_path, notice: "参加を取り消しました！"
   end
 
   private

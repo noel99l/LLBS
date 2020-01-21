@@ -1,109 +1,60 @@
-<h2><%= @event.event_name %><br></h2>
-<%= @event.date %><br>
-<%= @event.start_time %>〜<%= @event.finish_time %><br>
-<% if @event_users.where(user_id: current_user.id).empty? %>
-	<%= link_to "参加はこちらから", event_confirm_path(@event.id), class: "btn btn-primary"%>
-<% end %>
-<br>
-概要：<%= @event.overview %><br>
-集合時間：<%= @event.meeting_time %><br>
-場所：<%= @event.place %><br>
-URL:<%= @event.place_url %><br>
-演奏参加費：<%= @event.performance_fee %><br>
-見学参加費：<%= @event.visit_fee %><br>
+<%= render 'events/event-header', event: @event, event_users: @event_users %>
+<div class="event-container">
+	<div class="col-xs-3">
+		<div class="text-center">
+		<%= attachment_image_tag @event, :image, size: "200x200", format: 'jpeg', fallback: "no_image.jpg", class:"img-thumbnail" %>
+		</div>
+	</div>
+	<div class="col-xs-9">
+		<table class="table table-bordered">
+			<tbody>
+			    <tr>
+			        <th class="active text-right">会場</th>
+			        <td><%= link_to "#{@event.place}", @event.place_url %></td>
+			    </tr>
+			    <tr>
+			        <th class="active text-right">集合時間</th>
+			        <td><%= @event.meeting_time.to_s(:time) %></td>
+			    </tr>
+			    <tr>
+			        <th class="active text-right">演奏時間</th>
+			        <td><%= @event.start_time.to_s(:time) %>〜<%= @event.finish_time.to_s(:time) %></td>
+			    </tr>
+			    <tr>
+			        <th class="active text-right">参加費</th>
+			        <td>演奏参加：<%= @event.performance_fee %>円　見学参加：<%= @event.visit_fee %>円</td>
+			    </tr>
+			    <tr>
+			        <th class="active text-right">打ち上げ会場</th>
+			        <td><%= link_to "#{@event.after_party.party_place}", @event.after_party.party_url %></td>
+			    </tr>
+			</tbody>
+		</table>
+		<div class="text-right">
+			<%= link_to '打ち上げ詳細', event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning" %> 
+			<%= link_to "参加者一覧", event_event_users_path(@event.friendly_url), class:"btn btn-lg btn-info" %>
+		</div>
+	</div>
+</div>
 
-<%= link_to '打ち上げ概要はこちら', event_party_path(@event.after_party_id) %><br>
-<%= link_to "参加者一覧", event_event_users_path(@event.id) %>
+<div class="clearfix">
+</div>
 
-<br>
+<div class="col-xs-12">
+ 	<div class="panel panel-default">
+    	<div class="panel-heading">イベント概要</div>
+    	<div class="panel-body"><%= @event.overview %></div>
+	</div>
+</div>
+
 <h3>楽曲一覧</h3>
 <br>
-<h4>成立曲</h4>
-<div class="table-responsive">
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>曲名</th>
-				<th>アーティスト名</th>
-				<% @parts.each do |part| %>
-					<th><%= part.part_name %></th>
-				<% end %>
-			</tr>
-			<% @complete_musics.each do |music| %>
-			<tr>
-				<th><% if @event_users.where(user_id: current_user.id).empty? %><%= music.title %>
-					<% else %>
-						<%= link_to event_music_path(@event.id, music.id) do %><%= music.title %><% end %>
-					<% end %>
-				</th>
-				<td>
-					<%= music.artist %>
-				</td>
-				<% @parts.each do |part| %>
-					<td>
-						<% if @entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "不要" %>
-						<% elsif @entry_tables.find_by(music_id: music.id, part_id: part.id)&.event_user_id == nil %>
-							<% if @event_users.where(user_id: current_user.id).empty? %>
-								(エントリー)
-							<% else %>
-								<%= link_to "(エントリー)", event_entry_table_path(@event.id, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
-							<% end %>
-						<% else %>
-							<%= link_to user_path(@entry_tables.find_by(music_id: music.id, part_id: part.id).event_user.user.id) do %>
-								<%= @entry_tables.find_by(music_id: music.id, part_id: part.id)&.event_user&.user&.name %>
-							<% end %>
-						<% end %>
-					</td>
-				<% end %>
-				</tr>
-			<% end %>
-		</thead>
-	</table>
-</div>
-<br>
-<h4>未成立曲</h4>
-<div class="table-responsive">
-	<table class="table table-bordered">
-		<thead>
-			<tr>
-				<th>曲名</th>
-				<th>アーティスト名</th>
-				<% @parts.each do |part| %>
-					<th><%= part.part_name %></th>
-				<% end %>
-			</tr>
-			<% @incomplete_musics.each do |music| %>
-			<tr>
-				<th><% if @event_users.where(user_id: current_user.id).empty? %><%= music.title %>
-					<% else %>
-						<%= link_to event_music_path(@event.id, music.id) do %><%= music.title %><% end %>
-					<% end %>
-				</th>
-				<td>
-					<%= music.artist %>
-				</td>
-				<% @parts.each do |part| %>
-					<td>
-						<% if @entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "不要" %>
-						<% elsif @entry_tables.find_by(music_id: music.id, part_id: part.id)&.event_user_id == nil %>
-							<% if @event_users.where(user_id: current_user.id).empty? %>
-								(エントリー)
-							<% elsif @entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "任意" %>
-								<%= link_to "(エントリー)", event_entry_table_path(@event.id, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
-							<% elsif @entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "必須" %>
-								<%= link_to "エントリー", event_entry_table_path(@event.id, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
-							<% end %>
-						<% else %>
-							<%= link_to user_path(@entry_tables.find_by(music_id: music.id, part_id: part.id).event_user.user.id) do %>
-								<%= @entry_tables.find_by(music_id: music.id, part_id: part.id)&.event_user&.user&.name %>
-							<% end %>
-						<% end %>
-					</td>
-				<% end %>
-			<% end %>
-			</tr>
-		</thead>
-	</table>
-</div>
+<h4>成立曲 (<%= @complete_musics.count %>曲)</h4>
+<%= render 'events/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @complete_musics %>
 
-<%= link_to "曲を追加する", new_event_music_path(@event.id), class: "btn btn-primary col-lg-12" %>
+<br>
+<h4>未成立曲 (<%= @incomplete_musics.count %>曲)</h4>
+<%= render 'events/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @incomplete_musics %>
+
+<%= link_to "曲を追加する", new_event_music_path(@event.id), class: "btn btn-lg btn-primary btn-block" %>
+<br>

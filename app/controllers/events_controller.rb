@@ -2,14 +2,14 @@ class EventsController < ApplicationController
 
   def confirm
     @event_user = EventUser.new
-    @event = Event.find(params[:event_id])
+    @event = Event.friendly.find(params[:event_id])
     @parts = Part.where(event_id: @event.id)
     @after_party = AfterParty.find_by(event_id: @event.id)
     @event_users = EventUser.where(event_id: @event.id)
   end
 
   def show
-  	@event = Event.find(params[:id])
+  	@event = Event.friendly.find(params[:id])
   	@parts = Part.where(event_id: @event.id)
     @event_users = EventUser.where(event_id: @event.id)
     @entry_tables = EntryTable.joins(:part).where(part_id: @parts)

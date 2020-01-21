@@ -1,8 +1,11 @@
 <% @events.each do |event| %>
-	<%= link_to event_path(event.id) do %>
-		<%= event.event_name %><br>
-		<%= event.date %><br>
-		<%= event.meeting_time %>〜<%= event.finish_time %><br>
-		<br>
+	<%= link_to event_path(event.friendly_url) do %>
+		<div class="col-xs-3 text-center">
+			<%= link_to event_path(event.friendly_url) do %>
+				<%= attachment_image_tag event, :image, size: "200x200", format: 'jpeg', fallback: "no_image.jpg", class:"img-thumbnail" %>
+				<h4><%= event.event_name %></h4>
+			<% end %>
+			<%= event.date %> <%= event.meeting_time.to_s(:time) %>〜<%= event.finish_time.to_s(:time) %><br>
+		</div>
 	<% end %>
 <% end %>

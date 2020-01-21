@@ -1,2 +1,90 @@
-<h1>Admin::Events#edit</h1>
-<p>Find me in app/views/admin/events/edit.html.erb</p>
+<section class="slice slice-lg sct-color-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-10 col-md-offset-1">
+                <div class="form-user style-1 rounded has-shadow-1">
+                    <div class="form-header">
+                        <div class="form-header text-center">
+                            <h2 class="form-header-title">イベント編集</h2>
+                        </div>
+                        <%= form_for(@event, url: admin_event_path) do |f| %>
+                        <table class="table table-bordered">
+                          	<tbody>
+	                            <tr>
+		                            <th class="active"><%= f.label :event_name, "イベント名" %></th>
+		                            <td><%= f.text_field :event_name, size: 70, :placeholder => "イベント名" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active"><%= f.label :friendly_url, "URL" %></th>
+		                        	<td><%= f.text_field :friendly_url, size: 70, :placeholder => "URL" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active">日付</th>
+		                        	<td><%= f.text_field :date, size: 70, :placeholder => "日付", :class => 'datetimepicker' %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active">集合時間</th>
+		                        	<td><%= f.text_field :meeting_time, size: 70, :placeholder => "集合時間" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active">開始時間</th>
+		                        	<td><%= f.text_field :start_time, size: 70, :placeholder => "開始時間" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active">終了時間</th>
+		                        	<td><%= f.text_field :finish_time, size: 70, :placeholder => "終了時間" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active">場所</th>
+		                        	<td><%= f.text_field :place, size: 70, :placeholder => "場所" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active">場所URL</th>
+		                        	<td><%= f.text_field :place_url, size: 70, :placeholder => "参考URL" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active">演奏参加費</th>
+		                        	<td><%= f.text_field :performance_fee, size: 70, :placeholder => "演奏参加費" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active">見学参加費</th>
+		                        	<td><%= f.text_field :visit_fee, size: 80, :placeholder => "見学参加費" %></td>
+		                        </tr>
+		                        <tr>
+	                                <th class="active"><%= f.label :image, "イメージ" %></th>
+	                                <td><%= f.attachment_field :image %></td>
+                            	</tr>
+                            	<tr>
+	                                <th class="active">パート</th>
+		                            <td>
+									    <%= f.fields_for :parts do |p| %>
+										    <%= p.text_field :part_name %><br>
+										    <%= p.hidden_field :id, value: p.object.id %>
+									    <% end %>
+									</td>
+                            	</tr>
+                            	<tr>
+		                        	<th class="active">概要</th>
+		                        	<td>
+		                        		<%= f.text_area :overview, size: "20x10", class: "form-control" , :placeholder => "備考" %>
+		                        		</td>
+		                        </tr>
+		                    </tbody>
+		                </table>
+		                <div class="form-header text-center">
+                            <h2 class="form-header-title">打ち上げ</h2>
+                        </div>
+                        <%= f.fields_for :after_party do |ap| %>
+		                	<%= render "after_party", f: ap %>
+		                <% end %>
+
+		                <div class="actions">
+                          <%= f.submit '編集内容を保存する', class:"btn btn-primary btn-block" %>
+                        </div>
+                      <% end %>
+		            </div>
+		        </div>
+		    </div>
+		</div>
+	</div>
+</section>

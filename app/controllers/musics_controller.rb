@@ -2,13 +2,14 @@ class MusicsController < ApplicationController
   def new
     @music = Music.new
     @entry_table = @music.entry_tables.build
-    @event = Event.find(params[:event_id])
+    @event = Event.friendly.find(params[:event_id])
     @parts = Part.where(event_id: @event.id)
   end
 
   def show
-    @event = Event.find(params[:event_id])
+    @event = Event.friendly.find(params[:event_id])
     @music = Music.find(params[:id])
+    @parts = Part.where(music_id: @music.id)
     @music_comments = MusicComment.where(music_id: @music.id)
     @music_comment = MusicComment.new
     @entry_tables = EntryTable.where(music_id: @music.id)
@@ -19,7 +20,7 @@ class MusicsController < ApplicationController
   def create
     music = Music.new(music_params)
     music.save
-    redirect_to event_path(music.event_id)
+    redirect_to event_path(music.event.friendly_url), notice: "楽曲を追加しました！"
   end
 
   def edit
@@ -38,7 +39,7 @@ class MusicsController < ApplicationController
       else music.establishment_status = "募集中"
             music.save
       end
-      redirect_to event_music_path(music.event_id, music.id), notice: "楽曲を更新しました！"
+      redirect_to event_path(music.event.friendly_url), notice: "楽曲を更新しました！"
     else
       render "edit"
     end
@@ -47,7 +48,7 @@ class MusicsController < ApplicationController
   def destroy
     music = Music.find(params[:id])
     music.destroy
-    redirect_to event_path(music.event_id), notice: "楽曲を削除しました！"
+    redirect_to event_path(music.event.friendly_url), notice: "楽曲を削除しました！"
   end
 
   private

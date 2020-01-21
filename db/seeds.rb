@@ -8,7 +8,6 @@ end
   	u.provider = 'twitter'
     u.name = "ユーザー#{n}"
     u.nickname = "user#{n}"
-    u.image_id = "http://pbs.twimg.com/profile_images/#{n}"
     u.introduction = "セッション参加は#{n}回目です。よろしくお願いします。"
     u.password = 'password'
     u.password_confirmation = 'password'
@@ -18,7 +17,6 @@ end
 4.times { |m|
   n = m + 1
 	event = Event.find_or_create_by!(event_name: "LLBS#{n}") do |e|
-		e.after_party_id = n
 		e.friendly_url = "LLBS#{n}"
 		e.overview = "第#{n}回目の開催となるLLBSです。みなさま奮ってご参加ください。"
 		e.date = "2014-10-0#{n}"

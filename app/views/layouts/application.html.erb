@@ -4,9 +4,9 @@
     <title>LLBS</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+
   </head>
 
 <body class="wf-notosansjapanese">
@@ -14,8 +14,8 @@
         <div class="container">
             <div class="row">
                 <% if user_signed_in? %>
-                    <h3 class="navbar-left"><br>
-                        <%= link_to "LOGO", root_path %>
+                    <h3 class="navbar-left">
+                        <%= link_to image_tag("LLBS_LOGO5.png",:size=>"212x50", :alt=>"LOGO"), root_path %>
                     </h3>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -31,7 +31,7 @@
                     </ul>
                 <% elsif admin_signed_in? %>
                     <h3 class="navbar-left"><br>
-                        <%= link_to"管理者", admin_root_path %>
+                        <%= link_to"LLBS管理者", admin_root_path %>
                     </h3>
                     <ul class="nav navbar-nav navbar-right">
                         <li><%= link_to "イベント一覧", admin_events_path %></li>
@@ -40,7 +40,7 @@
                     </ul>
                 <% else %>
                     <h3 class="navbar-left"><br>
-                        <%= link_to "LOGO", root_path %>
+                        <%= link_to image_tag("LLBS_LOGO5.png",:size=>"212x50", :alt=>"LOGO"), root_path %>
                     </h3>
                     <ul class="nav navbar-nav navbar-right">
                         <li><%= link_to "新規登録", new_user_registration_path %></li>
@@ -49,17 +49,26 @@
                     </li>
                 <% end %>
             </div>
-        </diV>
+        </div>
     </header>
     <div class = container >
+        <div class="row">
         <% flash.each do |message_type, message| %>
             <div class="alert alert-<%= message_type %>">
                 <%= message %>
             </div>
         <% end %>
+        <div class="row">
     </div>
     <div class = container >
-        <%= yield %>
+        <div class="row">
+            <%= yield %>
+        </div>
     </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="footer-text">© All rights reserved by noel99l</p>
+        </div>
+    </footer>
 </body>
 </html>

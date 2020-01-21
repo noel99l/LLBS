@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_10_155130) do
+ActiveRecord::Schema.define(version: 2020_01_20_090847) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -25,7 +25,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_155130) do
   end
 
   create_table "after_parties", force: :cascade do |t|
-    t.integer "event_id", null: false
+    t.string "event_id", null: false
     t.string "party_place", null: false
     t.integer "party_postalcode"
     t.string "party_address"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_155130) do
     t.integer "requirement_status", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["music_id", "part_id"], name: "index_entry_tables_on_music_id_and_part_id", unique: true
   end
 
   create_table "event_users", force: :cascade do |t|
@@ -53,10 +54,10 @@ ActiveRecord::Schema.define(version: 2020_01_10_155130) do
     t.integer "party_participate", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["event_id", "user_id"], name: "index_event_users_on_event_id_and_user_id", unique: true
   end
 
   create_table "events", force: :cascade do |t|
-    t.integer "after_party_id", null: false
     t.string "event_name", null: false
     t.string "friendly_url", null: false
     t.text "overview", null: false
@@ -71,6 +72,8 @@ ActiveRecord::Schema.define(version: 2020_01_10_155130) do
     t.string "image_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["event_name"], name: "index_events_on_event_name", unique: true
+    t.index ["friendly_url"], name: "index_events_on_friendly_url", unique: true
   end
 
   create_table "music_comments", force: :cascade do |t|
@@ -97,6 +100,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_155130) do
     t.string "part_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["event_id", "part_name"], name: "index_parts_on_event_id_and_part_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -114,6 +118,7 @@ ActiveRecord::Schema.define(version: 2020_01_10_155130) do
     t.string "image_id"
     t.text "introduction"
     t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 

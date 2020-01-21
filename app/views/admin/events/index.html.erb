@@ -1,12 +1,17 @@
-<% @events.each do |event| %>
-	<%= link_to event_path(event.id) do %>
-		<%= event.event_name %><br>
-		<%= event.date %><br>
-		<%= event.meeting_time %>〜<%= event.finish_time %><br>
-	<% end %>
-	<%= link_to "編集する", edit_admin_event_path(event.id) %><br>
-	<%= link_to "削除する", admin_event_path(event.id), method: :delete %><br>
-	<br>
-<% end %>
+<div class="col-xs-12">
+	<%= link_to "イベントを作成する", new_admin_event_path, class: "btn btn-lg btn-primary btn-block" %><br>
+</div>
 
-<%= link_to "イベントを作成する", new_admin_event_path %>
+<% @events.each do |event| %>
+	<%= link_to event_path(event.friendly_url) do %>
+		<div class="col-xs-3 text-center">
+			<%= link_to admin_event_path(event.friendly_url) do %>
+				<%= attachment_image_tag event, :image, size: "200x200", format: 'jpeg', fallback: "no_image.jpg", class:"img-thumbnail" %>
+				<h4><%= event.event_name %></h4>
+			<% end %>
+			<%= event.date %> <%= event.meeting_time.to_s(:time) %>〜<%= event.finish_time.to_s(:time) %><br>
+			<%= link_to "編集する", edit_admin_event_path(event.friendly_url), class:"btn btn-xs btn-warning"%>
+			<%= link_to "削除する", admin_event_path(event.friendly_url), method: :delete , class:"btn btn-xs btn-danger", data: {confirm: "本当に削除してもよろしいですか？"} %><br>
+		</div>
+	<% end %>
+<% end %>

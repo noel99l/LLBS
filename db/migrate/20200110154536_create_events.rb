@@ -1,7 +1,6 @@
 class CreateEvents < ActiveRecord::Migration[5.2]
   def change
     create_table :events do |t|
-    t.integer :after_party_id, null: false
     t.string :event_name, null: false
     t.string :friendly_url, null: false
 	t.text :overview, null: false

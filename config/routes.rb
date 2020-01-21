@@ -16,7 +16,7 @@ Rails.application.routes.draw do
         get '/confirm' => 'events#confirm', as: 'confirm'
         get '/afterparty' => 'after_parties#show', as: 'party'
         resources :event_users, only: [:index, :create, :update, :destroy]
-        resources :entry_tables, only: [:create,:update, :destroy]
+        resources :entry_tables, only: [:update, :destroy]
         resources :musics, except: [:index] do
             resources :music_comments, only: [:create, :destroy]
         end
@@ -27,18 +27,13 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
-      resources :events
+      resources :events do
+        resources :entry_tables, only: [:edit, :update, :destroy]
+        resources :event_users, only: [:index, :edit, :update, :destroy]
+      end
     end
 
     namespace :admin do
       resources :users, only: [:index, :show, :edit, :update]
-    end
-
-    namespace :admin do
-      get 'entry_tables/destroy'
-    end
-
-    namespace :admin do
-      get 'event_users/destroy'
     end
 end
