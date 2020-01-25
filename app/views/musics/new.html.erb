@@ -1,81 +1,80 @@
-<section class="slice slice-lg sct-color-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8 col-md-offset-2">
-                <div class="form-user style-1 rounded has-shadow-1">
-                    <div class="form-header">
-                        <div class="form-header text-center">
-                            <h2 class="form-header-title">曲追加</h2>
-                        </div>
-                        <%= form_for [@event,@music] do |f| %>
-                        <table class="table table-bordered">
-                          	<tbody>
-	                            <tr>
-		                            <th class="active">曲タイトル</th>
-		                            <td><%= f.text_field :title, size: 70, :placeholder => "曲名" %></td>
-		                        </tr>
-		                        <tr>
-		                        	<th class="active">アーティスト名</th>
-		                        	<td><%= f.text_field :artist, size: 70, :placeholder => "アーティスト名" %></td>
-		                        </tr>
-		                        <tr>
-		                        	<th class="active">参考URL</th>
-		                        	<td><%= f.text_field :music_url, size: 70, :placeholder => "参考URL" %></td>
-		                        </tr>
-		                        <tr>
-		                        	<th class="active">パート</th>
-	                        		<td>
-			                        	<table class="table table-bordered">
-				                          	<tbody>
-					                            <tr>
-						                            <th class="active">
-						                            	パート
-						                            </th>
-						                            <% @parts.each do |part| %>
-						                            <th><%= part.part_name %></th>
-						                            <% end %>
-						                        </tr>
-						                        <tr>
-						                        	<th>
-						                            	必須<br>
-						                            	<br>
-						                            	任意<br>
-						                            	<br>
-						                            	不要<br>
-						                            </th>
-						                            <% @parts.each do |part| %>
-						                            <td>
-						                        	<%= f.fields_for :entry_tables do |entry_table| %>
-														<%= entry_table.radio_button :requirement_status, :必須, checked: true %><br>
-														<br>
-														<%= entry_table.radio_button :requirement_status, :任意 %><br>
-														<br>
-														<%= entry_table.radio_button :requirement_status, :不要 %>
-														<%= entry_table.hidden_field :music_id, :value => @music.id %>
-														<%= entry_table.hidden_field :part_id, :value => part.id %>
-														<%= entry_table.hidden_field :recruitment_status, :value => "募集中" %>
-													<% end %>
-													</td>
-													<% end %>
-												</tr>
-											</tbody>
-										</table>
-									</td>
-								</tr>
-								<tr>
-									<th class="active">備考</th>
-									<td><%= f.text_area :remarks, size: "20x5", class: "form-control" %></td>
-								</tr>
-									<%= f.hidden_field :event_id, :value => @event.id %>
-							</tbody>
-						</table>
-							<%= f.submit "送信する", class: "btn btn-lg btn-primary mt-20 pull-right" %>
-						<% end %>
-					</div>
+<div class="container">
+    <div class="row">
+		<%= render 'events/event-header', event: @event, event_users: @event_users %>
+		<div class="col-md-8 col-md-offset-2">
+		    <div class="form-user style-1 rounded has-shadow-1">
+		        <div class="form-header">
+		            <div class="form-header text-center">
+		                <h2 class="form-header-title">曲追加</h2>
+		            </div>
+		            <%= form_for [@event,@music] do |f| %>
+		            <%= render 'layouts/error_messages', model: f.object %>
+		            <table class="table table-bordered">
+		              	<tbody>
+		                    <tr>
+		                        <th class="active">曲タイトル</th>
+		                        <td><%= f.text_field :title, size: 70, :placeholder => "曲名" %></td>
+		                    </tr>
+		                    <tr>
+		                    	<th class="active">アーティスト名</th>
+		                    	<td><%= f.text_field :artist, size: 70, :placeholder => "アーティスト名" %></td>
+		                    </tr>
+		                    <tr>
+		                    	<th class="active">youtube</th>
+		                    	<td><%= f.text_field :music_url, size: 70, :placeholder => "https://www.youtube.com/からはじまるURLを入力してください" %></td>
+		                    </tr>
+		                    <tr>
+		                    	<th class="active">パート</th>
+		                		<td>
+		                        	<table class="table table-bordered">
+			                          	<tbody>
+				                            <tr>
+					                            <th class="active">
+					                            	パート
+					                            </th>
+					                            <% @parts.each do |part| %>
+					                            <th class="active"><%= part.part_name %></th>
+					                            <% end %>
+					                        </tr>
+					                        <tr>
+					                        	<th>
+					                            	必須<br>
+					                            	<br>
+					                            	任意<br>
+					                            	<br>
+					                            	不要<br>
+					                            </th>
+					                            <% @parts.each do |part| %>
+					                            <td>
+					                        	<%= f.fields_for :entry_tables do |entry_table| %>
+													<%= entry_table.radio_button :requirement_status, :必須, checked: true %><br>
+													<br>
+													<%= entry_table.radio_button :requirement_status, :任意 %><br>
+													<br>
+													<%= entry_table.radio_button :requirement_status, :不要 %>
+													<%= entry_table.hidden_field :music_id, :value => @music.id %>
+													<%= entry_table.hidden_field :part_id, :value => part.id %>
+													<%= entry_table.hidden_field :recruitment_status, :value => "募集中" %>
+												<% end %>
+												</td>
+												<% end %>
+											</tr>
+										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<th class="active">備考</th>
+								<td><%= f.text_area :remarks, size: "20x5", class: "form-control" %></td>
+							</tr>
+								<%= f.hidden_field :event_id, :value => @event.id %>
+								<%= f.hidden_field :user_id, :value => current_user.id %>
+						</tbody>
+					</table>
+						<%= f.submit "送信する", class: "btn btn-lg btn-primary mt-20 pull-right" %>
+					<% end %>
 				</div>
 			</div>
 		</div>
 	</div>
-</section>
-
-<!-- <p style="border-bottom: 1px solid black; "> -->
+</div>

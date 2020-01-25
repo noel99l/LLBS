@@ -1,47 +1,56 @@
-<section class="slice slice-lg sct-color-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="form-user style-1 rounded has-shadow-1">
-                    <div class="form-header">
-	                	<div class="form-header text-center">
-	                    	<h2 class="form-header-title"><%= @user.name %>さんのマイページ</h2><br>
-	                    </div>
-	                    <%= attachment_image_tag @user, :image, size: "200x200", format: 'jpeg', fallback: "no_image.jpg" %>
-                    	<table class="table table-bordered">
-                          	<tbody>
-                          		<tr>
-		                            <th class="active">名前</th>
-		                            <td><%= @user.name %></td>
-		                        </tr>
-	                            <tr>
-		                            <th class="active">Twitter</th>
-		                            <td>@<%= @user.nickname %></td>
-		                        </tr>
-		                        <tr>
-		                            <th class="active">メールアドレス</th>
-		                            <td><%= @user.email %></td>
-		                        </tr>
-		                        <tr>
-		                            <th class="active">自己紹介</th>
-		                            <td><%= @user.introduction %></td>
-		                        </tr>
-		                    </tbody>
-		                </table>
-						<%= link_to "編集する", edit_admin_user_path(@user) %>
-						<div class=clearfix>
+<div class="container">
+    <div class="row">
+   		<div class="form-header text-center">
+			<h2 class="form-header-title"><%= @user.name %>さんのマイページ</h2><br>
+		</div>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<div class="clearfix">
+					<div class="col-xs-3">
+						<div class="text-center">
+						<%= attachment_image_tag @user, :image, size: "300x300", format: 'jpeg', fallback: "no_image.jpg", class:"img-thumbnail" %>
 						</div>
-
-							<h3>参加イベント一覧</h3>
-							<% @event_users.each do |event_user| %>
-								<h4><%= event_user.event.event_name %></h4>
-								<%= event_user.event.meeting_time %>〜<%= event_user.event.finish_time %><br>
-								<%= link_to"参加を取り消す", event_event_user_path(event_id: event_user.event.id, event_user_id: event_user.id), method: :delete, class: "btn btn-danger w-50" %><br>
-							<% end %>
-						
+					</div>
+					<div class="col-xs-9">
+						<table class="table table-bordered">
+				          	<tbody>
+				          		<tr>
+				                    <th class="active">名前</th>
+				                    <td><%= @user.name %></td>
+				                </tr>
+				                <tr>
+				                    <th class="active">Twitter</th>
+				                    <td><%= link_to "@#{@user.nickname}", "https://twitter.com/#{@user.nickname}" %></td>
+				                </tr>
+				                <tr>
+				                    <th class="active">メールアドレス</th>
+				                    <td><%= @user.email %></td>
+				                </tr>
+				                <tr>
+				                    <th class="active">自己紹介</th>
+				                    <td><%= @user.introduction %></td>
+				                </tr>
+				            </tbody>
+				        </table>
+							<div class="text-right">
+								<%= link_to '編集する', edit_admin_user_path(@user), class:"btn btn-primary" %>
+							</div>
 					</div>
 				</div>
 			</div>
 		</div>
+		<h3>参加イベント一覧</h3>
+		<% @event_users.each do |event_user| %>
+			<div class="col-xs-3 text-center">
+				<div class="event_container round_border">
+					<%= link_to admin_event_path(event_user.event.friendly_url) do %>
+						<%= attachment_image_tag event_user.event, :image, size: "200x200", format: 'jpeg', fallback: "no_image.jpg", class:"img-thumbnail" %>
+						<h4><%= event_user.event.event_name %></h4>
+					<% end %>
+					<%= event_user.event.date %> <%= event_user.event.meeting_time.to_s(:time) %>〜<%= event_user.event.finish_time.to_s(:time) %><br>
+					<%= link_to"参加を取り消す", admin_event_event_user_path(event_id: event_user.event.id, event_user_id: event_user.id), method: :delete, data: {confirm: "#{event_user.event.event_name}への参加を取り消してもよろしいですか？"}, class: "btn btn-danger w-50" %>
+				</div>
+			</div>
+		<% end %>
 	</div>
-</section>
+</div>

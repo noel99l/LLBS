@@ -27,9 +27,11 @@ Rails.application.routes.draw do
     end
 
     namespace :admin do
+      post 'events/new_confirm' => 'events#new_confirm', as: 'new_confirm'
       resources :events do
-        resources :entry_tables, only: [:edit, :update, :destroy]
-        resources :event_users, only: [:index, :edit, :update, :destroy]
+        patch 'edit_confirm' => 'events#edit_confirm', as: 'edit_confirm'
+        resources :entry_tables, only: [:update]
+        resources :event_users, only: [:index, :update, :destroy]
       end
     end
 

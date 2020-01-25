@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>LLBS</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <script src="https://kit.fontawesome.com/83beaa6ece.js" crossorigin="anonymous"></script>
+  </head>
+
+<body class="wf-notosansjapanese">
+    <header class="navbar header">
+        <div class="container">
+            <div class="row">
+                <h3 class="navbar-left">
+                    <%= link_to "LLBS管理者", admin_root_path %>
+                </h3>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><%= link_to admin_events_path do %>
+                        <i class="fas fa-music icon-custom"></i><br>
+                        イベント一覧
+                        <% end %>
+                    </li>
+                    <li><%= link_to admin_users_path do %>
+                        <i class="fas fa-users icon-custom"></i><br>
+                        ユーザー一覧
+                        <% end %>
+                    </li>
+                    <li><%= link_to destroy_admin_session_path, method: :delete do %>
+                        <i class="fas fa-sign-out-alt icon-custom"></i><br>
+                        ログアウト
+                        <% end %>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </header>
+        <% flash.each do |message_type, message| %>
+            <div class="alert alert-<%= message_type %>">
+                <%= simple_format message %>
+            </div>
+        <% end %>
+    <%= yield %>
+    <footer>
+        <p class="footer-text">© All rights reserved by noel99l</p>
+    </footer>
+</body>
+</html>

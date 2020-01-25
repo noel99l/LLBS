@@ -1,4 +1,12 @@
 class UsersController < ApplicationController
+  before_action :baria_user, only: [:edit, :update]
+      #url直接防止 メソッドを自己定義してbefore_actionで発動。
+    def baria_user
+      unless User.find(params[:id]).id == current_user.id
+        redirect_to root_path
+      end
+    end
+
   def show
   	@user = User.find(params[:id])
     @event_users = EventUser.where(user_id: @user.id)
@@ -11,6 +19,7 @@ class UsersController < ApplicationController
   def update
   	user = User.find(params[:id])
   	user.update(user_params)
+    flash[:success] = "#{user.name}さんのプロフィールをを更新しました！"
   	redirect_to user_path(user.id)
   end
 

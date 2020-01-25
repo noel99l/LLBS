@@ -5,4 +5,7 @@ class EventUser < ApplicationRecord
 	belongs_to :part
 
 	enum party_participate: { 不参加: 0, 参加: 1, 検討中: 2 }
+
+	validates :part_id, presence: true
+	validates :party_participate, presence: true
 end

@@ -1,58 +1,59 @@
-<section class="slice slice-lg sct-color-1">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-10 col-md-offset-1">
-                <div class="form-user style-1 rounded has-shadow-1">
-                    <div class="form-header">
-                        <div class="form-header text-center">
-                            <h2 class="form-header-title">イベント編集</h2>
-                        </div>
-                        <%= form_for(@event, url: admin_event_path) do |f| %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-user style-1 rounded has-shadow-1">
+                <div class="form-header">
+                    <div class="form-header text-center">
+                        <h2 class="form-header-title">イベント編集</h2>
+                    </div>
+                    <%= form_for(@event, url: admin_event_edit_confirm_path(@event.friendly_id)) do |f| %>
+                    	<%= render 'layouts/error_messages', model: f.object %>
                         <table class="table table-bordered">
                           	<tbody>
 	                            <tr>
-		                            <th class="active"><%= f.label :event_name, "イベント名" %></th>
+		                            <th class="active"><%= f.label :event_name %></th>
 		                            <td><%= f.text_field :event_name, size: 70, :placeholder => "イベント名" %></td>
 		                        </tr>
 		                        <tr>
-		                        	<th class="active"><%= f.label :friendly_url, "URL" %></th>
+		                        	<th class="active"><%= f.label :friendly_url %></th>
 		                        	<td><%= f.text_field :friendly_url, size: 70, :placeholder => "URL" %></td>
 		                        </tr>
 		                        <tr>
-		                        	<th class="active">日付</th>
-		                        	<td><%= f.text_field :date, size: 70, :placeholder => "日付", :class => 'datetimepicker' %></td>
+		                        	<th class="active"><%= f.label :date %></th>
+		                        	<td><%= f.text_field :date, size: 70, :placeholder => "日付", :class => 'datepicker' %>
 		                        </tr>
 		                        <tr>
-		                        	<th class="active">集合時間</th>
-		                        	<td><%= f.text_field :meeting_time, size: 70, :placeholder => "集合時間" %></td>
+		                        	<th class="active"><%= f.label :meeting_time %></th>
+		                        	<td><%= f.text_field :meeting_time, size: 70, :placeholder => "集合時間", :class => 'datepicker' %></td>
 		                        </tr>
 		                        <tr>
-		                        	<th class="active">開始時間</th>
+		                        	<th class="active"><%= f.label :start_time %></th>
 		                        	<td><%= f.text_field :start_time, size: 70, :placeholder => "開始時間" %></td>
 		                        </tr>
 		                        <tr>
-		                        	<th class="active">終了時間</th>
+		                        	<th class="active"><%= f.label :finish_time %></th>
 		                        	<td><%= f.text_field :finish_time, size: 70, :placeholder => "終了時間" %></td>
 		                        </tr>
 		                        <tr>
-		                        	<th class="active">場所</th>
+		                        	<th class="active"><%= f.label :place %></th>
 		                        	<td><%= f.text_field :place, size: 70, :placeholder => "場所" %></td>
 		                        </tr>
 		                        <tr>
-		                        	<th class="active">場所URL</th>
+		                        	<th class="active"><%= f.label :place_url %></th>
 		                        	<td><%= f.text_field :place_url, size: 70, :placeholder => "参考URL" %></td>
 		                        </tr>
 		                        <tr>
-		                        	<th class="active">演奏参加費</th>
-		                        	<td><%= f.text_field :performance_fee, size: 70, :placeholder => "演奏参加費" %></td>
+		                        	<th class="active"><%= f.label :performance_fee %></th>
+		                        	<td><%= f.text_field :performance_fee, size: 10, :placeholder => "演奏参加費" %>円</td>
 		                        </tr>
 		                        <tr>
-		                        	<th class="active">見学参加費</th>
-		                        	<td><%= f.text_field :visit_fee, size: 80, :placeholder => "見学参加費" %></td>
+		                        	<th class="active"><%= f.label :visit_fee %></th>
+		                        	<td><%= f.text_field :visit_fee, size: 10, :placeholder => "見学参加費" %>円</td>
 		                        </tr>
 		                        <tr>
-	                                <th class="active"><%= f.label :image, "イメージ" %></th>
-	                                <td><%= f.attachment_field :image %></td>
+	                                <th class="active"><%= f.label :image %></th>
+	                                <td><%= attachment_image_tag @event, :image, id: "image_preview", fallback: "no_image.jpg", height: "300", class:"img-thumbnail" %>
+	                                	<%= f.attachment_field :image, onchange: "previewFile()" %></td>
                             	</tr>
                             	<tr>
 	                                <th class="active">パート</th>
@@ -64,10 +65,13 @@
 									</td>
                             	</tr>
                             	<tr>
-		                        	<th class="active">概要</th>
+                            		<div class="field">
+		                        	<th class="active"><%= f.label :overview %></th>
 		                        	<td>
-		                        		<%= f.text_area :overview, size: "20x10", class: "form-control" , :placeholder => "備考" %>
-		                        		</td>
+		                        		<%= f.hidden_field :overview, size: "20x100", id: :article_text %>
+    									<trix-editor input="article_text"></trix-editor>
+		                        	</td>
+		                        	</div>
 		                        </tr>
 		                    </tbody>
 		                </table>
@@ -79,12 +83,11 @@
 		                <% end %>
 
 		                <div class="actions">
-                          <%= f.submit '編集内容を保存する', class:"btn btn-primary btn-block" %>
+                          <%= f.submit '確認画面へ', class:"btn btn-primary btn-block" %>
                         </div>
-                      <% end %>
-		            </div>
-		        </div>
-		    </div>
-		</div>
+                  <% end %>
+	            </div>
+	        </div>
+	    </div>
 	</div>
-</section>
+</div>

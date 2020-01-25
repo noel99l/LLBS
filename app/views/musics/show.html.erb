@@ -1,63 +1,113 @@
-<h2><%= @music.title %>の楽曲情報<br></h2>
-
-<table class="table table-bordered">
-    <tbody>
-        <tr>
-            <th class="active">アーティスト名</th>
-            <td><%= @music.artist %></td>
-        </tr>
-        <tr>
-            <th class="active">参考URL</th>
-            <td><%= @music.music_url %></td>
-        </tr>
-        <tr>
-            <th class="active">成立ステータス</th>
-            <td><%= @music.establishment_status %></td>
-        </tr>
-        <tr>
-            <th class="active">募集パート</th>
-            <td><% @entry_tables.each do |e| %>
-                <%= e.part.part_name %>
-                <% end %>
-            </td>
-        </tr>
-        <tr>
-            <th class="active">備考</th>
-            <td><%= @music.remarks %></td>
-        </tr>
-    </tbody>
-</table>
-
-<%= link_to "編集する", edit_event_music_path(@music.event_id, @music.id), class: "btn-sm btn-primary pull-right" %>　
-<%= link_to "削除する",event_music_path(@music.event_id, @music.id), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn-sm btn-danger pull-right" %><br>
-<br>
-<% if @current_user_entry_tables.presence %>
-<h3>あなたのエントリー状況</h3>
-    <% @current_user_entry_tables.each do |current_user_entry_table| %>
-        <%= current_user_entry_table.part.part_name %>
-        <%= link_to "取消",event_entry_table_path(@event.id, music_id: @music.id, part_id: current_user_entry_table.part_id, name: "cancel"), method: :patch, data: {confirm: "本当にエントリーを取り消してもよろしいですか？"}, class: "btn-sm btn-danger" %><br>
-    <% end %>
-<% end %>
-
-<div class="panel panel-default">
-        <div class="panel-heading"><h3>コメント<span class="h4">(<%= @music_comments.count %>件)</span></h3></div>
-        <div class="panel-body">
-
-<% @music_comments.each do |music_comment| %>
-	<%= link_to user_path(music_comment.user.name) do %><%= music_comment.user.name %><% end %>　<%= music_comment.created_at.strftime('%Y/%m/%d') %>
-		<% if music_comment.user == current_user %>
-		            	<%= link_to "削除", event_music_music_comment_path(@event,@music,music_comment), method: :delete, class: "btn-sm btn-danger", data: {confirm: "本当に削除してもよろしいですか？"} %>
-        <% end %><br>
-	<%= music_comment.comment %><br>
-	<br>
-<% end %>
-<%= form_for [@event, @music, @music_comment] do |f| %>
+<div class="container">
     <div class="row">
-        <div class="col-sm-12">
-            <%= f.text_area :comment, rows:'5', class: "form-control",placeholder: "コメントをここに" %>
+        <%= render 'events/event-header', event: @event, event_users: @event_users %>
+        <h2><%= @music.title %>の楽曲情報
+            <% if user_signed_in? %>
+                <% if @event_users.where(user_id: current_user.id).presence %>
+                <%= link_to "編集する", edit_event_music_path(@music.event_id, @music.id), class: "btn btn-md btn-warning pull-right" %>
+                <% end %>
+                <% if @music.user_id == current_user.id %>
+                    <%= link_to "削除する",event_music_path(@music.event_id, @music.id), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"}, class: "btn btn-md btn-danger pull-right" %>
+                <% end %>
+            <% end %>
+        </h2>
+        <table class="table table-bordered">
+            <tbody>
+                <tr>
+                    <th class="active">アーティスト名</th>
+                    <td><%= @music.artist %></td>
+                </tr>
+                <% if @music.music_url.presence %>
+                <tr>
+                    <th class="active">youtube</th>
+                    <td><iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @music.music_url.last(11)%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
+                        <%= link_to "#{@music.music_url}", @music.music_url %>
+
+                    </td>
+                </tr>
+                <% end %>
+                <tr>
+                    <th class="active">成立ステータス</th>
+                    <td><%= @music.establishment_status %></td>
+                </tr>
+                <tr>
+                    <th class="active">追加日時 </th>
+                    <td><%= @music.created_at.to_s(:datetime) %> by <%= link_to "#{@music.user.name}", user_path(@music.user) %></td>
+                </tr>
+                <tr>
+                    <th class="active">備考</th>
+                    <td><%= @music.remarks %></td>
+                </tr>
+            </tbody>
+        </table>
+        <table class="table table-bordered" style="table-layout:fixed;">
+            <tr>
+                <% @parts.each do |part| %>
+                    <th class="active" style="width:80px;"><%= part.part_name %></th>
+                <% end %>
+            </tr>
+            <tr>
+                <% @parts.each do |part| %>
+                <td>
+                    <% if @entry_tables.find_by(music_id: @music, part_id: part)&.requirement_status == "不要" %>
+                    <!-- 空欄 -->
+                    <% elsif @entry_tables.find_by(music_id: @music, part_id: part)&.event_user_id == nil %>
+                        <% if user_signed_in? %>
+                            <% if @event_users.where(user_id: current_user.id).empty? %>
+                                (エントリー)
+                            <% elsif @entry_tables.find_by(music_id: @music, part_id: part)&.requirement_status == "必須" %>
+                                <%= link_to "エントリー", event_entry_table_path(@event, music_id: @music, part_id: part, name: "entry"), method: :patch %>
+                            <% else %>
+                                <%= link_to "(エントリー)", event_entry_table_path(@event, music_id: @music, part_id: part, name: "entry"), method: :patch %>
+                            <% end %>
+                        <% else %>
+                            <% if @entry_tables.find_by(music_id: @music, part_id: part)&.requirement_status == "必須" %>
+                                <a class="link" data-toggle="modal" data-target="#loginModal">エントリー</a>
+                            <% else %>
+                                <a class="link" data-toggle="modal" data-target="#loginModal">(エントリー)</a>
+                            <% end %>
+                        <% end %>
+                    <% else %>
+                        <%= link_to "#{@entry_tables.find_by(music_id: @music, part_id: part)&.event_user&.user&.name}", user_path(@entry_tables.find_by(music_id: @music, part_id: part).event_user.user.id) %>
+                        <% if @entry_tables.find_by(music_id: @music, part_id: part)&.event_user&.user == current_user %>
+                            <%= link_to "取消",event_entry_table_path(@event, music_id: @music, part_id: part, name: "cancel"), method: :patch, data: {confirm: "本当にエントリーを取り消してもよろしいですか？"}, class: "btn-sm btn-danger pull-right" %>
+                        <% end %>
+                    <% end %>
+                </td>
+                <% end %>
+            </tr>
+        </table>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">コメント<span class="h4">(<%= @music_comments.count %>件)</span></h3>
+            </div>
+            <div class="panel-body">
+                <% if user_signed_in? %>
+                    <% @music_comments.each do |music_comment| %>
+                    	<%= link_to user_path(music_comment.user.name) do %>
+                            <%= music_comment.user.name %><% end %>　<%= music_comment.created_at.to_s(:datetime) %>
+                    		<% if music_comment.user == current_user %>
+                    		            	<%= link_to "削除", event_music_music_comment_path(@event,@music,music_comment), method: :delete, class: "btn-sm btn-danger", data: {confirm: "本当に削除してもよろしいですか？"} %>
+                            <% end %><br>
+                    	<%= music_comment.comment %><br>
+                    	<br>
+                    <% end %>
+                    <% if @event_users.where(user_id: current_user.id).presence %>
+                        <%= form_for [@event, @music, @music_comment] do |f| %>
+                        <%= render 'layouts/error_messages', model: f.object %>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <%= f.text_area :comment, rows:'5', class: "form-control", placeholder: "コメントをここに" %>
+                                </div>
+                            </div>
+                            <%= f.submit "送信する", class: "btn btn-lg btn-primary pull-right" %>
+                        <% end %>
+                    <% end %>
+                <% else %>
+                    ※コメントの閲覧はログイン後に行うことができます。
+                <% end %>
+            </div>
         </div>
     </div>
-    <%= f.submit "送信する", class: "btn btn-lg btn-primary pull-right" %>
-<% end %>
 </div>
-</div>
+<%= render 'homes/modal_signin' %>

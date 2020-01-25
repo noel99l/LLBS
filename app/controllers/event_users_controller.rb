@@ -1,8 +1,16 @@
 class EventUsersController < ApplicationController
   def create
-    event_user = current_user.event_users.build(event_users_params)
-    event_user.save
-    redirect_to event_path(event_user.event.friendly_url), notice: "#{event_user.event.event_name}への参加を受付ました！"
+    @event_user = current_user.event_users.build(event_users_params)
+    if@event_user.save
+      flash[:success] = "#{@event_user.event.event_name}への参加を受付ました！"
+       redirect_to event_path(@event_user.event.friendly_url)
+    else
+      @event = Event.friendly.find(params[:event_id])
+      @parts = Part.where(event_id: @event.id).order(:id)
+      @after_party = AfterParty.find_by(event_id: @event.id)
+      @event_users = EventUser.where(event_id: @event.id)
+      render template: "events/confirm"
+    end
   end
 
   def index
@@ -22,6 +30,7 @@ class EventUsersController < ApplicationController
     elsif params[:participate] == "under_review"
       event_user.party_participate = 2
     end
+    flash[:success] = "#{event_user.event.event_name}の打ち上げ参加登録を#{event_user.party_participate}で受付ました！"
     event_user.save
     redirect_to event_party_path(event.friendly_url)
   end
@@ -31,11 +40,12 @@ class EventUsersController < ApplicationController
     event_user = EventUser.find_by(event_id: event.id, user_id: current_user.id)
     event_user.destroy
     entry_tables = EntryTable.where(event_user_id: event_user.id)
-      entry_tables.each do |entry_table|
+    entry_tables.each do |entry_table|
       entry_table.event_user_id = nil
       entry_table.save
-      end
-    redirect_to root_path, notice: "参加を取り消しました！"
+    end
+    flash[:danger] = "#{event_user.event.event_name}への参加を取り消しました！"
+    redirect_to root_path
   end
 
   private

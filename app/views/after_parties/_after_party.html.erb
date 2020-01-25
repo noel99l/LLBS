@@ -1,32 +1,40 @@
-<div class="col-xs-10 col-xs-offset-1">
-	<table class="table table-bordered">
-	<tbody>
-	    <tr>
-	        <th class="active">打ち上げ会場</th>
-	        <td><%= link_to event.after_party.party_url do %><%= event.after_party.party_place %><% end %></td>
-	    </tr>
-	    <tr>
-	        <th class="active">会場住所</th>
-	        <td>〒<%= after_party.party_postalcode %><br>
-	        	<%= after_party.party_address %>
-	        </td>
-	    </tr>
-	    <tr>
-	        <th class="active">演奏時間</th>
-	        <td><%= event.start_time %>〜<%= event.finish_time %></td>
-	    </tr>
-	    <tr>
-	        <th class="active">打ち上げ参加費</th>
-	        <td><%= after_party.party_fee %>円</td>
-	    </tr>
-	</tbody>
-</table>
+<div class="clearfix">
+	<div class="col-xs-5">
+		<div id='map'></div>
+		<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV.fetch("GOOGLE_MAP_API_KEY")%>&callback=initMap" async defer></script>
+	</div>
 
-<%= simple_format after_party.party_overview %><br>
+	<div class="col-xs-7">
+		<table class="table table-bordered">
+			<tbody>
+			    <tr>
+			        <th class="active">打ち上げ会場</th>
+			        <td><%= link_to event.after_party.party_url do %><%= event.after_party.party_place %><% end %></td>
+			    </tr>
+			    <tr>
+			        <th class="active">会場住所</th>
+			        <td>〒<%= after_party.party_postalcode %><br>
+			        	<%= after_party.party_address %>
+			        </td>
+			    </tr>
+			    <tr>
+			        <th class="active">打ち上げ参加費</th>
+			        <td><%= after_party.party_fee %>円</td>
+			    </tr>
+			</tbody>
+		</table>
+	 <%= sanitize after_party.party_overview, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %><br>
+	</div>
+</div>
 
+<div class="col-xs-4">
+	<% if user_signed_in? && event_current_user.presence %>
+		<%= link_to event_event_user_path(after_party.event_id, event_current_user.id, participate: "attendance"), method: :patch, class:"btn btn-lg btn-primary btn-block" do %>
+		<i class="fas fa-check-circle"></i> 参加に変更
+		<% end %>
+	<% end %>
 	<div class="pull-left member_list round_border">
 		参加(<%= event_users.where(party_participate: 1).count %>名)
-		<%= link_to "参加に変更", event_event_user_path(after_party.event_id, event_user.id, participate: "attendance"), method: :patch, class:"btn btn-primary" %><br>
 		<ul>
 			<% event_users.where(party_participate: 1).each do |event_user| %>
 				<li>
@@ -37,9 +45,15 @@
 			<% end %>
 		</ul>
 	</div>
-	<div class="pull-left member_list round_border">
+</div>
+<div class="col-xs-4">
+	<% if user_signed_in? && event_current_user.presence %>
+		<%= link_to event_event_user_path(after_party.event_id, event_current_user.id, participate: "under_review"), method: :patch, class:"btn btn-lg btn-warning btn-block" do %>
+		<i class="fas fa-exclamation-triangle"></i> 検討中に変更
+		<% end %>
+	<% end %>
+	<div class="pull-left member_list round_border col-xs-4">
 		検討中(<%= event_users.where(party_participate: 2).count %>名)
-		<%= link_to "検討中に変更", event_event_user_path(after_party.event_id, event_user.id, participate: "under_review"), method: :patch, class:"btn btn-warning" %><br>
 		<ul>
 			<% event_users.where(party_participate: 2).each do |event_user| %>
 				<li>
@@ -50,9 +64,15 @@
 			<% end %>
 		</ul>
 	</div>
+</div>
+<div class="col-xs-4">
+	<% if user_signed_in? && event_current_user.presence %>
+		<%= link_to event_event_user_path(after_party.event_id, event_current_user.id, participate: "absence"), method: :patch, class:"btn btn-lg btn-danger btn-block" do %>
+		<i class="fas fa-window-close"></i> 不参加に変更
+		<% end %>
+	<% end %>
 	<div class="pull-left member_list round_border">
 		不参加(<%= event_users.where(party_participate: 0).count %>名)
-		<%= link_to "不参加に変更", event_event_user_path(after_party.event_id, event_user.id, participate: "absence"), method: :patch, class:"btn btn-danger" %><br>
 		<ul>
 			<% event_users.where(party_participate: 0).each do |event_user| %>
 				<li>
@@ -64,3 +84,10 @@
 		</ul>
 	</div>
 </div>
+</div>
+
+<script>
+$(function(){
+	getLatLng("<%= after_party.party_address %>");
+});
+</script>

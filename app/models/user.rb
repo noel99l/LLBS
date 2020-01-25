@@ -6,6 +6,7 @@ class User < ApplicationRecord
 
   has_many :event_users
   has_many :music_comments
+  has_many :musics
   attachment :image
 
    def self.find_for_oauth(auth)
@@ -25,7 +26,6 @@ class User < ApplicationRecord
   end
 
   private
-
   def self.dummy_email(auth)
    "#{auth.uid}-#{auth.provider}@example.com"
   end

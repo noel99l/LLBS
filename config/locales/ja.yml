@@ -7,6 +7,74 @@ ja:
         restrict_dependent_destroy:
           has_one: "%{record}が存在しているので削除できません"
           has_many: "%{record}が存在しているので削除できません"
+    models:
+      event: イベント
+      admin: 管理者
+      user: ユーザー
+      after_party: 打ち上げ
+      music: 楽曲
+      part: パート
+      entry_table: エントリー
+      music_comment: 楽曲コメント
+      event_user: イベント参加者
+    attributes:
+      admin:
+        email: メールアドレス
+        encrypted_password: パスワード
+      user:
+        uid: ユーザーID
+        provider: プロバイダー
+        name: アカウント名
+        nickname: アカウントID
+        image: プロフィール画像
+        email: メールアドレス
+        introduction: 自己紹介
+      event:
+        event_name: イベント名
+        friendly_url: 管理者設定URL
+        overview: 概要
+        date: 開催日時
+        meeting_time: 集合時間
+        start_time: 開始時間
+        finish_time: 終了時間
+        place: 開催場所
+        place_url: 開催場所URL
+        performance_fee: 演奏参加費
+        visit_fee: 見学参加費
+        image: イベント画像
+      after_party:
+        event_id: イベントID
+        party_place: 打ち上げ場所名称
+        party_postalcode: 打ち上げ場所郵便番号
+        party_address: 打ち上げ場所住所
+        party_overview: 打ち上げ概要
+        party_fee: 打ち上げ参加費
+        party_url: 打ち上げ参考場所URL
+      music:
+        event_id: イベントID
+        title: 楽曲名
+        artist: アーティスト名
+        music_url: 参考url
+        establishment_status: 成立ステータス
+        remarks: 備考
+      part:
+        event_id: 楽曲ID
+        part_name: パート名
+      entry_table:
+        event_user_id: ユーザーID
+        music_id: 楽曲ID
+        part_id: パートID
+        recruitment_status: 募集ステータス
+        requirement_status: 成立要件ステータス
+      music_comment:
+        music_id: 楽曲ID
+        user_id: ユーザーID
+        comment: コメント
+      event_users:
+        user_id: ユーザーID
+        event_id: イベントID
+        part_id: パートID
+        party_participate: 打ち上げ参加フラグ
   date:
     abbr_day_names:
     - 日

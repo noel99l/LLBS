@@ -12,8 +12,10 @@ class EntryTablesController < ApplicationController
         if music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count == 0
             music.establishment_status = "成立"
             music.save
+            flash[:success] = "#{music.title}が成立しました！"
         end
-      redirect_to event_path(entry_table.part.event_id), notice: "楽曲にエントリーしました！"
+      flash[:success] = "#{entry_table.music.title}の#{entry_table.part.part_name}にエントリーしました！"
+      redirect_to event_path(entry_table.part.event_id)
   	elsif params[:name] == "cancel"
   		entry_table.event_user_id = nil
   		entry_table.recruitment_status = 0
@@ -22,8 +24,10 @@ class EntryTablesController < ApplicationController
          if music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).where(event_user_id: nil).any?
             music.establishment_status = "募集中"
             music.save
+            flash[:danger] = "#{music.title} の成立が取り消されました！"
          end
-      redirect_to event_path(entry_table.part.event_id), notice: "楽曲のエントリーを取り消しました！"
+      flash[:danger] = "#{entry_table.music.title} #{entry_table.part.part_name}のエントリーを取り消しました！"
+      redirect_to event_path(entry_table.part.event_id)
   	end
   end
 

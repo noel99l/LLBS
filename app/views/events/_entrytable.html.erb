@@ -1,43 +1,57 @@
 <div class="table-responsive">
-	<table class="table table-bordered" style="table-layout:fixed;">
-		<thead>
-			<tr>
-				<th class="active" style="width:100px;">曲名</th>
-				<th class="active" style="width:100px;">アーティスト名</th>
-				<% parts.each do |part| %>
-					<th class="active" style="width:80px;"><%= part.part_name %></th>
-				<% end %>
-			</tr>
-			<% musics.each do |music| %>
-			<tr>
-				<th><% if user_signed_in? %><%= music.title %>
-					<% else %>
-						<%= link_to "#{music.title}", event_music_path(event.friendly_url, music.id) %>
+	<div class="drop_shadow">
+		<table class="table table-bordered" style="table-layout:fixed;">
+			<thead>
+				<tr>
+					<th class="active" style="width:100px;">曲名</th>
+					<th class="active" style="width:100px;">アーティスト名</th>
+					<% parts.each do |part| %>
+						<th class="active" style="width:80px;"><%= part.part_name %></th>
 					<% end %>
-				</th>
-				<td>
-					<%= music.artist %>
-				</td>
-				<% parts.each do |part| %>
-					<td>
-						<% if entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "不要" %>
-						<!-- 空欄 -->
-						<% elsif entry_tables.find_by(music_id: music.id, part_id: part.id)&.event_user_id == nil %>
-							<% if user_signed_in? %>
-								<% if @event_users.where(user_id: current_user.id).empty? %>
-									(エントリー)
-								<% else %>
-									<%= link_to "(エントリー)", event_entry_table_path(event.id, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
-								<% end %>
-							<% else %>(エントリー)
-							<% end %>
-						<% else %>
-							<%= link_to "#{entry_tables.find_by(music_id: music.id, part_id: part.id)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music.id, part_id: part.id).event_user.user.id) %>
-						<% end %>
-					</td>
-				<% end %>
 				</tr>
-			<% end %>
-		</thead>
-	</table>
+				<% musics.each do |music| %>
+				<tr>
+					<th>
+						<div class="align-middle">
+						<%= link_to "#{music.title}", event_music_path(event.friendly_url, music.id) %>
+						</div>
+					</th>
+					<td>
+						<%= music.artist %>
+					</td>
+					<% parts.each do |part| %>
+						<td>
+							<% if entry_tables.find_by(music_id: music, part_id: part)&.requirement_status == "不要" %>
+							<!-- 空欄 -->
+							<% elsif entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
+								<% if user_signed_in? %>
+									<% if @event_users.where(user_id: current_user.id).empty? %>
+										(エントリー)
+									<% elsif entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "必須" %>
+										<%= link_to "エントリー", event_entry_table_path(event.id, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
+									<% else %>
+										<%= link_to "(エントリー)", event_entry_table_path(event.id, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
+									<% end %>
+								<% else %>
+		                            <% if entry_tables.find_by(music_id: music, part_id: part)&.requirement_status == "必須" %>
+			                            <a class="link" data-toggle="modal" data-target="#loginModal">エントリー</a>
+		                            <% else %>
+		                            	<a class="link" data-toggle="modal" data-target="#loginModal">(エントリー)</a>
+		                            <% end %>
+		                        <% end %>
+							<% else %>
+								<% if user_signed_in? %>
+								<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+								<% else %>
+									<%= entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name %>
+								<% end %>
+							<% end %>
+						</td>
+					<% end %>
+					</tr>
+				<% end %>
+			</thead>
+		</table>
+	</div>
 </div>
+<%= render 'homes/modal_signin' %>

@@ -1,4 +1,4 @@
-class Admin::UsersController < ApplicationController
+class Admin::UsersController < AdminController
   def index
   	@users = User.paginate(page: params[:page], per_page: 20)
   end
@@ -15,7 +15,8 @@ class Admin::UsersController < ApplicationController
   def update
   	user = User.find(params[:id])
   	user.update(user_params)
-  	redirect_to admin_users_path
+    flash[:success] = "#{user.name}を更新しました！"
+  	redirect_to admin_user_path(user)
   end
 
   private

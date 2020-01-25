@@ -1,0 +1,21 @@
+<div class="modal fade" id="loginModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+				<h4 class="modal-title">ログイン</h4>
+			</div>
+			<div class="modal-body">
+				ログインが必要です。ログインしますか？
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default" data-dismiss="modal">閉じる</button>
+				<%= link_to user_twitter_omniauth_authorize_path do %>
+				 <div class="btn btn-primary">
+                    <i class="fab fa-twitter"></i>ログイン
+                </div>
+                <% end %>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,35 +1,40 @@
-<h1><%= @event.event_name %>参加者一覧(<%= @event_users.count %>名)</h1>
-<br>
-<table class="table">
-	<thead>
-		<tr>
-			<th>参加者名</th>
-			<th>成立曲</th>
-			<th>未成立曲</th>
-			<th>打ち上げ参加</th>
-		</tr>
-		<% @event_users.each do |event_user| %>
-		<tr>
-			<th>
-				<%= link_to user_path(event_user.user_id) do %>
-					<%= attachment_image_tag event_user.user, :image, size: "50x50", fallback: "no_image.jpg" %>　
-					<%= event_user.user.name %>
+<div class="container">
+    <div class="row">
+    	<%= render 'events/event-header', event: @event, event_users: @event_users %>
+		<h1><%= @event.event_name %>参加者一覧(<%= @event_users.count %>名)</h1>
+		<br>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>参加者名</th>
+					<th>成立曲</th>
+					<th>未成立曲</th>
+					<th>打ち上げ参加</th>
+				</tr>
+				<% @event_users.each do |event_user| %>
+				<tr>
+					<th>
+						<%= link_to user_path(event_user.user_id) do %>
+							<%= attachment_image_tag event_user.user, :image, size: "50x50", fallback: "no_image.jpg" %>　
+							<%= event_user.user.name %>
+						<% end %>
+					</th>
+					<td>
+						<% @entry_tables.joins(:music).where('event_user_id = ? and establishment_status = ?', event_user.id, 1 ).each do |entry_table| %>
+							<%= entry_table.music.title %>(<%= entry_table.part.part_name %>)<br>
+						<% end %>
+					</td>
+					<td>
+						<% @entry_tables.joins(:music).where('event_user_id = ? and establishment_status = ?', event_user.id, 0 ).each do |entry_table| %>
+							<%= entry_table.music.title %>(<%= entry_table.part.part_name %>)<br>
+						<% end %>
+					</td>
+					<td>
+						<%= event_user.party_participate %>
+					</td>
+				</tr>
 				<% end %>
-			</th>
-			<td>
-				<% @entry_tables.joins(:music).where('event_user_id = ? and establishment_status = ?', event_user.id, 1 ).each do |entry_table| %>
-					<%= entry_table.music.title %>(<%= entry_table.part.part_name %>)<br>
-				<% end %>
-			</td>
-			<td>
-				<% @entry_tables.joins(:music).where('event_user_id = ? and establishment_status = ?', event_user.id, 0 ).each do |entry_table| %>
-					<%= entry_table.music.title %>(<%= entry_table.part.part_name %>)<br>
-				<% end %>
-			</td>
-			<td>
-				<%= event_user.party_participate %>
-			</td>
-		</tr>
-		<% end %>
-	</thead>
-</table>
+			</thead>
+		</table>
+	</div>
+</div>

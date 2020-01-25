@@ -1,0 +1,43 @@
+<div class="table-responsive">
+	<div class="drop_shadow">
+		<table class="table table-bordered" style="table-layout:fixed;">
+			<thead>
+				<tr>
+					<th class="active" style="width:100px;">曲名</th>
+					<th class="active" style="width:100px;">アーティスト名</th>
+					<% parts.each do |part| %>
+						<th class="active" style="width:80px;"><%= part.part_name %></th>
+					<% end %>
+				</tr>
+				<% musics.each do |music| %>
+				<tr>
+					<th>
+						<div class="align-middle">
+						<%= link_to "#{music.title}", event_music_path(event.friendly_url, music.id) %>
+						</div>
+					</th>
+					<td>
+						<%= music.artist %>
+					</td>
+					<% parts.each do |part| %>
+						<td>
+							<% if entry_tables.find_by(music_id: music, part_id: part)&.requirement_status == "不要" %>
+							<!-- 空欄 -->
+							<% elsif entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
+								<% if entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "必須" %>
+									エントリー
+								<% else %>
+									(エントリー)
+								<% end %>
+							<% else %>
+								<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+								<%= link_to "取消",admin_event_entry_table_path(event, music_id: music, part_id: part, name: "cancel"), method: :patch, data: {confirm: "本当にエントリーを取り消してもよろしいですか？"}, class: "btn-sm btn-danger pull-right" %>
+							<% end %>
+						</td>
+					<% end %>
+					</tr>
+				<% end %>
+			</thead>
+		</table>
+	</div>
+</div>

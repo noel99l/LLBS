@@ -1,3 +1,7 @@
-<%= render 'events/event-header', event: @event, event_users: @event_users %>
-<h2>打ち上げ詳細</h2>
-<%= render 'after_parties/after_party', event: @event, event_users: @event_users, after_party: @after_party, event_user: @event_user%>
+<div class="container">
+    <div class="row">
+    	<%= render 'events/event-header', event: @event, event_users: @event_users %>
+		<h2>打ち上げ詳細</h2>
+		<%= render 'after_parties/after_party', event: @event, event_users: @event_users, after_party: @after_party, event_current_user: @event_current_user%>
+	</div>
+</div>

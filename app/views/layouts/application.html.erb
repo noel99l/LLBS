@@ -6,69 +6,65 @@
     <%= csp_meta_tag %>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-
+    <script src="https://kit.fontawesome.com/83beaa6ece.js" crossorigin="anonymous"></script>
   </head>
 
 <body class="wf-notosansjapanese">
     <header class="navbar header">
         <div class="container">
             <div class="row">
+                <div class="navbar-left">
+                    <%= link_to image_tag("LLBS_LOGO5.png",:size=>"212x50", :alt=>"LOGO"), root_path %>
+                </div>
                 <% if user_signed_in? %>
-                    <h3 class="navbar-left">
-                        <%= link_to image_tag("LLBS_LOGO5.png",:size=>"212x50", :alt=>"LOGO"), root_path %>
-                    </h3>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li>
-                            <%= link_to "マイページ", user_path(current_user.id) %>
-                            <span class="user-name">
+                    <span class="user-name">
                                 <strong>
                                     <%= current_user.name %>さん
                                 </strong>
                             </span>
-                        </li>
-                        <li><%= link_to "イベント一覧", events_path %></li>
-                        <li><%= link_to "ログアウト", destroy_user_session_path, method: :delete %></li>
-                    </ul>
-                <% elsif admin_signed_in? %>
-                    <h3 class="navbar-left"><br>
-                        <%= link_to"LLBS管理者", admin_root_path %>
-                    </h3>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><%= link_to "イベント一覧", admin_events_path %></li>
-                        <li><%= link_to "ユーザー一覧", admin_users_path %></li>
-                        <li><%= link_to "ログアウト", destroy_admin_session_path, method: :delete %></li>
+                        <li>
+                            <%= link_to user_path(current_user.id) do %>
+                            <i class="fas fa-user icon-custom"></i><br>
+                            マイページ
+                            <% end %>
+                        </li>
+                        <li><%= link_to events_path do %>
+                            <i class="fas fa-music icon-custom"></i><br>
+                            イベント一覧
+                            <% end %>
+                        </li>
+                        <li><%= link_to destroy_user_session_path, method: :delete do %>
+                            <i class="fas fa-sign-out-alt icon-custom"></i><br>
+                            ログアウト
+                            <% end %>
+                        </li>
                     </ul>
                 <% else %>
-                    <h3 class="navbar-left"><br>
-                        <%= link_to image_tag("LLBS_LOGO5.png",:size=>"212x50", :alt=>"LOGO"), root_path %>
-                    </h3>
                     <ul class="nav navbar-nav navbar-right">
-                        <li><%= link_to "新規登録", new_user_registration_path %></li>
-                        <li><%= link_to "イベント一覧", events_path %></li>
-                        <li><%= link_to "ログイン", new_user_session_path %></li>
-                    </li>
+                        <li><%= link_to events_path do %>
+                            <i class="fas fa-music icon-custom"></i><br>
+                            イベント一覧
+                            <% end %>
+                        </li>
+                        <li><%= link_to user_twitter_omniauth_authorize_path do %>
+                            <i class="fab fa-twitter icon-custom"></i><br>
+                            ログイン
+                            <% end %>
+                        </li>
+                    </ul>
                 <% end %>
             </div>
         </div>
     </header>
-    <div class = container >
-        <div class="row">
         <% flash.each do |message_type, message| %>
             <div class="alert alert-<%= message_type %>">
-                <%= message %>
+                <%= simple_format message %>
             </div>
         <% end %>
-        <div class="row">
-    </div>
-    <div class = container >
-        <div class="row">
-            <%= yield %>
-        </div>
-    </div>
-    <footer class="footer">
-        <div class="container">
-            <p class="footer-text">© All rights reserved by noel99l</p>
-        </div>
+    <%= yield %>
+    <footer>
+        <p class="footer-text">© All rights reserved by noel99l</p>
     </footer>
 </body>
 </html>

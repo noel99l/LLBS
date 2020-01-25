@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_20_090847) do
+ActiveRecord::Schema.define(version: 2020_01_25_073507) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -93,6 +93,7 @@ ActiveRecord::Schema.define(version: 2020_01_20_090847) do
     t.text "remarks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "user_id"
   end
 
   create_table "parts", force: :cascade do |t|
@@ -100,7 +101,6 @@ ActiveRecord::Schema.define(version: 2020_01_20_090847) do
     t.string "part_name", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["event_id", "part_name"], name: "index_parts_on_event_id_and_part_name", unique: true
   end
 
   create_table "users", force: :cascade do |t|
