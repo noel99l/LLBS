@@ -1,134 +1,139 @@
-<div class="col-md-8 col-md-offset-2">
-    <div class="form-user style-1 rounded has-shadow-1">
-        <div class="form-header">
-            <div class="form-header text-center">
-                <h2 class="form-header-title">イベント作成確認画面</h2>
+<% content_for(:html_title) { "新規イベント確認" } %>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-user style-1 rounded has-shadow-1">
+                <div class="form-header">
+                    <div class="form-header text-center">
+                        <h2 class="form-header-title">イベント作成確認画面</h2>
+                    </div>
+           			<%= form_for(@event, url: admin_events_path) do |f| %>
+                    <table class="table table-bordered">
+                      	<tbody>
+                            <tr>
+                                <th class="active"><%= f.label :event_name %></th>
+                                <td><%= @event.event_name  %></td>
+                                <%= f.hidden_field :event_name %>
+                            </tr>
+                            <tr>
+                            	<th class="active"><%= f.label :friendly_url %></th>
+                            	<td><%= @event.friendly_url %></td>
+                            	<%= f.hidden_field :friendly_url %>
+                            </tr>
+                            <tr>
+                            	<th class="active"><%= f.label :date %></th>
+                            	<td><%= @event.date.to_s(:date) %></td>
+                            	<%= f.hidden_field :date %>
+                            </tr>
+                            <tr>
+                            	<th class="active"><%= f.label :meeting_time %></th>
+                            	<td><%= @event.meeting_time.to_s(:time) %></td>
+                            	<%= f.hidden_field :meeting_time %>
+                            </tr>
+                            <tr>
+                            	<th class="active"><%= f.label :start_time %></th>
+                            	<td><%= @event.start_time.to_s(:time) %></td>
+                            	<%= f.hidden_field :start_time %>
+                            </tr>
+                            <tr>
+                            	<th class="active"><%= f.label :finish_time %></th>
+                            	<td><%= @event.finish_time.to_s(:time) %></td>
+                            	<%= f.hidden_field :finish_time %>
+                            </tr>
+                            <tr>
+                            	<th class="active"><%= f.label :place %></th>
+                            	<td><%= @event.place %></td>
+                            	<%= f.hidden_field :place %>
+                            </tr>
+                            <tr>
+                            	<th class="active"><%= f.label :place_url %></th>
+                            	<td><%= @event.place_url %></td>
+                            	<%= f.hidden_field :place_url %>
+                            </tr>
+                            <tr>
+                            	<th class="active"><%= f.label :performance_fee %></th>
+                            	<td><%= @event.performance_fee %></td>
+                            	<%= f.hidden_field :performance_fee %>
+                            </tr>
+                            <tr>
+                            	<th class="active"><%= f.label :visit_fee %></th>
+                            	<td><%= @event.visit_fee %></td>
+                            	<%= f.hidden_field :visit_fee %>
+                            </tr>
+                            <tr>
+                            	<th class="active"><%= f.label :image %></th>
+                            	<td><%= attachment_image_tag @event, :image, id: "event_image_preview", fallback: "no_image.jpg", height: "300", class:"img-thumbnail" %>
+        		    			<%= f.hidden_field :remote_image_url, :value => "http://localhost:3000" + Refile.attachment_url(@event, :image) %>
+                            	</td>
+                            </tr>
+                        	<tr>
+                                <th class="active"><%= f.label :parts, "パート" %></th>
+                                <td>
+        						    <% @event.parts.each do |part| %>
+        						    	<%= part.part_name %><br>
+        						    <% end %>
+        						</td>
+        						<%= f.fields_for :parts do |p| %>
+        						    <%= p.hidden_field :part_name %>
+        						    <%= p.hidden_field :event_id %>
+        						<% end %>
+                        	</tr>
+                        	<tr>
+                            	<th class="active"><%= f.label :overview %></th>
+                            	<td>
+                            		<%= sanitize @event.overview, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
+                            		<%= f.hidden_field :overview %>
+                            	</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="form-header text-center">
+                        <h2 class="form-header-title">打ち上げ</h2>
+                    </div>
+                    <%= f.fields_for :after_party do |ap| %>
+                    	<table class="table table-bordered">
+        			  	<tbody>
+        			        <tr>
+        			            <th class="active">打ち上げ会場名</th>
+        			            <td><%= @event.after_party.party_place %></td>
+        			            <%= ap.hidden_field :party_place, :value => @event.after_party.party_place %>
+        			        </tr>
+        			        <tr>
+        			        	<th class="active">郵便番号</th>
+        			        	<td><%= @event.after_party.party_postalcode %></td>
+        			        	<%= ap.hidden_field :party_postalcode, :value => @event.after_party.party_postalcode %>
+        			        </tr>
+        			        <tr>
+        			        	<th class="active">打ち上げ会場住所</th>
+        			        	<td><%= @event.after_party.party_address %></td>
+        			        	<%= ap.hidden_field :party_address, :value => @event.after_party.party_address %>
+        			        </tr>
+        			        <tr>
+        			        	<th class="active">会場URL</th>
+        			        	<td><%= @event.after_party.party_url %></td>
+        			        	<%= ap.hidden_field :party_url, :value => @event.after_party.party_url %>
+        			        </tr>
+        			        <tr>
+        			        	<th class="active">参加費</th>
+        			        	<td><%= @event.after_party.party_fee %></td>
+        			        	<%= ap.hidden_field :party_fee, :value => @event.after_party.party_fee %>
+        			        </tr>
+        			        <tr>
+        		                <th class="active">打ち上げ概要</th>
+        		                <td>
+        		                	<%= sanitize @event.after_party.party_overview, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
+        		                </td>
+        			            <%= ap.hidden_field :party_overview, :value => @event.after_party.party_overview %>
+        			        </tr>
+        			    </tbody>
+        			</table>
+        			<% end %>
+                    <div class="actions">
+                      <%= f.submit 'イベントを新規作成', class:"btn btn-primary btn-block" %>
+                    </div>
+                  <% end %>
+                </div>
             </div>
-   			<%= form_for(@event, url: admin_events_path) do |f| %>
-            <table class="table table-bordered">
-              	<tbody>
-                    <tr>
-                        <th class="active"><%= f.label :event_name %></th>
-                        <td><%= @event.event_name  %></td>
-                        <%= f.hidden_field :event_name %>
-                    </tr>
-                    <tr>
-                    	<th class="active"><%= f.label :friendly_url %></th>
-                    	<td><%= @event.friendly_url %></td>
-                    	<%= f.hidden_field :friendly_url %>
-                    </tr>
-                    <tr>
-                    	<th class="active"><%= f.label :date %></th>
-                    	<td><%= @event.date.to_s(:date) %>
-                    	<%= f.hidden_field :date %>
-                    </tr>
-                    <tr>
-                    	<th class="active"><%= f.label :meeting_time %></th>
-                    	<td><%= @event.meeting_time.to_s(:time) %></td>
-                    	<%= f.hidden_field :meeting_time %>
-                    </tr>
-                    <tr>
-                    	<th class="active"><%= f.label :start_time %></th>
-                    	<td><%= @event.start_time.to_s(:time) %></td>
-                    	<%= f.hidden_field :start_time %>
-                    </tr>
-                    <tr>
-                    	<th class="active"><%= f.label :finish_time %></th>
-                    	<td><%= @event.finish_time.to_s(:time) %></td>
-                    	<%= f.hidden_field :finish_time %>
-                    </tr>
-                    <tr>
-                    	<th class="active"><%= f.label :place %></th>
-                    	<td><%= @event.place %></td>
-                    	<%= f.hidden_field :place %>
-                    </tr>
-                    <tr>
-                    	<th class="active"><%= f.label :place_url %></th>
-                    	<td><%= @event.place_url %></td>
-                    	<%= f.hidden_field :place_url %>
-                    </tr>
-                    <tr>
-                    	<th class="active"><%= f.label :performance_fee %></th>
-                    	<td><%= @event.performance_fee %></td>
-                    	<%= f.hidden_field :performance_fee %>
-                    </tr>
-                    <tr>
-                    	<th class="active"><%= f.label :visit_fee %></th>
-                    	<td><%= @event.visit_fee %></td>
-                    	<%= f.hidden_field :visit_fee %>
-                    </tr>
-                    <tr>
-                    	<th class="active"><%= f.label :image %></th>
-                    	<td><%= attachment_image_tag @event, :image, id: "event_image_preview", fallback: "no_image.jpg", height: "300", class:"img-thumbnail" %>
-		    			<%= f.hidden_field :remote_image_url, :value => "http://localhost:3000" + Refile.attachment_url(@event, :image) %>
-                    	</td>
-                    </tr>
-                	<tr>
-                        <th class="active"><%= f.label :parts, "パート" %></th>
-                        <td>
-						    <% @event.parts.each do |part| %>
-						    	<%= part.part_name %><br>
-						    <% end %>
-						</td>
-						<%= f.fields_for :parts do |p| %>
-						    <%= p.hidden_field :part_name %>
-						    <%= p.hidden_field :event_id %>
-						<% end %>
-                	</tr>
-                	<tr>
-                    	<th class="active"><%= f.label :overview %></th>
-                    	<td>
-                    		<%= sanitize @event.overview, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
-                    		<%= f.hidden_field :overview %>
-                    	</td>
-                    </tr>
-                </tbody>
-            </table>
-            <div class="form-header text-center">
-                <h2 class="form-header-title">打ち上げ</h2>
-            </div>
-            <%= f.fields_for :after_party do |ap| %>
-            	<table class="table table-bordered">
-			  	<tbody>
-			        <tr>
-			            <th class="active">打ち上げ会場名</th>
-			            <td><%= @event.after_party.party_place %></td>
-			            <%= ap.hidden_field :party_place, :value => @event.after_party.party_place %>
-			        </tr>
-			        <tr>
-			        	<th class="active">郵便番号</th>
-			        	<td><%= @event.after_party.party_postalcode %></td>
-			        	<%= ap.hidden_field :party_postalcode, :value => @event.after_party.party_postalcode %>
-			        </tr>
-			        <tr>
-			        	<th class="active">打ち上げ会場住所</th>
-			        	<td><%= @event.after_party.party_address %></td>
-			        	<%= ap.hidden_field :party_address, :value => @event.after_party.party_address %>
-			        </tr>
-			        <tr>
-			        	<th class="active">会場URL</th>
-			        	<td><%= @event.after_party.party_url %></td>
-			        	<%= ap.hidden_field :party_url, :value => @event.after_party.party_url %>
-			        </tr>
-			        <tr>
-			        	<th class="active">参加費</th>
-			        	<td><%= @event.after_party.party_fee %></td>
-			        	<%= ap.hidden_field :party_fee, :value => @event.after_party.party_fee %>
-			        </tr>
-			        <tr>
-		                <th class="active">打ち上げ概要</th>
-		                <td>
-		                	<%= sanitize @event.after_party.party_overview, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
-		                </td>
-			            <%= ap.hidden_field :party_overview, :value => @event.after_party.party_overview %>
-			        </tr>
-			    </tbody>
-			</table>
-			<% end %>
-            <div class="actions">
-              <%= f.submit 'イベントを新規作成', class:"btn btn-primary btn-block" %>
-            </div>
-          <% end %>
         </div>
     </div>
 </div>

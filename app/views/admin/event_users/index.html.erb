@@ -1,3 +1,4 @@
+<% content_for(:html_title) { "#{@event.friendly_url}参加者一覧" } %>
 <div class="container">
     <div class="row">
     	<h1><%= @event.event_name %>参加者一覧(<%= @event_users.count %>名)</h1>

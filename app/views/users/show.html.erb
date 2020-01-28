@@ -1,3 +1,4 @@
+<% content_for(:html_title) { "#{@user.name}" } %>
 <div class="container">
     <div class="row">
    		<div class="form-header text-center">
@@ -47,7 +48,7 @@
 				<div class="col-xs-3 text-center">
 					<div class="event_container round_border">
 						<%= link_to event_path(event_user.event.friendly_url) do %>
-							<%= attachment_image_tag event_user.event, :image, size: "200x200", format: 'jpeg', fallback: "no_image.jpg", class:"img-thumbnail" %>
+							<%= attachment_image_tag event_user.event, :image, :fill, 200, 200, format: 'jpeg', fallback: "no_image.jpg", size:'200x200', class:"img-thumbnail" %>
 							<h4><%= event_user.event.event_name %></h4>
 						<% end %>
 						<%= event_user.event.date %> <%= event_user.event.meeting_time.to_s(:time) %>〜<%= event_user.event.finish_time.to_s(:time) %><br>

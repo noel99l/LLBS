@@ -1,4 +1,6 @@
+<% content_for(:html_title) { "イベント新規作成" } %>
 <div class="container">
+    <div class="row"><div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="form-user style-1 rounded has-shadow-1">
@@ -20,19 +22,19 @@
 	                        </tr>
 	                        <tr>
 	                        	<th class="active"><%= f.label :date %></th>
-	                        	<td><%= f.text_field :date, size: 70, :placeholder => "日付", :class => 'datepicker' %>
+	                        	<td><%= f.text_field :date, size: 70, :placeholder => "日付", data: { date_format: 'YYYY-MM-DD'}, class:"datepicker" %>
 	                        </tr>
 	                        <tr>
 	                        	<th class="active"><%= f.label :meeting_time %></th>
-	                        	<td><%= f.text_field :meeting_time, size: 70, :placeholder => "集合時間" %></td>
+	                        	<td><%= f.text_field :meeting_time, size: 70, :placeholder => "集合時間", data: { date_format: 'hh:mm'}, class:"datepicker" %></td>
 	                        </tr>
 	                        <tr>
 	                        	<th class="active"><%= f.label :start_time %></th>
-	                        	<td><%= f.text_field :start_time, size: 70, :placeholder => "開始時間" %></td>
+	                        	<td><%= f.text_field :start_time, size: 70, :placeholder => "開始時間", data: { date_format: 'hh:mm'}, class:"datepicker" %></td>
 	                        </tr>
 	                        <tr>
 	                        	<th class="active"><%= f.label :finish_time %></th>
-	                        	<td><%= f.text_field :finish_time, size: 70, :placeholder => "終了時間" %></td>
+	                        	<td><%= f.text_field :finish_time, size: 70, :placeholder => "終了時間", data: { date_format: 'hh:mm'}, class:"datepicker" %></td>
 	                        </tr>
 	                        <tr>
 	                        	<th class="active"><%= f.label :place %></th>

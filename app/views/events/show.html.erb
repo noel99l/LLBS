@@ -1,10 +1,11 @@
+<% content_for(:html_title) { "#{@event.event_name}" } %>
 <div class="container">
     <div class="row">
     	<%= render 'events/event-header', event: @event, event_users: @event_users %>
 		<div class="event-container">
 			<div class="col-xs-3">
 				<div class="text-center">
-				<%= attachment_image_tag @event, :image, size: "200x200", format: 'jpeg', fallback: "no_image.jpg", class:"img-thumbnail" %>
+				<%= attachment_image_tag @event, :image, :fill, 300, 300, format: 'jpeg', fallback: "no_image.jpg", size:'300x300', class:"img-thumbnail" %>
 				</div>
 			</div>
 			<div class="col-xs-9">

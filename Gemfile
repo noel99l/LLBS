@@ -83,6 +83,7 @@ gem 'rails-i18n'
 gem 'trix'
 gem 'geocoder'
 gem 'dotenv-rails'
+gem 'twitter'
 
 
 group :production do

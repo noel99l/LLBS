@@ -1,3 +1,4 @@
+<% content_for(:html_title) { "イベント一覧" } %>
 <div class="container">
     <div class="row">
     	<% @events.each do |event| %>
@@ -6,7 +7,7 @@
 					<%= link_to event_path(event.friendly_url) do %>
 						<%= link_to event_path(event.friendly_url) do %>
 							<div class="image_action">
-								<%= attachment_image_tag event, :image, size: "200x200", format: 'jpeg', fallback: "no_image.jpg", class:"img-thumbnail" %>
+								<%= attachment_image_tag event, :image, :fill, 200, 200, format: 'jpeg', fallback: "no_image.jpg", size:'200x200', class:"img-thumbnail" %>
 							</div>
 						<h4><%= event.event_name %></h4>
 						<% end %>

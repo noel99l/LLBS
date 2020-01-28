@@ -1,0 +1,13 @@
+require 'csv'
+
+CSV.generate do |csv|
+  csv_column_names = %w(Firstname Lastname Email)
+  csv << csv_column_names
+  @entrytable.each do |entrytable|
+    csv_column_values = [
+      entrytable.part.part_name
+      entrytable.entry_user.user.name
+    ]
+    csv << csv_column_values
+  end
+end

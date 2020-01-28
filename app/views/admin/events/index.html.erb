@@ -1,4 +1,6 @@
+<% content_for(:html_title) { "イベント一覧" } %>
 <div class="container">
+    <div class="row"><div class="container">
     <div class="row">
     	<div class="col-xs-12">
 		<%= link_to "イベントを作成する", new_admin_event_path, class: "btn btn-lg btn-primary btn-block" %><br>
@@ -8,7 +10,7 @@
 				<div class="event_container round_border">
 					<%= link_to event_path(event.friendly_url) do %>
 							<%= link_to admin_event_path(event.friendly_url) do %>
-								<%= attachment_image_tag event, :image, size: "200x200", format: 'jpeg', fallback: "no_image.jpg", class:"img-thumbnail" %>
+								<%= attachment_image_tag event, :image, :fill, 200, 200, format: 'jpeg', fallback: "no_image.jpg", size:'200x200', class:"img-thumbnail" %>
 								<h4><%= event.event_name %></h4>
 							<% end %>
 							<%= event.date %> <%= event.meeting_time.to_s(:time) %>〜<%= event.finish_time.to_s(:time) %><br>

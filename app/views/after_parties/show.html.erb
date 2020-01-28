@@ -1,3 +1,4 @@
+<% content_for(:html_title) { "#{@event.event_name}打ち上げ" } %>
 <div class="container">
     <div class="row">
     	<%= render 'events/event-header', event: @event, event_users: @event_users %>
