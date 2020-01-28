@@ -14,13 +14,14 @@
 //= require activestorage
 //= require turbolinks
 //= require jquery
-//= require_tree .
 //= require bootstrap-sprockets
 //= require cocoon
 //= require moment
 //= require moment/ja.js
 //= require bootstrap-datetimepicker
 //= require trix
+//= require_tree .
+
 
 
 var data = {'data-format': 'yyyy-MM-dd hh:mm:ss' };
