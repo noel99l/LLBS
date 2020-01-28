@@ -4,7 +4,7 @@
 			<h2><%= link_to "#{event.event_name}", event_path(event) %>
 					<% if user_signed_in? %>
 					    <% if event_users.where(user_id: current_user.id).empty? %>
-						<%= link_to "参加する！", event_confirm_path(event.id), class: "btn btn-lg btn-primary pull-right"%>
+						<%= link_to "参加する！", event_confirm_path(event.friendly_url), class: "btn btn-lg btn-primary pull-right"%>
 						<% else %>
 							<p class="pull-right">参加中</p>
 						<% end %>

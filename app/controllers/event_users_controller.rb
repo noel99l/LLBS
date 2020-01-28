@@ -5,6 +5,7 @@ class EventUsersController < ApplicationController
       flash[:success] = "#{@event_user.event.event_name}への参加を受付ました！"
        redirect_to event_path(@event_user.event.friendly_url)
     else
+      p @event_user.errors
       @event = Event.friendly.find(params[:event_id])
       @parts = Part.where(event_id: @event.id).order(:id)
       @after_party = AfterParty.find_by(event_id: @event.id)

@@ -1,0 +1,3 @@
+tar: libxml2-2.9.10/test/relaxng/ambig_name-class2.rng: Cannot hard link to ‘libxml2-2.9.10/test/relaxng/ambig_name-class.xml’: Operation not permitted
+tar: libxml2-2.9.10/test/relaxng/ambig_name-class.rng: Cannot hard link to ‘libxml2-2.9.10/test/relaxng/tutorA.rng’: Operation not permitted
+tar: Exiting with failure status due to previous errors
