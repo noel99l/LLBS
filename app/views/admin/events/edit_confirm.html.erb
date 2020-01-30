@@ -64,7 +64,7 @@
                             <tr>
                             	<th class="active"><%= f.label :image %></th>
                             	<td><%= attachment_image_tag @event, :image, id: "event_image_preview", fallback: "no_image.jpg", height: "300", class:"img-thumbnail" %>
-        		    			<%= f.hidden_field :remote_image_url, :value => "http://localhost:3000" + Refile.attachment_url(@event, :image) %>
+        		    			<%= f.hidden_field :remote_image_url, :value => <%= ENV['APPLICATION_URL'] %> + Refile.attachment_url(@event, :image) %>
                             	</td>
                             </tr>
                         	<tr>
