@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_25_073507) do
+ActiveRecord::Schema.define(version: 2020_02_06_154335) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -47,6 +47,24 @@ ActiveRecord::Schema.define(version: 2020_01_25_073507) do
     t.index ["music_id", "part_id"], name: "index_entry_tables_on_music_id_and_part_id", unique: true
   end
 
+  create_table "event_thread_comments", force: :cascade do |t|
+    t.integer "event_thread_id", null: false
+    t.integer "user_id", null: false
+    t.text "comment", null: false
+    t.decimal "score", precision: 5, scale: 3
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "event_threads", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.integer "user_id", null: false
+    t.string "title", null: false
+    t.text "body", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "event_users", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "event_id", null: false
@@ -76,12 +94,19 @@ ActiveRecord::Schema.define(version: 2020_01_25_073507) do
     t.index ["friendly_url"], name: "index_events_on_friendly_url", unique: true
   end
 
+  create_table "levels", force: :cascade do |t|
+    t.integer "threshold"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "music_comments", force: :cascade do |t|
     t.integer "music_id", null: false
     t.integer "user_id", null: false
     t.text "comment", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.decimal "score", precision: 5, scale: 3
   end
 
   create_table "musics", force: :cascade do |t|
@@ -117,6 +142,8 @@ ActiveRecord::Schema.define(version: 2020_01_25_073507) do
     t.string "nickname"
     t.string "image_id"
     t.text "introduction"
+    t.integer "exp", default: 0
+    t.integer "level_id", default: 1
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true

@@ -85,8 +85,6 @@ gem 'geocoder'
 gem 'dotenv-rails'
 gem 'twitter'
 
-
-
 group :production do
   gem 'mysql2'
 end

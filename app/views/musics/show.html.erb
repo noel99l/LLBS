@@ -85,12 +85,18 @@
             <div class="panel-body">
                 <% if user_signed_in? %>
                     <% @music_comments.each do |music_comment| %>
-                    	<%= link_to user_path(music_comment.user.name) do %>
+                    	<%= link_to user_path(music_comment.user_id) do %>
                             <%= music_comment.user.name %><% end %>　<%= music_comment.created_at.to_s(:datetime) %>
                     		<% if music_comment.user == current_user %>
-                    		            	<%= link_to "削除", event_music_music_comment_path(@event,@music,music_comment), method: :delete, class: "btn-sm btn-danger", data: {confirm: "本当に削除してもよろしいですか？"} %>
+        		            	<%= link_to "削除", event_music_music_comment_path(@event,@music,music_comment), method: :delete, class: "btn-sm btn-xs btn-danger", data: {confirm: "本当に削除してもよろしいですか？"} %>
                             <% end %><br>
                     	<%= music_comment.comment %><br>
+
+
+                        <!-- AI機能実装 -->
+                        <span class="comment-score"><% music_comment&.score %></span>
+                        <!-- AI機能実装終了 -->
+
                     	<br>
                     <% end %>
                     <% if @event_users.where(user_id: current_user.id).presence %>

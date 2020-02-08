@@ -1,0 +1,37 @@
+<% content_for(:html_title) { "新規掲示板作成確認" } %>
+<div class="container">
+    <div class="row">
+    	<div class="clearfix">
+        <%= render 'events/event-header', event: @event, event_users: @event_users %>
+        <div class="col-md-8 col-md-offset-2">
+            <div class="form-user style-1 rounded has-shadow-1">
+                <div class="form-header">
+                    <div class="form-header text-center">
+                        <h2 class="form-header-title">新規掲示板作成確認</h2>
+                    </div>
+                    <%= form_for [@event, @event_thread], url: event_event_threads_path(@event.friendly_id) do |f| %>
+                    <%= render 'layouts/error_messages', model: f.object %>
+                    <table class="table table-bordered">
+                      	<tbody>
+                            <tr>
+	                            <th class="active"><%= f.label :title %></th>
+	                            <td><%= @event_thread.title %></td>
+	                            <%= f.hidden_field :title %>
+	                        </tr>
+	                        <div class="field">
+	                        	<th class="active"><%= f.label :body %></th>
+	                        	<td><%= sanitize @event_thread.body, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
+                                </td>
+	                        	<%= f.hidden_field :body %>
+	                        </div>
+	                    </tbody>
+	                </table>
+	                <div class="actions">
+                      <%= f.submit '掲示板を作成する', class:"btn btn-primary btn-block" %><br>
+                    </div>
+                  <% end %>
+	            </div>
+	        </div>
+	    </div>
+	</div>
+</div>

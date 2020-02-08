@@ -2,6 +2,19 @@ Admin.find_or_create_by!(email: 'admin@admin') do |admin|
   admin.password = 'password'
 end
 
+#レベルテーブル
+Level.find_or_create_by!(threshold: 50)
+Level.find_or_create_by!(threshold: 100)
+Level.find_or_create_by!(threshold: 150)
+Level.find_or_create_by!(threshold: 200)
+Level.find_or_create_by!(threshold: 250)
+# 6レベル以降はthresholdを緩やかに上げる
+100.times do |n|
+  id = n + 6
+  threshold = Level.find(id - 1).threshold + 50 + (id / 10).floor
+  Level.find_or_create_by!(threshold: threshold)
+end
+
 50.times { |m|
   n = m + 1
   user = User.find_or_create_by!(email: "user#{n}@llbs") do |u|
@@ -40,11 +53,20 @@ end
 				music.remarks = "LLBS#{n}music#{o}の曲です"
 				music.user_id = o % 10 + 1
 			end
+	}
+	4.times{ |p|
+		o = p + 1
+			event_thread = EventThread.find_or_create_by!(title: "LLBS#{n}の掲示板#{o}") do |eventthread|
+				eventthread.event_id = n
+				eventthread.user_id = o % 4 + 1
+				eventthread.body = "LLBS#{n}掲示板#{o}の書き込みです"
+			end
 			4.times{ |r|
 				q = r + 1
-					music_comment = MusicComment.find_or_create_by!(comment: "LLBS#{n}music#{o}comment#{q}のコメントです。") do |music_comment|
-						music_comment.music_id = o
-						music_comment.user_id = q
+					event_thread_comment = EventThreadComment.find_or_create_by!(comment: "LLBS#{n}の掲示板#{o}のコメント#{q}です。") do |event_thread_comment|
+						event_thread_comment.event_thread_id = o
+						event_thread_comment.user_id = q
+						event_thread_comment.score = 0
 					end
 			}
 	}

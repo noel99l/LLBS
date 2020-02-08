@@ -1,0 +1,21 @@
+<div class="col-xs-12 clearfix">
+ 	<div class="panel panel-info">
+    	<div class="panel-heading">
+    		<h3 class="panel-title">掲示板</h3>
+    	</div>
+    	<div class="panel-body">
+			<% event_threads.each do |event_thread| %>
+				<div class="col-xs-6">
+					<%= link_to event_event_thread_path(event.friendly_id, event_thread.id) do %>
+					<i class="fas fa-greater-than"></i> 
+					<%= event_thread.title %> (<%= event_thread.event_thread_comments.count %>)
+					<% end %>
+				</div>
+			<% end %>
+			<span><%= link_to new_event_event_thread_path(event), class:"btn btn-lg btn-primary pull-right" do %>
+				<i class="fas fa-plus-circle icon_custom"></i> 新規作成
+				<% end %>
+			</span>
+		</div>
+	</div>
+</div>

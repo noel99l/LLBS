@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row">
     	<%= render 'events/event-header', event: @event, event_users: @event_users %>
-		<div class="event-container">
+		<div class="event-container clearfix">
 			<div class="col-xs-3">
 				<div class="text-center">
 				<%= attachment_image_tag @event, :image, :fill, 300, 300, format: 'jpeg', fallback: "no_image.jpg", size:'300x300', class:"img-thumbnail" %>
@@ -12,23 +12,23 @@
 				<table class="table table-bordered">
 					<tbody>
 					    <tr>
-					        <th class="active text-right">会場</th>
+					        <th class="active text-right info">会場</th>
 					        <td><%= link_to "#{@event.place}", @event.place_url %></td>
 					    </tr>
 					    <tr>
-					        <th class="active text-right">集合時間</th>
+					        <th class="active text-right info">集合時間</th>
 					        <td><%= @event.meeting_time.to_s(:time) %></td>
 					    </tr>
 					    <tr>
-					        <th class="active text-right">演奏時間</th>
+					        <th class="active text-right info">演奏時間</th>
 					        <td><%= @event.start_time.to_s(:time) %>〜<%= @event.finish_time.to_s(:time) %></td>
 					    </tr>
 					    <tr>
-					        <th class="active text-right">参加費</th>
+					        <th class="active text-right info">参加費</th>
 					        <td>演奏参加：<%= @event.performance_fee %>円　見学参加：<%= @event.visit_fee %>円</td>
 					    </tr>
 					    <tr>
-					        <th class="active text-right">打ち上げ会場</th>
+					        <th class="active text-right info">打ち上げ会場</th>
 					        <td><%= link_to "#{@event.after_party.party_place}", @event.after_party.party_url %></td>
 					    </tr>
 					</tbody>
@@ -44,31 +44,33 @@
 			</div>
 		</div>
 
-		<div class="clearfix">
-		</div>
-
-		<div class="col-xs-12">
-		 	<div class="panel panel-default">
-		    	<div class="panel-heading">イベント概要</div>
+		<div class="col-xs-12 clearfix">
+		 	<div class="panel panel-info">
+		    	<div class="panel-heading">
+		    		<h3 class="panel-title">イベント概要</h3>
+		    	</div>
 		    	<div class="panel-body">
 		    		<%= sanitize @event.overview, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
 				</div>
 			</div>
 		</div>
 
-		<h3>楽曲一覧</h3>
-		<br>
-		<h4>成立曲 (<%= @complete_musics.count %>曲)</h4>
-		<%= render 'events/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @complete_musics %>
+		<%= render 'event_threads/thread_index', event: @event, event_threads: @event_threads %>
 
-		<br>
-		<h4>未成立曲 (<%= @incomplete_musics.count %>曲)</h4>
-		<%= render 'events/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @incomplete_musics %>
-		<% if user_signed_in? && @event_users.where(user_id: current_user.id).presence %>
-			<%= link_to new_event_music_path(@event.friendly_id), class: "btn btn-lg btn-primary btn-block" do %>
-			<i class="fas fa-plus-circle icon_custom"></i> 曲を追加する
+		<div class="col-xs-12 clearfix">
+			<h3>楽曲一覧</h3>
+			<h4>成立曲 (<%= @complete_musics.count %>曲)</h4>
+			<%= render 'entry_tables/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @complete_musics %>
+
+			<br>
+			<h4>未成立曲 (<%= @incomplete_musics.count %>曲)</h4>
+			<%= render 'entry_tables/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @incomplete_musics %>
+			<% if user_signed_in? && @event_users.where(user_id: current_user.id).presence %>
+				<%= link_to new_event_music_path(@event.friendly_id), class: "btn btn-lg btn-primary btn-block" do %>
+				<i class="fas fa-plus-circle icon_custom"></i> 曲を追加する
+				<% end %>
 			<% end %>
-		<% end %>
 		<br>
+	</div>
 	</div>
 </div>

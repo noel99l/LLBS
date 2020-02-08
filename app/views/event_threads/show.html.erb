@@ -1,0 +1,64 @@
+<% content_for(:html_title) { "#{@event_thread.title}" } %>
+<div class="container">
+    <div class="row">
+        <div class="clearfix">
+        <%= render 'events/event-header', event: @event, event_users: @event_users %>
+        <br>
+        <%= render 'event_threads/thread_index', event: @event, event_threads: @event_threads %>
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 clearfix">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><%= @event_thread.title %>
+                        <span>
+                            <% if @event_thread.user == current_user %>
+                                  <%= link_to "削除", event_event_thread_path(@event,@event_thread), method: :delete, class: " pull-right", data: {confirm: "この掲示板を本当に削除してもよろしいですか？"} %>
+                            <% end %>
+                        </span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <%= link_to user_path(@event_thread.user_id) do %>
+                    <%= @event_thread.user.name %><% end %>　<%= @event_thread.created_at.to_s(:datetime) %><br>
+                	<%= sanitize @event_thread.body, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-xs-10 col-xs-offset-1 clearfix">
+    		<div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">コメント(<%= @event_thread_comments.count %>件)</h3>
+                </div>
+                <div class="panel-body">
+                    <% @event_thread_comments.each do |event_thread_comment| %>
+                    	<%= link_to user_path(event_thread_comment.user_id) do %>
+                            <%= event_thread_comment.user.name %><% end %>　<%= event_thread_comment.created_at.to_s(:datetime) %>
+                    		<% if event_thread_comment.user == current_user %>
+                    		      <%= link_to "削除", event_event_thread_event_thread_comment_path(@event,@event_thread,event_thread_comment), method: :delete, class: "btn btn-xs btn-danger", data: {confirm: "本当に削除してもよろしいですか？"} %>
+                            <% end %><br>
+                    	<%= event_thread_comment.comment %><br>
+
+                        <!-- AI機能実装 -->
+                        <span class="comment-score"><% event_thread_comment&.score %></span>
+                        <!-- AI機能実装終了 -->
+                    	<br>
+
+                    <% end %>
+                    <% if @event_users.where(user_id: current_user.id).presence %>
+                        <%= form_for [@event, @event_thread, @event_thread_comment] do |f| %>
+                        <%= render 'layouts/error_messages', model: f.object %>
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <%= f.text_area :comment, rows:'5', class: "form-control", placeholder: "コメントをここに" %>
+                                </div>
+                            </div>
+                            <%= f.submit "送信する", class: "btn btn-lg btn-primary pull-right" %>
+                        <% end %>
+                    <% end %>
+                </div>
+        	</div>
+        </div>
+    </div>
+</div>

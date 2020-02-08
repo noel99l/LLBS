@@ -12,6 +12,7 @@ class EventsController < ApplicationController
   	@event = Event.friendly.find(params[:id])
   	@parts = Part.where(event_id: @event.id).order(:id)
     @event_users = EventUser.where(event_id: @event.id)
+    @event_threads = EventThread.where(event_id: @event.id)
     @entry_tables = EntryTable.joins(:part).where(part_id: @parts)
     @incomplete_musics = Music.where(event_id: @event.id, establishment_status:0)
   	@complete_musics = Music.where(event_id: @event.id, establishment_status:1)

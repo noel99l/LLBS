@@ -1,0 +1,2 @@
+module EventThreadCommentsHelper
+end

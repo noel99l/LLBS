@@ -25,6 +25,7 @@ class MusicsController < ApplicationController
   def create
     @music = Music.new(music_params)
       if @music.save
+        calculate_level(5)
         flash[:success] = "#{@music.title}を追加しました！"
         redirect_to event_path(@music.event.friendly_url)
       else
@@ -65,8 +66,20 @@ class MusicsController < ApplicationController
   def destroy
     music = Music.find(params[:id])
     music.destroy
+    calculate_level(-5)
     flash[:danger] = "#{music.title}を削除しました！"
     redirect_to event_path(music.event.friendly_url)
+  end
+
+  def calculate_level(exp)
+    if exp < 0
+      current_user.level_up?(exp)
+      flash[:info] = "楽曲削除 #{exp.to_i}pt"
+    elsif current_user.level_up?(exp)
+      flash[:info] = "楽曲追加 #{exp.to_i}pt Get! Level UP!!"
+    else
+      flash[:info] = "楽曲追加 #{exp.to_i}pt Get!"
+    end
   end
 
   private

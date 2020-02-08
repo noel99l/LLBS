@@ -20,6 +20,10 @@ Rails.application.routes.draw do
         resources :musics, except: [:index] do
             resources :music_comments, only: [:create, :destroy]
         end
+        post 'event_threads/confirm' => 'event_threads#confirm', as: 'threads_confirm'
+        resources :event_threads, only: [:new, :create, :show, :update, :destroy] do
+            resources :event_thread_comments, only: [:create, :destroy]
+        end
     end
 
     namespace :admin do
