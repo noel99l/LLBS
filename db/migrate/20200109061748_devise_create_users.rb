@@ -4,7 +4,8 @@ class DeviseCreateUsers < ActiveRecord::Migration[5.2]
   def change
     create_table :users do |t|
       ## Database authenticatable
-      t.string :email,              null: false, default: ""
+      #twitterログインに伴いnull: falseの表記を削除
+      t.string :email,              unique: true, default: ""
       t.string :encrypted_password, null: false, default: ""
 
       ## Recoverable

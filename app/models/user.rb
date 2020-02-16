@@ -10,6 +10,10 @@ class User < ApplicationRecord
   has_many :event_thread_comments
   attachment :image
 
+  def email_required?
+    false
+  end
+
   def level_up?(added_exp)
     update(exp: (exp + added_exp))
     if Level.find(level_id).threshold <= exp
@@ -22,21 +26,17 @@ class User < ApplicationRecord
   def self.find_for_oauth(auth)
     user = User.where(uid: auth.uid, provider: auth.provider).first
     unless user
-      user = User.create(
+      user = User.new(
        uid:      auth.uid,
        provider: auth.provider,
-       email:    User.dummy_email(auth),
        password: Devise.friendly_token[0, 20],
-       image: auth.info.image,
+       # image: auth.info.image,
+       remote_image_url: auth.info.image,
        name: auth.info.name,
        nickname: auth.info.nickname,
        )
     end
+   #戻り値
    user
-  end
-
-  private
-  def self.dummy_email(auth)
-   "#{auth.uid}-#{auth.provider}@example.com"
   end
 end

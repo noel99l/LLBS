@@ -11,6 +11,8 @@ Rails.application.routes.draw do
     omniauth_callbacks: 'users/omniauth_callbacks'
     }
     root 'homes#top'
+    get 'users/twitter_new' => 'users#twitter_new', as: 'user_twitter_new'
+    patch 'users/twitter_update/:id' => 'users#twitter_update', as: 'user_twitter_update'
     resources :users, only: [:show, :edit, :update]
     resources :events, only: [:show, :index] do
         get '/confirm' => 'events#confirm', as: 'confirm'

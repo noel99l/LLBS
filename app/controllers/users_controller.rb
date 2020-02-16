@@ -7,6 +7,16 @@ class UsersController < ApplicationController
       end
     end
 
+  def twitter_new
+  end
+
+  def twitter_update
+    user = User.find(params[:id])
+    user.update(user_params)
+    flash[:success] = "#{user.name}さん LLBSへの登録ありがとうございます！"
+    redirect_to user_path(user.id)
+  end
+
   def show
   	@user = User.find(params[:id])
     @event_users = EventUser.where(user_id: @user.id)
@@ -19,7 +29,7 @@ class UsersController < ApplicationController
   def update
   	user = User.find(params[:id])
   	user.update(user_params)
-    flash[:success] = "#{user.name}さんのプロフィールをを更新しました！"
+    flash[:success] = "#{user.name}さんのプロフィールを更新しました！"
   	redirect_to user_path(user.id)
   end
 
