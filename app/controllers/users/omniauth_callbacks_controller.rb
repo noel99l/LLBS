@@ -8,7 +8,6 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
   private
   def callback_from(provider)
     provider = provider.to_s
-
     @user = User.find_for_oauth(request.env['omniauth.auth'])
 
     if @user.persisted?
@@ -18,6 +17,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     else
       print("persisted false")
       @user.save
+      sign_in @user, event: :authentication
       render user_twitter_new_path
     end
   end
