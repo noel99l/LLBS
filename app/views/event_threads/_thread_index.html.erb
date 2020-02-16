@@ -12,10 +12,12 @@
 					<% end %>
 				</div>
 			<% end %>
-			<span><%= link_to new_event_event_thread_path(event), class:"btn btn-lg btn-primary pull-right" do %>
-				<i class="fas fa-plus-circle icon_custom"></i> 新規作成
-				<% end %>
-			</span>
+			<% if user_signed_in? %>
+				<span><%= link_to new_event_event_thread_path(event), class:"btn btn-lg btn-primary pull-right" do %>
+					<i class="fas fa-plus-circle icon_custom"></i> 新規作成
+					<% end %>
+				</span>
+			<% end %>
 		</div>
 	</div>
 </div>

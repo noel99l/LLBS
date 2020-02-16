@@ -39,21 +39,19 @@
                     		      <%= link_to "削除", event_event_thread_event_thread_comment_path(@event,@event_thread,event_thread_comment), method: :delete, class: "btn btn-xs btn-danger", data: {confirm: "本当に削除してもよろしいですか？"} %>
                             <% end %><br>
                     	<%= event_thread_comment.comment %><br>
-
                         <!-- AI機能実装 -->
                         <span class="comment-score"><% event_thread_comment&.score %></span>
                         <!-- AI機能実装終了 -->
                     	<br>
-
                     <% end %>
-                    <% if @event_users.where(user_id: current_user.id).presence %>
+                    <% if user_signed_in? && @event_users.where(user_id: current_user.id).presence %>
                         <%= form_for [@event, @event_thread, @event_thread_comment] do |f| %>
-                        <%= render 'layouts/error_messages', model: f.object %>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <%= f.text_area :comment, rows:'5', class: "form-control", placeholder: "コメントをここに" %>
+                            <%= render 'layouts/error_messages', model: f.object %>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <%= f.text_area :comment, rows:'5', class: "form-control", placeholder: "コメントをここに" %>
+                                    </div>
                                 </div>
-                            </div>
                             <%= f.submit "送信する", class: "btn btn-lg btn-primary pull-right" %>
                         <% end %>
                     <% end %>
