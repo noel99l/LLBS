@@ -1,20 +1,51 @@
 <% content_for(:html_title) { "イベント一覧" } %>
 <div class="container">
     <div class="row">
-    	<% @events.each do |event| %>
-			<div class="col-xs-3 text-center">
-				<div class="event_container round_border">
-					<%= link_to event_path(event.friendly_url) do %>
-						<%= link_to event_path(event.friendly_url) do %>
-							<div class="image_action">
-								<%= attachment_image_tag event, :image, :fill, 200, 200, format: 'jpeg', fallback: "no_image.jpg", size:'200x200', class:"img-thumbnail" %>
-							</div>
-						<h4><%= event.event_name %></h4>
-						<% end %>
-						<%= event.date %> <%= event.meeting_time.to_s(:time) %>〜<%= event.finish_time.to_s(:time) %><br>
-					<% end %>
-				</div>
+    	<!-- タブ・メニュー -->
+		<ul class="nav nav-tabs">
+			<li class="active"><a href="#sampleContentA" data-toggle="tab">開催予定のイベント</a></li>
+			<li><a href="#sampleContentB" data-toggle="tab">終了したイベント</a></li>
+		</ul>
+		<!-- タブ内容 -->
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="sampleContentA">
+				<% if @future_events.blank? %>
+					<h3>開催予定のイベントはありません</h3>
+				<% else %>
+				<% @future_events.each do |event| %>
+					<div class="col-xs-3 text-center">
+						<div class="event_container round_border">
+							<%= link_to event_path(event.friendly_url) do %>
+								<%= link_to event_path(event.friendly_url) do %>
+									<div class="image_action">
+										<%= attachment_image_tag event, :image, :fill, 200, 200, format: 'jpeg', fallback: "no_image.jpg", size:'200x200', class:"img-thumbnail" %>
+									</div>
+								<h4><%= event.event_name %></h4>
+								<% end %>
+								<%= event.date %> <%= event.meeting_time.to_s(:time) %>〜<%= event.finish_time.to_s(:time) %><br>
+							<% end %>
+						</div>
+					</div>
+				<% end %>
+				<% end %>
 			</div>
-		<% end %>
+			<div class="tab-pane fade in" id="sampleContentB">
+				<% @past_events.each do |event| %>
+					<div class="col-xs-3 text-center">
+						<div class="event_container round_border">
+							<%= link_to event_path(event.friendly_url) do %>
+								<%= link_to event_path(event.friendly_url) do %>
+									<div class="image_action">
+										<%= attachment_image_tag event, :image, :fill, 200, 200, format: 'jpeg', fallback: "no_image.jpg", size:'200x200', class:"img-thumbnail" %>
+									</div>
+								<h4><%= event.event_name %></h4>
+								<% end %>
+								<%= event.date %> <%= event.meeting_time.to_s(:time) %>〜<%= event.finish_time.to_s(:time) %><br>
+							<% end %>
+						</div>
+					</div>
+				<% end %>
+			</div>
+		</div>
 	</div>
 </div>

@@ -25,6 +25,13 @@
 font-family: 'Noto Sans Japanese', serif;
 }
 
+.wrapper{
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 120px;
+    box-sizing: border-box;
+}
+
 header {
   width: 100%;
   padding: 15px 0;
@@ -38,6 +45,8 @@ footer {
   margin: 0;
   text-align: center;
   background-color: #777777;
+  position: absolute;
+  bottom: 0;
 }
 
 .footer-text {
