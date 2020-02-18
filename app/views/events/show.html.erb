@@ -44,33 +44,22 @@
 			</div>
 		</div>
 
-		<div class="col-xs-12 clearfix">
-		 	<div class="panel panel-info">
-		    	<div class="panel-heading">
-		    		<h3 class="panel-title">イベント概要</h3>
-		    	</div>
-		    	<div class="panel-body">
-		    		<%= sanitize @event.overview, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
-				</div>
-			</div>
-		</div>
-
 		<%= render 'event_threads/thread_index', event: @event, event_threads: @event_threads %>
 
 		<div class="col-xs-12 clearfix">
-			<h3>楽曲一覧</h3>
+			<h3>楽曲一覧　<span style="font-size:15px;" >エントリー期間:　<%= @event.entry_start_time %> 〜 <%= @event.entry_finish_time %></h3>
 			<h4>成立曲 (<%= @complete_musics.count %>曲)</h4>
-			<%= render 'entry_tables/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @complete_musics %>
+			<%= render 'entry_tables/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @complete_musics, now: @now %>
 
 			<br>
 			<h4>未成立曲 (<%= @incomplete_musics.count %>曲)</h4>
-			<%= render 'entry_tables/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @incomplete_musics %>
+			<%= render 'entry_tables/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @incomplete_musics, now: @now %>
 			<% if user_signed_in? && @event_users.where(user_id: current_user.id).presence %>
 				<%= link_to new_event_music_path(@event.friendly_id), class: "btn btn-lg btn-primary btn-block" do %>
 				<i class="fas fa-plus-circle icon_custom"></i> 曲を追加する
 				<% end %>
 			<% end %>
 		<br>
-	</div>
+		</div>
 	</div>
 </div>

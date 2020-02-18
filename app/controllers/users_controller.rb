@@ -18,6 +18,7 @@ class UsersController < ApplicationController
   end
 
   def show
+    @now = Time.current
   	@user = User.find(params[:id])
     @event_users = EventUser.where(user_id: @user.id)
   end

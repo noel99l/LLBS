@@ -33,10 +33,12 @@ end
 		e.friendly_url = "LLBS#{n}"
 		e.overview = "第#{n}回目の開催となるLLBSです。みなさま奮ってご参加ください。<br>
 					　詳細はHPで！"
-		e.date = "2014-10-0#{n}"
+		e.date = "2020-0#{n}-0#{n}"
 		e.meeting_time = '12:00:00'
 		e.start_time = '13:00:00'
 		e.finish_time = '18:00:00'
+		e.entry_start_time = "2020-0#{n}-1#{n} 13:00:00"
+		e.entry_finish_time =  "2020-0#{n}-2#{n} 18:00:00"
 		e.place = "ノアスタジオ学芸大学店#{n}号店"
 		e.place_url = 'https://www.studionoah.jp/shibuya1/'
 		e.performance_fee = 2500
@@ -98,7 +100,7 @@ end
 		{ event_id: n,
 		  part_name: "Dr"},
 		{ event_id: n,
-		  part_name: "Key1"},
+		  part_name: "Key"},
 		{ event_id: n,
 		  part_name: "Perc"}
 	])

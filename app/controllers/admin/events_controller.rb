@@ -72,7 +72,8 @@ class Admin::EventsController < AdminController
 
   private
   def event_params
-    params.require(:event).permit(:after_party_id, :event_name, :friendly_url, :overview, :date, :meeting_time, :start_time, :finish_time,
+    params.require(:event).permit(:after_party_id, :event_name, :friendly_url, :overview, :date,
+      :meeting_time, :start_time, :finish_time, :entry_start_time, :entry_finish_time,
       :place, :place_url, :performance_fee, :visit_fee, :image, :remote_image_url,
       parts_attributes: [:event_id, :part_name, :_destroy, :id],
       after_party_attributes: [:party_place, :party_postalcode, :party_address, :party_url, :party_fee, :party_overview, :_destroy])

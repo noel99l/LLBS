@@ -17,6 +17,9 @@ ja:
       entry_table: エントリー
       music_comment: 楽曲コメント
       event_user: イベント参加者
+      event_threads: イベント掲示板
+      event_thread_comments: イベント掲示板コメント
+      level: レベル
     attributes:
       admin:
         email: メールアドレス
@@ -29,6 +32,8 @@ ja:
         image: プロフィール画像
         email: メールアドレス
         introduction: 自己紹介
+        exp: 経験値
+        level_id: ユーザーレベル
       event:
         event_name: イベント名
         friendly_url: 管理者設定URL
@@ -37,6 +42,8 @@ ja:
         meeting_time: 集合時間
         start_time: 開始時間
         finish_time: 終了時間
+        entry_start_time: エントリー開始時間
+        entry_finish_time: エントリー終了時間
         place: 開催場所
         place_url: 開催場所URL
         performance_fee: 演奏参加費
@@ -75,6 +82,18 @@ ja:
         event_id: イベントID
         part_id: パートID
         party_participate: 打ち上げ参加フラグ
+      event_threads:
+        event_id: イベントID
+        user_id: ユーザーID
+        title: 表題
+        body: 内容
+      event_thread_comments:
+        event_thread_id: イベント掲示板ID
+        user_id: ユーザーID
+        comment: コメント
+        score: スコア
+      levels:
+        threshold: 閾値
   date:
     abbr_day_names:
     - 日

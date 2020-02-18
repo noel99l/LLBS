@@ -21,7 +21,7 @@
 	                        </tr>
 	                        <tr>
 	                        	<th class="active"><%= f.label :date %></th>
-	                        	<td><%= f.text_field :date, size: 70, :placeholder => "日付", data: { date_format: 'YYYY-MM-DD'}, class:"datepicker" %>
+	                        	<td><%= f.text_field :date, size: 70, :placeholder => "日付", data: { date_format: 'YYYY-MM-DD'}, class:"datepicker" %></td>
 	                        </tr>
 	                        <tr>
 	                        	<th class="active"><%= f.label :meeting_time %></th>
@@ -34,6 +34,14 @@
 	                        <tr>
 	                        	<th class="active"><%= f.label :finish_time %></th>
 	                        	<td><%= f.text_field :finish_time, size: 70, :placeholder => "終了時間", data: { date_format: 'HH:mm'}, class:"datepicker" %></td>
+	                        </tr>
+	                        <tr>
+	                        	<th class="active"><%= f.label :entry_start_time %></th>
+	                        	<td><%= f.text_field :entry_start_time, size: 70, :placeholder => "エントリー開始時間", data: { date_format: 'YYYY-MM-DD HH:mm'}, class:"datepicker" %></td>
+	                        </tr>
+	                        <tr>
+	                        	<th class="active"><%= f.label :entry_finish_time %></th>
+	                        	<td><%= f.text_field :entry_finish_time, size: 70, :placeholder => "エントリー終了時間", data: { date_format: 'YYYY-MM-DD HH:mm'}, class:"datepicker" %></td>
 	                        </tr>
 	                        <tr>
 	                        	<th class="active"><%= f.label :place %></th>

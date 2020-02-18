@@ -36,9 +36,19 @@
                             	<%= f.hidden_field :start_time %>
                             </tr>
                             <tr>
-                            	<th class="active"><%= f.label :finish_time %></th>
-                            	<td><%= @event.finish_time.to_s(:time) %></td>
+                                <th class="active"><%= f.label :finish_time %></th>
+                                <td><%= @event.finish_time.to_s(:time) %></td>
+                                <%= f.hidden_field :entry_finish_time %>
+                            </tr>
+                            <tr>
+                            	<th class="active"><%= f.label :entry_start_time %></th>
+                            	<td><%= @event.entry_start_time.to_s(:datetime) %></td>
                             	<%= f.hidden_field :finish_time %>
+                            </tr>
+                            <tr>
+                                <th class="active"><%= f.label :entry_finish_time %></th>
+                                <td><%= @event.entry_finish_time.to_s(:datetime) %></td>
+                                <%= f.hidden_field :entry_start_time %>
                             </tr>
                             <tr>
                             	<th class="active"><%= f.label :place %></th>

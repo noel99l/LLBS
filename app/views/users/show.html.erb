@@ -42,22 +42,49 @@
 				</div>
 			</div>
 		</div>
-
-			<h3>参加イベント一覧</h3>
-			<% @event_users.each do |event_user| %>
-				<div class="col-xs-3 text-center">
-					<div class="event_container round_border">
-						<%= link_to event_path(event_user.event.friendly_url) do %>
-							<%= attachment_image_tag event_user.event, :image, :fill, 200, 200, format: 'jpeg', fallback: "no_image.jpg", size:'200x200', class:"img-thumbnail" %>
-							<h4><%= event_user.event.event_name %></h4>
-						<% end %>
-						<%= event_user.event.date %> <%= event_user.event.meeting_time.to_s(:time) %>〜<%= event_user.event.finish_time.to_s(:time) %><br>
-						<% if event_user.user == current_user %>
-							<%= link_to"参加を取り消す", event_event_user_path(event_id: event_user.event.id, event_user_id: event_user.id), method: :delete, data: {confirm: "#{event_user.event.event_name}への参加を取り消してもよろしいですか？"}, class: "btn btn-danger w-50" %><br>
-						<% end %>
-					</div>
-				</div>
-			<% end %>
+		<ul class="nav nav-tabs">
+			<li class="active col-xs-6"><a href="#sampleContentA" data-toggle="tab">参加予定のイベント</a></li>
+			<li class="col-xs-6"><a href="#sampleContentB" data-toggle="tab">参加したイベント</a></li>
+		</ul>
+		<!-- タブ内容 -->
+		<div class="tab-content">
+			<div class="tab-pane fade in active" id="sampleContentA">
+				<% if @event_users.joins(:event).where('date >= ?', @now).blank? %>
+					<h3>参加予定のイベントはありません</h3>
+				<% else %>
+					<% @event_users.joins(:event).where('date >= ?', @now).each do |event_user| %>
+						<div class="col-xs-3 text-center">
+							<div class="event_container round_border">
+								<%= link_to event_path(event_user.event.friendly_url) do %>
+									<%= attachment_image_tag event_user.event, :image, :fill, 200, 200, format: 'jpeg', fallback: "no_image.jpg", size:'200x200', class:"img-thumbnail" %>
+									<h4><%= event_user.event.event_name %></h4>
+								<% end %>
+								<%= event_user.event.date %> <%= event_user.event.meeting_time.to_s(:time) %>〜<%= event_user.event.finish_time.to_s(:time) %><br>
+								<% if event_user.user == current_user %>
+									<%= link_to"参加を取り消す", event_event_user_path(event_id: event_user.event.id, event_user_id: event_user.id), method: :delete, data: {confirm: "#{event_user.event.event_name}への参加を取り消してもよろしいですか？"}, class: "btn btn-danger w-50" %><br>
+								<% end %>
+							</div>
+						</div>
+					<% end %>
+				<% end %>
+			</div>
+			<div class="tab-pane fade in" id="sampleContentB">
+				<% if @event_users.joins(:event).where('date < ?', @now).blank? %>
+					<h3>参加したイベントはありません</h3>
+				<% else %>
+					<% @event_users.joins(:event).where('date < ?', @now).each do |event_user| %>
+						<div class="col-xs-3 text-center">
+							<div class="event_container round_border">
+								<%= link_to event_path(event_user.event.friendly_url) do %>
+									<%= attachment_image_tag event_user.event, :image, :fill, 200, 200, format: 'jpeg', fallback: "no_image.jpg", size:'200x200', class:"img-thumbnail" %>
+									<h4><%= event_user.event.event_name %></h4>
+								<% end %>
+								<%= event_user.event.date %> <%= event_user.event.meeting_time.to_s(:time) %>〜<%= event_user.event.finish_time.to_s(:time) %><br>
+							</div>
+						</div>
+					<% end %>
+				<% end %>
+			</div>
 		</div>
 	</div>
 </div>

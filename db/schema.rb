@@ -83,6 +83,8 @@ ActiveRecord::Schema.define(version: 2020_02_06_154335) do
     t.time "meeting_time", null: false
     t.time "start_time", null: false
     t.time "finish_time", null: false
+    t.datetime "entry_start_time", null: false
+    t.datetime "entry_finish_time"
     t.string "place", null: false
     t.string "place_url"
     t.integer "performance_fee"
@@ -144,7 +146,6 @@ ActiveRecord::Schema.define(version: 2020_02_06_154335) do
     t.text "introduction"
     t.integer "exp", default: 0
     t.integer "level_id", default: 1
-    t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["name"], name: "index_users_on_name", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

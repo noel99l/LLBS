@@ -9,6 +9,7 @@ class EventsController < ApplicationController
   end
 
   def show
+    @now = Time.current
   	@event = Event.friendly.find(params[:id])
   	@parts = Part.where(event_id: @event.id).order(:id)
     @event_users = EventUser.where(event_id: @event.id)

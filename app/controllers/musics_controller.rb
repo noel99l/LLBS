@@ -13,6 +13,7 @@ class MusicsController < ApplicationController
   end
 
   def show
+    @now = Time.current
     @music = Music.find(params[:id])
     @entry_tables = EntryTable.where(music_id: @music)
     @music_comments = MusicComment.where(music_id: @music)

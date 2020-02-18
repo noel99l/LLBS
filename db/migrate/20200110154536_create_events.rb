@@ -8,6 +8,8 @@ class CreateEvents < ActiveRecord::Migration[5.2]
 	t.time :meeting_time, null: false
 	t.time :start_time, null: false
 	t.time :finish_time, null: false
+	t.datetime :entry_start_time, null: false
+	t.datetime :entry_finish_time
 	t.string :place, null: false
 	t.string :place_url
 	t.integer :performance_fee
