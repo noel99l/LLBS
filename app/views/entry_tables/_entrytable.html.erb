@@ -51,6 +51,12 @@
 								<!-- 楽曲にユーザーがエントリーしている時 -->
 								<% else %>
 									<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+									<!-- 楽曲にエントリーしているユーザーが本人の時 -->
+	                                <% if entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user == current_user %>
+	                                    <%= link_to event_entry_table_path(event, music_id: music, part_id: part, name: "cancel"), method: :patch, data: {confirm: "本当にエントリーを取り消してもよろしいですか？"} do %>
+	                                    	<i class="fas fa-times-circle"></i>
+	                                    <% end %>
+	                                <% end %>
 								<% end %>
 							<!-- ユーザーがログインしていない時 -->
 							<% else %>
@@ -93,6 +99,12 @@
 								<!-- 楽曲にユーザーがエントリーしている時 -->
 								<% else %>
 									<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+									<!-- 楽曲にエントリーしているユーザーが本人の時 -->
+	                                <% if entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user == current_user %>
+	                                    <%= link_to event_entry_table_path(event, music_id: music, part_id: part, name: "cancel"), method: :patch, data: {confirm: "本当にエントリーを取り消してもよろしいですか？"} do %>
+	                                    	<i class="fas fa-times-circle"></i>
+	                                    <% end %>
+	                                <% end %>
 								<% end %>
 							<!-- ユーザーがログインしていない時 -->
 							<% else %>

@@ -80,9 +80,9 @@ ActiveRecord::Schema.define(version: 2020_02_06_154335) do
     t.string "friendly_url", null: false
     t.text "overview", null: false
     t.date "date", null: false
-    t.time "meeting_time", null: false
-    t.time "start_time", null: false
-    t.time "finish_time", null: false
+    t.datetime "meeting_time", null: false
+    t.datetime "start_time", null: false
+    t.datetime "finish_time", null: false
     t.datetime "entry_start_time", null: false
     t.datetime "entry_finish_time"
     t.string "place", null: false

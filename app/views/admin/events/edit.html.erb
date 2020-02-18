@@ -21,20 +21,28 @@
 		                        	<td><%= f.text_field :friendly_url, size: 70, :placeholder => "URL" %></td>
 		                        </tr>
 		                        <tr>
-		                        	<th class="active"><%= f.label :date %></th>
-		                        	<td><%= f.text_field :date, size: 70, :placeholder => "日付", :class => 'datepicker' %>
+	                        		<th class="active"><%= f.label :date %></th>
+	                        		<td><%= f.text_field :date, size: 70, :placeholder => "日付", data: { date_format: 'YYYY-MM-DD'}, class:"datepicker" %></td>
 		                        </tr>
 		                        <tr>
 		                        	<th class="active"><%= f.label :meeting_time %></th>
-		                        	<td><%= f.text_field :meeting_time, size: 70, :placeholder => "集合時間", :class => 'datepicker' %></td>
+		                        	<td><%= f.text_field :meeting_time, size: 70, :placeholder => "集合時間", data: { date_format: 'HH:mm'}, class:"datepicker" %></td>
 		                        </tr>
 		                        <tr>
 		                        	<th class="active"><%= f.label :start_time %></th>
-		                        	<td><%= f.text_field :start_time, size: 70, :placeholder => "開始時間" %></td>
+		                        	<td><%= f.text_field :start_time, size: 70, :placeholder => "開始時間", data: { date_format: 'HH:mm'}, class:"datepicker" %></td>
 		                        </tr>
 		                        <tr>
 		                        	<th class="active"><%= f.label :finish_time %></th>
-		                        	<td><%= f.text_field :finish_time, size: 70, :placeholder => "終了時間" %></td>
+		                        	<td><%= f.text_field :finish_time, size: 70, :placeholder => "終了時間", data: { date_format: 'HH:mm'}, class:"datepicker" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active"><%= f.label :entry_start_time %></th>
+		                        	<td><%= f.text_field :entry_start_time, size: 70, :placeholder => "エントリー開始時間", data: { date_format: 'YYYY-MM-DD HH:mm'}, class:"datepicker" %></td>
+		                        </tr>
+		                        <tr>
+		                        	<th class="active"><%= f.label :entry_finish_time %></th>
+		                        	<td><%= f.text_field :entry_finish_time, size: 70, :placeholder => "エントリー終了時間", data: { date_format: 'YYYY-MM-DD HH:mm'}, class:"datepicker" %></td>
 		                        </tr>
 		                        <tr>
 		                        	<th class="active"><%= f.label :place %></th>

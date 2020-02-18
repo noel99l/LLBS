@@ -12,6 +12,9 @@ class Admin::EventsController < AdminController
 
   def create
     @event = Event.new(event_params)
+    @event.create_meeting_time
+    @event.create_start_time
+    @event.create_finish_time
     if @event.save
       flash[:success] = "#{@event.event_name}を新たに作成しました！"
       redirect_to admin_events_path

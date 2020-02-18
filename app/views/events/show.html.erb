@@ -54,7 +54,8 @@
 			<br>
 			<h4>未成立曲 (<%= @incomplete_musics.count %>曲)</h4>
 			<%= render 'entry_tables/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @incomplete_musics, now: @now %>
-			<% if user_signed_in? && @event_users.where(user_id: current_user.id).presence %>
+
+			<% if user_signed_in? && @event_users.where(user_id: current_user.id).presence && @event.finish_time > @now %>
 				<%= link_to new_event_music_path(@event.friendly_id), class: "btn btn-lg btn-primary btn-block" do %>
 				<i class="fas fa-plus-circle icon_custom"></i> 曲を追加する
 				<% end %>

@@ -22,24 +22,34 @@
                             	<%= f.hidden_field :friendly_url %>
                             </tr>
                             <tr>
-                            	<th class="active"><%= f.label :date %></th>
-                            	<td><%= @event.date.to_s(:date) %></td>
-                            	<%= f.hidden_field :date %>
+                                <th class="active"><%= f.label :date %></th>
+                                <td><%= @event.date.to_s(:date) %></td>
+                                <%= f.hidden_field :date %>
                             </tr>
                             <tr>
-                            	<th class="active"><%= f.label :meeting_time %></th>
-                            	<td><%= @event.meeting_time.to_s(:time) %></td>
-                            	<%= f.hidden_field :meeting_time %>
+                                <th class="active"><%= f.label :meeting_time %></th>
+                                <td><%= @event.meeting_time.to_s(:time) %></td>
+                                <%= f.hidden_field :meeting_time %>
                             </tr>
                             <tr>
-                            	<th class="active"><%= f.label :start_time %></th>
-                            	<td><%= @event.start_time.to_s(:time) %></td>
-                            	<%= f.hidden_field :start_time %>
+                                <th class="active"><%= f.label :start_time %></th>
+                                <td><%= @event.start_time.to_s(:time) %></td>
+                                <%= f.hidden_field :start_time %>
                             </tr>
                             <tr>
-                            	<th class="active"><%= f.label :finish_time %></th>
-                            	<td><%= @event.finish_time.to_s(:time) %></td>
-                            	<%= f.hidden_field :finish_time %>
+                                <th class="active"><%= f.label :finish_time %></th>
+                                <td><%= @event.finish_time.to_s(:time) %></td>
+                                <%= f.hidden_field :entry_finish_time %>
+                            </tr>
+                            <tr>
+                                <th class="active"><%= f.label :entry_start_time %></th>
+                                <td><%= @event.entry_start_time.to_s(:datetime) %></td>
+                                <%= f.hidden_field :finish_time %>
+                            </tr>
+                            <tr>
+                                <th class="active"><%= f.label :entry_finish_time %></th>
+                                <td><%= @event.entry_finish_time.to_s(:datetime) %></td>
+                                <%= f.hidden_field :entry_start_time %>
                             </tr>
                             <tr>
                             	<th class="active"><%= f.label :place %></th>

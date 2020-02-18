@@ -23,4 +23,16 @@ class Event < ApplicationRecord
 
 	include FriendlyId
   		friendly_id :friendly_url
+
+  	def create_meeting_time
+    	self.meeting_time = Time.zone.parse(self.date.to_s + " " + self.meeting_time.strftime('%H:%M:%S'))
+    end
+
+    def create_start_time
+    	self.start_time = Time.zone.parse(self.date.to_s + " " + self.start_time.strftime('%H:%M:%S'))
+    end
+
+    def create_finish_time
+    	self.finish_time = Time.zone.parse(self.date.to_s + " " + self.finish_time.strftime('%H:%M:%S'))
+    end
 end

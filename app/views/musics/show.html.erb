@@ -41,43 +41,9 @@
                 </tr>
             </tbody>
         </table>
-        <table class="table table-bordered" style="table-layout:fixed;">
-            <tr>
-                <% @parts.each do |part| %>
-                    <th class="active" style="width:80px;"><%= part.part_name %></th>
-                <% end %>
-            </tr>
-            <tr>
-                <% @parts.each do |part| %>
-                <td>
-                    <% if @entry_tables.find_by(music_id: @music, part_id: part)&.requirement_status == "不要" %>
-                    <!-- 空欄 -->
-                    <% elsif @entry_tables.find_by(music_id: @music, part_id: part)&.event_user_id == nil %>
-                        <% if user_signed_in? %>
-                            <% if @event_users.where(user_id: current_user.id).empty? %>
-                                (エントリー)
-                            <% elsif @entry_tables.find_by(music_id: @music, part_id: part)&.requirement_status == "必須" %>
-                                <%= link_to "エントリー", event_entry_table_path(@event, music_id: @music, part_id: part, name: "entry"), method: :patch %>
-                            <% else %>
-                                <%= link_to "(エントリー)", event_entry_table_path(@event, music_id: @music, part_id: part, name: "entry"), method: :patch %>
-                            <% end %>
-                        <% else %>
-                            <% if @entry_tables.find_by(music_id: @music, part_id: part)&.requirement_status == "必須" %>
-                                <a class="link" data-toggle="modal" data-target="#loginModal">エントリー</a>
-                            <% else %>
-                                <a class="link" data-toggle="modal" data-target="#loginModal">(エントリー)</a>
-                            <% end %>
-                        <% end %>
-                    <% else %>
-                        <%= link_to "#{@entry_tables.find_by(music_id: @music, part_id: part)&.event_user&.user&.name}", user_path(@entry_tables.find_by(music_id: @music, part_id: part).event_user.user.id) %>
-                        <% if @entry_tables.find_by(music_id: @music, part_id: part)&.event_user&.user == current_user %>
-                            <%= link_to "取消",event_entry_table_path(@event, music_id: @music, part_id: part, name: "cancel"), method: :patch, data: {confirm: "本当にエントリーを取り消してもよろしいですか？"}, class: "btn-sm btn-danger pull-right" %>
-                        <% end %>
-                    <% end %>
-                </td>
-                <% end %>
-            </tr>
-        </table>
+
+        <%= render 'musics/musicentrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, music: @music, now: @now %>
+
         <div class="panel panel-default">
             <div class="panel-heading">
                 <h3 class="panel-title">コメント<span class="h4">(<%= @music_comments.count %>件)</span></h3>
@@ -117,4 +83,3 @@
         </div>
     </div>
 </div>
-<%= render 'homes/modal_signin' %>
