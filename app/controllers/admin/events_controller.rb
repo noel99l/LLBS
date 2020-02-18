@@ -58,6 +58,10 @@ class Admin::EventsController < AdminController
   def update
     event = Event.friendly.find(params[:id])
     event.update(event_params)
+    event.create_meeting_time
+    event.create_start_time
+    event.create_finish_time
+    event.save(event_params)
     flash[:success] = "#{event.event_name}を更新しました！"
     redirect_to admin_event_path(event)
   end

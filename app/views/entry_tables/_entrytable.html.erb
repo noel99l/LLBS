@@ -32,7 +32,7 @@
 									<!-- ユーザーがイベントに参加している時 -->
 									<% if @event_users.where(user_id: current_user.id).present? %>
 										<% if event.entry_start_time <= now && now < event.entry_finish_time %>
-											<%= link_to "エントリー", event_entry_table_path(event.id, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
+											<%= link_to "エントリー", event_entry_table_path(event, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
 										<% elsif event.entry_start_time > now %>
 											<a class="link" data-toggle="modal" data-target="#notentryModal">エントリー</a>
 										<% elsif now >= event.entry_finish_time %>

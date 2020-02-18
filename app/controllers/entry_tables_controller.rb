@@ -10,11 +10,12 @@ class EntryTablesController < ApplicationController
   end
 
   def update
+    event = Event.friendly.find(params[:id])
   	entry_table = EntryTable.find_by(music_id: params[:music_id],part_id: params[:part_id])
   	entry_table.music_id = params[:music_id]
   	entry_table.part_id = params[:part_id]
   	if params[:name] == "entry"
-	  	event_user = EventUser.find_by(user_id: current_user.id)
+	  	event_user = EventUser.where(event_id: event).find_by(user_id: current_user)
 	  	entry_table.event_user_id = event_user.id
 	  	entry_table.recruitment_status = 1
 	  	entry_table.save

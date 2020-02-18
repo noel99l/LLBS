@@ -3,7 +3,7 @@ class EventUsersController < ApplicationController
     @event_user = current_user.event_users.build(event_users_params)
     if@event_user.save
       calculate_level(50)
-      flash[:success] = "#{@event_user.event.event_name}への参加を受付ました！"
+      flash[:success] = "#{@event_user.event.event_name}への参加を受付しました！"
        redirect_to event_path(@event_user.event.friendly_url)
     else
       @event_user.errors
@@ -32,21 +32,22 @@ class EventUsersController < ApplicationController
     elsif params[:participate] == "under_review"
       event_user.party_participate = 2
     end
-    flash[:success] = "#{event_user.event.event_name}の打ち上げ参加登録を#{event_user.party_participate}で受付ました！"
+    flash[:success] = "#{event_user.event.event_name}の打ち上げ参加登録を#{event_user.party_participate}で受付しました！"
     event_user.save
     redirect_to event_party_path(event.friendly_url)
   end
 
   def destroy
     event = Event.find(params[:event_id])
-    event_user = EventUser.find_by(event_id: event.id, user_id: current_user.id)
-    event_user.destroy
-    calculate_level(-50)
-    entry_tables = EntryTable.where(event_user_id: event_user.id)
+    event_user = EventUser.find_by(event_id: event, user_id: current_user)
+    entry_tables = EntryTable.where(event_user_id: event_user)
     entry_tables.each do |entry_table|
       entry_table.event_user_id = nil
+      calculate_level(-10)
       entry_table.save
     end
+    event_user.destroy
+    calculate_level(-50)
     flash[:danger] = "#{event_user.event.event_name}への参加を取り消しました！"
     redirect_to root_path
   end
