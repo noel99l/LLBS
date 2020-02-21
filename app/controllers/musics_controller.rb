@@ -31,7 +31,7 @@ class MusicsController < ApplicationController
         @music.save
         calculate_level(5)
         flash[:success] = "#{@music.title}を追加しました！"
-        redirect_to event_path(@music.event.friendly_url)
+        redirect_to redirect_to event_music_path(@music.event.friendly_url, @music)
       else
         error =''
         @music.errors.full_messages.each do |message|
@@ -55,7 +55,7 @@ class MusicsController < ApplicationController
       @music.establishment_count = @music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count
       @music.save
       flash[:success] = "#{@music.title}を更新しました！"
-      redirect_to event_path(@music.event.friendly_url)
+      redirect_to event_music_path(@music.event.friendly_url, @music)
     else
       @event = Event.friendly.find(params[:event_id])
       @entry_table = @music.entry_tables.all
@@ -85,7 +85,7 @@ class MusicsController < ApplicationController
 
   private
   def music_params
-    params.require(:music).permit(:event_id, :title, :artist, :music_url, :remarks, :user_id,
+    params.require(:music).permit(:event_id, :title, :artist, :music_url, :remarks, :user_id, :lyrics,
      entry_tables_attributes: [:id, :event_user_id, :music_id, :part_id, :recruitment_status, :requirement_status])
   end
 end

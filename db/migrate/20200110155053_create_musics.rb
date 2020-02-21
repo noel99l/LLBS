@@ -7,6 +7,7 @@ class CreateMusics < ActiveRecord::Migration[5.2]
 	t.string :music_url
 	t.integer :establishment_count, null: false
 	t.text :remarks
+	t.text :lyrics
 	t.timestamps
     end
   end

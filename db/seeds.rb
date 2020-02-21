@@ -54,6 +54,7 @@ end
 				music.establishment_count = 0
 				music.remarks = "LLBS#{n}music#{o}の曲です"
 				music.user_id = o % 10 + 1
+				music.lyrics = "テストのタイトル"
 			end
 	}
 	4.times{ |p|

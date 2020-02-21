@@ -12,6 +12,7 @@
                 <% end %>
             <% end %>
         </h2>
+        <div class="col-xs-8">
         <table class="table table-bordered">
             <tbody>
                 <tr>
@@ -22,7 +23,6 @@
                 <tr>
                     <th class="active">youtube</th>
                     <td><iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @music.music_url.last(11)%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
-                        <%= link_to "#{@music.music_url}", @music.music_url %>
                     </td>
                 </tr>
                 <% end %>
@@ -47,6 +47,19 @@
                 </tr>
             </tbody>
         </table>
+        </div>
+        <div class="col-xs-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    歌詞
+                </div>
+                <div class="panel-body">
+                    <div style="width:100% ;height:430px;overflow:auto;">
+                        <%= sanitize @music.lyrics, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
+                    </div>
+                </div>
+            </div>
+        </div>
 
         <%= render 'musics/musicentrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, music: @music, now: @now %>
 

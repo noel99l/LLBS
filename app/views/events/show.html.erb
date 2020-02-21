@@ -43,6 +43,14 @@
 				</div>
 			</div>
 		</div>
+		<div class="col-xs-12">
+		 	<div class="panel panel-default">
+		    	<div class="panel-heading">イベント概要</div>
+		    	<div class="panel-body">
+		    		<%= sanitize @event.overview, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
+				</div>
+			</div>
+		</div>
 
 		<%= render 'event_threads/thread_index', event: @event, event_threads: @event_threads %>
 

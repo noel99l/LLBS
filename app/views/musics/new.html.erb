@@ -65,6 +65,15 @@
 								</td>
 							</tr>
 							<tr>
+								<div class="field">
+		                        	<th class="active"><%= f.label :lyrics %></th>
+		                        	<td>
+		                        		<%= f.hidden_field :lyrics, size: "20x100", id: :article_text %>
+										<trix-editor input="article_text"></trix-editor>
+		                        	</td>
+	                        	</div>
+	                        </tr>
+							<tr>
 								<th class="active">備考</th>
 								<td><%= f.text_area :remarks, size: "20x5", class: "form-control" %></td>
 							</tr>
