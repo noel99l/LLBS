@@ -51,7 +51,7 @@ end
 				music.event_id = n
 				music.artist = "artist"
 				music.music_url = "https://LLBS#{n}music#{o}"
-				music.establishment_status = o % 2
+				music.establishment_count = 0
 				music.remarks = "LLBS#{n}music#{o}の曲です"
 				music.user_id = o % 10 + 1
 			end

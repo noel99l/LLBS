@@ -10,7 +10,7 @@ class EntryTablesController < ApplicationController
   end
 
   def update
-    event = Event.friendly.find(params[:id])
+    event = Event.friendly.find(params[:event_id])
   	entry_table = EntryTable.find_by(music_id: params[:music_id],part_id: params[:part_id])
   	entry_table.music_id = params[:music_id]
   	entry_table.part_id = params[:part_id]
@@ -18,36 +18,44 @@ class EntryTablesController < ApplicationController
 	  	event_user = EventUser.where(event_id: event).find_by(user_id: current_user)
 	  	entry_table.event_user_id = event_user.id
 	  	entry_table.recruitment_status = 1
+      music = Music.find(params[:music_id])
+      #エントリー前の成立状況を取得
+      imm = music.establishment_count
+
 	  	entry_table.save
       calculate_level(10)
       flash[:success] = "#{entry_table.music.title}の#{entry_table.part.part_name}にエントリーしました！"
       #status = "このツイートはテストです\n#{entry_table.music.title}の#{entry_table.part.part_name}にエントリーしました！\nhttp://localhost:3000/admin/events/#{entry_table.part.event.friendly_url}"
       #@twitter.update(status)
       music = Music.find(params[:music_id])
-        if music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count == 0
-            music.establishment_status = "成立"
-            music.save
-            #status = "#{music.title} が成立しました！\nhttp://localhost:3000/admin/events/#{entry_table.part.event.friendly_url}"
-            #@twitter.update(status)
-        end
-      redirect_to event_path(entry_table.part.event_id)
+      music.establishment_count =   music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count
+      music.save
+      if imm != 0 && music.establishment_count == 0
+        flash[:warning] = "#{music.title}が成立しました！"
+      #status = "#{music.title} が成立しました！\nhttp://localhost:3000/admin/events/#{entry_table.part.event.friendly_url}"
+      #@twitter.update(status)
+      end
+      redirect_back(fallback_location: event_path(entry_table.part.event.friendly_id))
   	elsif params[:name] == "cancel"
   		entry_table.event_user_id = nil
   		entry_table.recruitment_status = 0
+      music = Music.find(params[:music_id])
+      #エントリー取り消し前の成立状況を取得
+      imm = music.establishment_count
+
   		entry_table.save
       calculate_level(-10)
       flash[:danger] = "#{entry_table.music.title} #{entry_table.part.part_name}のエントリーを取り消しました！"
       #status = "このツイートはテストです\n#{entry_table.music.title}の#{entry_table.part.part_name}のエントリーを取り消しました！\nhttp://localhost:3000/admin/events/#{entry_table.part.event.friendly_url}"
       #@twitter.update(status)
-      music = Music.find(params[:music_id])
-         if music.establishment_status == "成立" && music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).any?
-            music.establishment_status = "募集中"
-            music.save
-            flash[:danger] = "#{music.title}の成立が取り消されました！"
-            #status = "このツイートはテストです\n#{music.title} の成立が取り消されました！\nhttp://localhost:3000/admin/events/#{entry_table.part.event.friendly_url}"
-            #@twitter.update(status)
-         end
-      redirect_to event_path(entry_table.part.event.friendly_id)
+      music.establishment_count = music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count
+      if imm == 0 && music.establishment_count != 0
+        flash[:warning] = "#{music.title}の成立が取り消されました！"
+        #status = "このツイートはテストです\n#{music.title} の成立が取り消されました！\nhttp://localhost:3000/admin/events/#{entry_table.part.event.friendly_url}"
+        #@twitter.update(status)
+      end
+      music.save
+      redirect_back(fallback_location: event_path(entry_table.part.event.friendly_id))
   	end
   end
 

@@ -31,6 +31,12 @@
 				                    <th class="active">自己紹介</th>
 				                    <td><%= @user.introduction %></td>
 				                </tr>
+				                <% if @user == current_user %>
+				                <tr>
+				                    <th class="active">経験値</th>
+				                    <td><%= @user.exp %>pt</td>
+				                </tr>
+				                <% end %>
 				            </tbody>
 				        </table>
 				        <% if @user == current_user %>

@@ -25,7 +25,10 @@ class MusicsController < ApplicationController
 
   def create
     @music = Music.new(music_params)
+    @music.establishment_count = @music.event.parts.count
       if @music.save
+        @music.establishment_count = @music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count
+        @music.save
         calculate_level(5)
         flash[:success] = "#{@music.title}を追加しました！"
         redirect_to event_path(@music.event.friendly_url)
@@ -49,10 +52,7 @@ class MusicsController < ApplicationController
   def update
     @music = Music.find(params[:id])
     if @music.update(music_params)
-      if @music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count == 0 #もしもエントリーテーブル必須でユーザーidが入っていないレコードが１つもないならば
-            @music.establishment_status = "成立"
-      else @music.establishment_status = "募集中"
-      end
+      @music.establishment_count = @music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count
       @music.save
       flash[:success] = "#{@music.title}を更新しました！"
       redirect_to event_path(@music.event.friendly_url)

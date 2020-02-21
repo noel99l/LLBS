@@ -9,22 +9,22 @@ class EventUsersController < ApplicationController
       @event_user.errors
       @event = Event.friendly.find(params[:event_id])
       @parts = Part.where(event_id: @event.id).order(:id)
-      @after_party = AfterParty.find_by(event_id: @event.id)
-      @event_users = EventUser.where(event_id: @event.id)
+      @after_party = AfterParty.find_by(event_id: @event)
+      @event_users = EventUser.where(event_id: @event)
       render template: "events/confirm"
     end
   end
 
   def index
     @event = Event.friendly.find(params[:event_id])
-    @event_users = EventUser.where(event_id: @event.id)
-    @parts = Part.where(event_id: @event.id)
+    @event_users = EventUser.where(event_id: @event)
+    @parts = Part.where(event_id: @event)
     @entry_tables = EntryTable.joins(:part).where(part_id: @parts)
   end
 
   def update
     event = Event.find(params[:event_id])
-    event_user = EventUser.find_by(event_id: event.id, user_id: current_user.id)
+    event_user = EventUser.find_by(event_id: event, user_id: current_user)
     if params[:participate] == "attendance"
       event_user.party_participate = 1
     elsif params[:participate] == "absence"
@@ -45,6 +45,12 @@ class EventUsersController < ApplicationController
       entry_table.event_user_id = nil
       calculate_level(-10)
       entry_table.save
+      # 成立していた楽曲の成立落ち
+      music = entry_table.music
+         if music.establishment_status == "成立" && music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).any?
+            music.establishment_status = "募集中"
+            music.save
+         end
     end
     event_user.destroy
     calculate_level(-50)

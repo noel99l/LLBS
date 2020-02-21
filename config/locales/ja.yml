@@ -62,7 +62,7 @@ ja:
         title: 楽曲名
         artist: アーティスト名
         music_url: 参考url
-        establishment_status: 成立ステータス
+        establishment_count: 成立カウント
         remarks: 備考
       part:
         event_id: 楽曲ID

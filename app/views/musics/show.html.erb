@@ -23,13 +23,19 @@
                     <th class="active">youtube</th>
                     <td><iframe width="560" height="315" src="https://www.youtube.com/embed/<%= @music.music_url.last(11)%>" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe><br>
                         <%= link_to "#{@music.music_url}", @music.music_url %>
-
                     </td>
                 </tr>
                 <% end %>
                 <tr>
                     <th class="active">成立ステータス</th>
-                    <td><%= @music.establishment_status %></td>
+                    <td><% if @music.establishment_count == 0 %>
+                            成立
+                        <% elsif @music.event.finish_time < Time.current %>
+                            募集終了
+                        <% elsif @music.establishment_count > 0 %>
+                            募集中
+                        <% end %>
+                    </td>
                 </tr>
                 <tr>
                     <th class="active">追加日時 </th>

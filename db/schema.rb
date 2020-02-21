@@ -116,7 +116,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_154335) do
     t.string "title", null: false
     t.string "artist", null: false
     t.string "music_url"
-    t.integer "establishment_status", default: 0, null: false
+    t.integer "establishment_count", null: false
     t.text "remarks"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
