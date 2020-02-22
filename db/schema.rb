@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_06_154335) do
+ActiveRecord::Schema.define(version: 2020_02_21_083001) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -102,6 +102,15 @@ ActiveRecord::Schema.define(version: 2020_02_06_154335) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "lyrics", force: :cascade do |t|
+    t.integer "user_id", null: false
+    t.string "title", null: false
+    t.string "artist", null: false
+    t.text "lyric", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "music_comments", force: :cascade do |t|
     t.integer "music_id", null: false
     t.integer "user_id", null: false
@@ -118,7 +127,7 @@ ActiveRecord::Schema.define(version: 2020_02_06_154335) do
     t.string "music_url"
     t.integer "establishment_count", null: false
     t.text "remarks"
-    t.text "lyrics"
+    t.integer "lyric_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"

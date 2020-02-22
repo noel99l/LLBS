@@ -52,10 +52,17 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     歌詞
+                    <% if @event_users.where(user_id: current_user.id).presence %>
+                        <%= link_to "歌詞分けを登録する", event_music_lyric_path(@event.friendly_url, @music), class:"pull-right" %>
+                    <% end %>
                 </div>
                 <div class="panel-body">
-                    <div style="width:100% ;height:430px;overflow:auto;">
-                        <%= sanitize @music.lyrics, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
+                    <div style="width:100% ; height:430px; overflow:auto;">
+                        <% if @music.lyric_id.nil? %>
+                            歌詞が登録されていません
+                        <% else %>
+                            <%= sanitize @music.lyric.lyric, attributes:  %w(id class href) %>
+                        <% end %>
                     </div>
                 </div>
             </div>

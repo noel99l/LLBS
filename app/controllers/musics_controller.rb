@@ -1,5 +1,5 @@
 class MusicsController < ApplicationController
-  before_action :show_header, only: [:new, :show, :edit]
+  before_action :show_header, only: [:new, :show, :edit, :lyric]
   def show_header
     @event = Event.friendly.find(params[:event_id])
     @event_users = EventUser.where(event_id: @event)
@@ -31,7 +31,7 @@ class MusicsController < ApplicationController
         @music.save
         calculate_level(5)
         flash[:success] = "#{@music.title}を追加しました！"
-        redirect_to redirect_to event_music_path(@music.event.friendly_url, @music)
+        redirect_to event_music_path(@music.event.friendly_url, @music)
       else
         error =''
         @music.errors.full_messages.each do |message|
@@ -64,6 +64,30 @@ class MusicsController < ApplicationController
     end
   end
 
+  def lyric
+    @music = Music.find(params[:music_id])
+    @lyric = Lyric.new
+    @lyrics = Lyric.where(title: @music.title, artist: @music.artist)
+  end
+
+  def create_lyric
+    music = Music.find(params[:music_id])
+    lyric = Lyric.new(lyric_params)
+    lyric.save
+    music.lyric_id = Lyric.last.id
+    music.save
+    calculate_level(10)
+    flash[:success] = "#{music.title}の歌詞分けを新規登録しました！"
+    redirect_to event_music_path(music.event.friendly_url, music)
+  end
+
+  def select_lyric
+    music = Music.find(params[:music_id])
+    music.update(music_params)
+    flash[:success] = "#{music.title}の歌詞分けを登録しました！"
+    redirect_to event_music_path(music.event.friendly_url, music)
+  end
+
   def destroy
     music = Music.find(params[:id])
     music.destroy
@@ -85,7 +109,11 @@ class MusicsController < ApplicationController
 
   private
   def music_params
-    params.require(:music).permit(:event_id, :title, :artist, :music_url, :remarks, :user_id, :lyrics,
+    params.require(:music).permit(:event_id, :title, :artist, :music_url, :remarks, :user_id, :lyric_id,
      entry_tables_attributes: [:id, :event_user_id, :music_id, :part_id, :recruitment_status, :requirement_status])
+  end
+
+  def lyric_params
+    params.require(:lyric).permit(:user_id, :title, :artist, :lyric)
   end
 end

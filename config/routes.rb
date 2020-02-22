@@ -15,7 +15,9 @@ Rails.application.routes.draw do
     post '/callback' => 'linebot#callback'
     get 'users/twitter_new' => 'users#twitter_new', as: 'user_twitter_new'
     patch 'users/twitter_update/:id' => 'users#twitter_update', as: 'user_twitter_update'
-    resources :users, only: [:show, :edit, :update]
+    resources :users, only: [:show, :edit, :update] do
+        resources :lyrics, only: [:index, :show, :edit, :update, :destroy]
+    end
     resources :events, only: [:show, :index] do
         get '/confirm' => 'events#confirm', as: 'confirm'
         get '/afterparty' => 'after_parties#show', as: 'party'
@@ -23,6 +25,9 @@ Rails.application.routes.draw do
         resources :entry_tables, only: [:update, :destroy]
         resources :musics, except: [:index] do
             resources :music_comments, only: [:create, :destroy]
+            get '/lyric' => 'musics#lyric', as: 'lyric'
+            post '/lyric/create' => 'musics#create_lyric', as: 'create_lyric'
+            patch '/lyric/select' => 'musics#select_lyric', as: 'select_lyric'
         end
         post 'event_threads/confirm' => 'event_threads#confirm', as: 'threads_confirm'
         resources :event_threads, only: [:new, :create, :show, :update, :destroy] do

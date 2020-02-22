@@ -13,8 +13,6 @@
 				<th>
 					<div>
 					<%= link_to "#{music.title}", event_music_path(event.friendly_url, music.id) %>
-					<%= music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count %>　
-					<%= music.establishment_count %>
 					</div>
 				</th>
 				<td>

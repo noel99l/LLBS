@@ -1,0 +1,87 @@
+<% content_for(:html_title) { "歌詞新規作成" } %>
+<div class="container">
+    <div class="row">
+    	<%= render 'events/event-header', event: @event, event_users: @event_users %>
+    	<ul class="nav nav-tabs">
+			<li class="active"><a href="#ContentA" data-toggle="tab">歌詞新規登録</a></li>
+			<li><a href="#ContentB" data-toggle="tab">歌詞新規作成</a></li>
+		</ul>
+
+		<!-- タブ内容 -->
+		<div class="tab-content">
+			<div class="tab-pane active" id="ContentA">
+				<div class="col-md-8 col-md-offset-2">
+		            <div class="form-user style-1 rounded has-shadow-1">
+						<div class="form-user style-1 rounded has-shadow-1">
+			                <div class="form-header">
+			                    <div class="form-header text-center">
+			                        <h2 class="form-header-title">歌詞登録</h2>
+			                    </div>
+						    	<%= form_for @music,url:event_music_select_lyric_path(@event.friendly_url, @music) do |f| %>
+							    	<table class="table table-bordered">
+							            <tbody>
+							            	<tr>
+							                    <th class="active">楽曲名</th>
+							                    <td><%= @music.title %></td>
+							                </tr>
+							                <tr>
+							                    <th class="active">アーティスト名</th>
+							                    <td><%= @music.artist %></td>
+							                </tr>
+											<tr>
+							                	<th class="active"><%= f.label :lyric_id %></th>
+							                	<td>
+													<%= f.select :lyric_id, @lyrics.map { |lyric| ["#{lyric.created_at} by #{lyric.user.name}", lyric.id] } %>
+
+							                	</td>
+							                </tr>
+							            </tbody>
+							        </table>
+							    <%= f.submit "歌詞を登録する", class: "btn btn-lg btn-block btn-primary mt-20" %>
+								<% end %>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane" id="ContentB">
+				<div class="col-md-8 col-md-offset-2">
+		            <div class="form-user style-1 rounded has-shadow-1">
+		                <div class="form-header">
+		                    <div class="form-header text-center">
+		                        <h2 class="form-header-title">歌詞新規作成</h2>
+		                    </div>
+					    	<%= form_for @lyric,url:event_music_create_lyric_path(@event.friendly_url, @music) do |f| %>
+						    	<table class="table table-bordered">
+						            <tbody>
+						            	<tr>
+						                    <th class="active">楽曲名</th>
+						                    <td><%= @music.title %></td>
+						                    <%= f.hidden_field :title, :value => @music.title %>
+						                </tr>
+						                <tr>
+						                    <th class="active">アーティスト名</th>
+						                    <td><%= @music.artist %></td>
+						                    <%= f.hidden_field :artist, :value => @music.artist %>
+						                </tr>
+										<tr>
+						            		<div class="field">
+						                	<th class="active"><%= f.label :lyric %></th>
+						                	<td>
+						                		<%= f.hidden_field :lyric, size: "20x100", id: :article_text %>
+												<trix-editor input="article_text"></trix-editor>
+						                	</td>
+						                	</div>
+						                </tr>
+						            </tbody>
+						        </table>
+						    <%= f.hidden_field :user_id, :value => current_user.id %>
+						    <%= f.submit "歌詞を追加する", class: "btn btn-lg btn-block btn-primary mt-20" %>
+							<% end %>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -8,6 +8,7 @@ class User < ApplicationRecord
   has_many :musics
   has_many :event_threads
   has_many :event_thread_comments
+  has_many :lyrics
   attachment :image
 
   def email_required?

@@ -17,9 +17,10 @@ ja:
       entry_table: エントリー
       music_comment: 楽曲コメント
       event_user: イベント参加者
-      event_threads: イベント掲示板
-      event_thread_comments: イベント掲示板コメント
+      event_thread: イベント掲示板
+      event_thread_comment: イベント掲示板コメント
       level: レベル
+      lyric: 歌詞
     attributes:
       admin:
         email: メールアドレス
@@ -59,6 +60,7 @@ ja:
         party_url: 打ち上げ参考場所URL
       music:
         event_id: イベントID
+        lyric_id: 歌詞ID
         title: 楽曲名
         artist: アーティスト名
         music_url: 参考url
@@ -77,23 +79,28 @@ ja:
         music_id: 楽曲ID
         user_id: ユーザーID
         comment: コメント
-      event_users:
+      event_user:
         user_id: ユーザーID
         event_id: イベントID
         part_id: パートID
         party_participate: 打ち上げ参加フラグ
-      event_threads:
+      event_thread:
         event_id: イベントID
         user_id: ユーザーID
         title: 表題
         body: 内容
-      event_thread_comments:
+      event_thread_comment:
         event_thread_id: イベント掲示板ID
         user_id: ユーザーID
         comment: コメント
         score: スコア
       levels:
         threshold: 閾値
+      lyric:
+        user_id: ユーザーID
+        title: 楽曲名
+        artist: アーティスト名
+        lyric: 歌詞
   date:
     abbr_day_names:
     - 日

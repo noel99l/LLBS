@@ -25,6 +25,12 @@ end
     u.password = 'password'
     u.password_confirmation = 'password'
   end
+
+  lyric = Lyric.find_or_create_by!(title: "LLBS3music#{n}") do |l|
+	l.user_id = n
+	l.artist = LLBS
+	l.lyric = "<div>TEST</div>"
+  end
 }
 
 4.times { |m|
@@ -54,7 +60,7 @@ end
 				music.establishment_count = 0
 				music.remarks = "LLBS#{n}music#{o}の曲です"
 				music.user_id = o % 10 + 1
-				music.lyrics = "テストのタイトル"
+				music.lyric_id = 1
 			end
 	}
 	4.times{ |p|
