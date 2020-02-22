@@ -77,7 +77,7 @@ class MusicsController < ApplicationController
     music.lyric_id = Lyric.last.id
     music.save
     calculate_level(10)
-    flash[:success] = "#{music.title}の歌詞分けを新規登録しました！"
+    flash[:success] = "#{music.title}の歌詞分けを新規作成、登録しました！"
     redirect_to event_music_path(music.event.friendly_url, music)
   end
 
