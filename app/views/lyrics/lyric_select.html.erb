@@ -1,4 +1,4 @@
-<% content_for(:html_title) { "歌詞新規作成" } %>
+<% content_for(:html_title) { "歌詞登録" } %>
 <div class="container">
     <div class="row">
     	<%= render 'events/event-header', event: @event, event_users: @event_users %>
@@ -9,7 +9,7 @@
 	                    <div class="form-header text-center">
 	                        <h2 class="form-header-title">歌詞新規作成</h2>
 	                    </div>
-				    	<%= form_for @lyric,url:event_music_create_lyric_path(@event.friendly_url, @music) do |f| %>
+				    	<%= form_for @lyric,url:event_music_lyric_new_confirm_path(@event.friendly_url, @music) do |f| %>
 					    	<table class="table table-bordered">
 					            <tbody>
 					            	<tr>
@@ -53,7 +53,7 @@
 				                    <div class="form-header text-center">
 				                        <h2 class="form-header-title">歌詞登録</h2>
 				                    </div>
-							    	<%= form_for @music,url:event_music_select_lyric_path(@event.friendly_url, @music) do |f| %>
+							    	<%= form_for @music,url:event_music_lyric_select_confirm_path(@event.friendly_url, @music) do |f| %>
 								    	<table class="table table-bordered">
 								            <tbody>
 								            	<tr>
@@ -87,7 +87,7 @@
 			                    <div class="form-header text-center">
 			                        <h2 class="form-header-title">歌詞新規作成</h2>
 			                    </div>
-						    	<%= form_for @lyric,url:event_music_create_lyric_path(@event.friendly_url, @music) do |f| %>
+						    	<%= form_for @lyric,url:event_music_lyric_new_confirm_path(@event.friendly_url, @music) do |f| %>
 							    	<table class="table table-bordered">
 							            <tbody>
 							            	<tr>

@@ -54,7 +54,11 @@ class MusicsController < ApplicationController
     if @music.update(music_params)
       @music.establishment_count = @music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count
       @music.save
+      if params[:name] == "lyric"
+        flash[:success] = "#{@music.title}のパート分けを更新しました！"
+      else
       flash[:success] = "#{@music.title}を更新しました！"
+    end
       redirect_to event_music_path(@music.event.friendly_url, @music)
     else
       @event = Event.friendly.find(params[:event_id])
@@ -62,30 +66,6 @@ class MusicsController < ApplicationController
       @parts = Part.where(event_id: @event.id).order(:id)
       render "edit"
     end
-  end
-
-  def lyric
-    @music = Music.find(params[:music_id])
-    @lyric = Lyric.new
-    @lyrics = Lyric.where(title: @music.title, artist: @music.artist)
-  end
-
-  def create_lyric
-    music = Music.find(params[:music_id])
-    lyric = Lyric.new(lyric_params)
-    lyric.save
-    music.lyric_id = Lyric.last.id
-    music.save
-    calculate_level(10)
-    flash[:success] = "#{music.title}の歌詞分けを新規作成、登録しました！"
-    redirect_to event_music_path(music.event.friendly_url, music)
-  end
-
-  def select_lyric
-    music = Music.find(params[:music_id])
-    music.update(music_params)
-    flash[:success] = "#{music.title}の歌詞分けを登録しました！"
-    redirect_to event_music_path(music.event.friendly_url, music)
   end
 
   def destroy
