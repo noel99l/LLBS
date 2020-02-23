@@ -1,4 +1,4 @@
-<% content_for(:html_title) { "歌詞登録確認" } %>
+<% content_for(:html_title) { "歌詞選択確認" } %>
 <div class="container">
     <div class="row">
     	<%= render 'events/event-header', event: @event, event_users: @event_users %>
@@ -8,7 +8,7 @@
                     <div class="form-header text-center">
                         <h2 class="form-header-title">パート分け登録確認画面</h2>
                     </div>
-			    	<%= form_for @music, url:event_music_path(@event.friendly_url, @music, name:"lyric") do |f| %>
+			    	<%= form_for @music, url:event_music_lyric_select_path(@event.friendly_url, @music, name:"lyric") do |f| %>
 				    	<table class="table table-bordered">
 				            <tbody>
 				            	<tr>

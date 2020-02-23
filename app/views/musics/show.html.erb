@@ -54,7 +54,7 @@
                     パート分け
                     <% if @music.lyric_id.present? %> (<%= @music.lyric.user.name %>さん作成)<% end %>
                     <% if @event_users.where(user_id: current_user.id).presence %>
-                        <%= link_to "歌詞登録", event_music_lyric_select_path(@event.friendly_url, @music), class:"pull-right" %>
+                        <%= link_to "歌詞登録", new_event_music_lyric_path(@event.friendly_url, @music), class:"pull-right" %>
                     <% end %>
                 </div>
                 <div class="panel-body">

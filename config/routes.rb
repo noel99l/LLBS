@@ -23,11 +23,11 @@ Rails.application.routes.draw do
         resources :entry_tables, only: [:update, :destroy]
         resources :musics, except: [:index] do
             resources :music_comments, only: [:create, :destroy]
-            resources :lyrics, only: [:create, :edit, :update, :destroy]
-            get '/lyric' => 'lyrics#lyric', as: 'lyric_select'
             post '/lyrics/new_confirm' => 'lyrics#new_confirm', as: 'lyric_new_confirm'
-            patch '/lyrics/select_confirm' => 'lyrics#select_confirm', as: 'lyric_select_confirm'
             patch '/lyrics/:id/edit_confirm' => 'lyrics#edit_confirm', as: 'lyric_edit_confirm'
+            patch '/lyrics/select_confirm' => 'lyrics#select_confirm', as: 'lyric_select_confirm'
+            patch '/lyrics/select' => 'lyrics#select', as: 'lyric_select'
+            resources :lyrics, only: [:new, :create, :edit, :update, :destroy]
         end
         post 'musics/new_confirm' => 'musics#new_confirm', as: 'new_confirm'
         patch 'musics/:id/edit_confirm' => 'musics#edit_confirm', as: 'edit_confirm'
