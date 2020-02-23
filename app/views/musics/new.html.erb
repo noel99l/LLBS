@@ -8,7 +8,7 @@
 		            <div class="form-header text-center">
 		                <h2 class="form-header-title">曲追加</h2>
 		            </div>
-		            <%= form_for [@event,@music] do |f| %>
+		            <%= form_for [@event,@music], url: event_new_confirm_path(@event, @music) do |f| %>
 		            <%= render 'layouts/error_messages', model: f.object %>
 		            <table class="table table-bordered">
 		              	<tbody>
@@ -47,16 +47,16 @@
 					                            </th>
 					                            <% @parts.each do |part| %>
 					                            <td>
-					                        	<%= f.fields_for :entry_tables do |entry_table| %>
-													<%= entry_table.radio_button :requirement_status, :必須, checked: true %><br>
-													<br>
-													<%= entry_table.radio_button :requirement_status, :任意 %><br>
-													<br>
-													<%= entry_table.radio_button :requirement_status, :不要 %>
-													<%= entry_table.hidden_field :music_id, :value => @music.id %>
-													<%= entry_table.hidden_field :part_id, :value => part.id %>
-													<%= entry_table.hidden_field :recruitment_status, :value => "募集中" %>
-												<% end %>
+						                        	<%= f.fields_for :entry_tables do |entry_table| %>
+														<%= entry_table.radio_button :requirement_status, :必須, checked: true %><br>
+														<br>
+														<%= entry_table.radio_button :requirement_status, :任意 %><br>
+														<br>
+														<%= entry_table.radio_button :requirement_status, :不要 %>
+														<%= entry_table.hidden_field :music_id, :value => @music.id %>
+														<%= entry_table.hidden_field :part_id, :value => part.id %>
+														<%= entry_table.hidden_field :recruitment_status, :value => "募集中" %>
+													<% end %>
 												</td>
 												<% end %>
 											</tr>
@@ -72,7 +72,7 @@
 								<%= f.hidden_field :user_id, :value => current_user.id %>
 						</tbody>
 					</table>
-						<%= f.submit "送信する", class: "btn btn-lg btn-primary mt-20 pull-right" %>
+						<%= f.submit "確認画面へ", class: "btn btn-lg btn-block btn-primary" %>
 					<% end %>
 				</div>
 			</div>

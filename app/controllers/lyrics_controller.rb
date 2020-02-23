@@ -1,12 +1,12 @@
 class LyricsController < ApplicationController
-  before_action :show_header, only: [:lyric_select, :new_confirm, :edit, :edit_confirm, :select_confirm]
+  before_action :show_header, only: [:lyric, :new_confirm, :edit, :edit_confirm, :select_confirm]
 
   def show_header
     @event = Event.friendly.find(params[:event_id])
     @event_users = EventUser.where(event_id: @event)
   end
 
-  def lyric_select
+  def lyric
     @music = Music.find(params[:music_id])
     @lyric = Lyric.new
     @lyrics = Lyric.where(title: @music.title, artist: @music.artist)

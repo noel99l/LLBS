@@ -1,15 +1,38 @@
 class MusicsController < ApplicationController
-  before_action :show_header, only: [:new, :show, :edit, :lyric]
+  before_action :show_header, only: [:new, :new_confirm, :show, :edit, :edit_confirm]
   def show_header
     @event = Event.friendly.find(params[:event_id])
     @event_users = EventUser.where(event_id: @event)
   end
 
   def new
-    @event = Event.friendly.find(params[:event_id])
     @music = Music.new
     @entry_table = @music.entry_tables.build
     @parts = Part.where(event_id: @event.id).order(:id)
+  end
+
+  def new_confirm
+    @music = Music.new(music_params)
+    @parts = Part.where(event_id: @event.id).order(:id)
+    if @music.invalid?
+      error =''
+      @music.errors.full_messages.each do |message|
+      error += message + '<br />'
+      end
+      @event = Event.friendly.find(params[:event_id])
+      redirect_to new_event_music_path(@event), notice: error
+    end
+  end
+
+  def create
+    @music = Music.new(music_params)
+    @music.establishment_count = @music.event.parts.count
+    @music.save
+    @music.establishment_count = @music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count
+    @music.save
+    calculate_level(5)
+    flash[:success] = "#{@music.title}を追加しました！"
+    redirect_to event_music_path(@music.event.friendly_url, @music)
   end
 
   def show
@@ -23,30 +46,14 @@ class MusicsController < ApplicationController
     end
   end
 
-  def create
-    @music = Music.new(music_params)
-    @music.establishment_count = @music.event.parts.count
-      if @music.save
-        @music.establishment_count = @music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count
-        @music.save
-        calculate_level(5)
-        flash[:success] = "#{@music.title}を追加しました！"
-        redirect_to event_music_path(@music.event.friendly_url, @music)
-      else
-        error =''
-        @music.errors.full_messages.each do |message|
-          error += message + '<br />'
-        end
-        @event = Event.friendly.find(params[:event_id])
-        redirect_to new_event_music_path(@event), notice: error
-      end
-  end
-
   def edit
     @event = Event.friendly.find(params[:event_id])
     @music = Music.find(params[:id])
     @entry_table = @music.entry_tables.all
     @parts = Part.where(event_id: @event.id).order(:id)
+  end
+
+  def edit_confirm
   end
 
   def update
