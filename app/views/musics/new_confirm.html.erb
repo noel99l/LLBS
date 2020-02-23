@@ -53,7 +53,12 @@
 						                            <td>
 						                            	<!-- パラメータ内に変数を置く時はstrings型じゃないと取ってこれないので変換 -->
 						                            	<% n = n.to_s %>
-					                            		<%= params[:music][:entry_tables_attributes][n][:requirement_status] %>
+					                            		<% if params[:music][:entry_tables_attributes][n][:requirement_status] == "不要" %>
+					                            		<% elsif params[:music][:entry_tables_attributes][n][:requirement_status] == "任意" %>
+					                            			(任意)
+					                            		<% else %>
+					                            			<%= params[:music][:entry_tables_attributes][n][:requirement_status] %>
+					                            		<% end %>
 					                            		<%= entry_table.hidden_field :requirement_status, :value => params[:music][:entry_tables_attributes][n][:requirement_status] %>
 														<%= entry_table.hidden_field :music_id, :value => params[:music][:entry_tables_attributes][n][:music_id] %>
 														<%= entry_table.hidden_field :part_id, :value => params[:music][:entry_tables_attributes][n][:part_id] %>

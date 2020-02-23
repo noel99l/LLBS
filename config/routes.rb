@@ -21,6 +21,8 @@ Rails.application.routes.draw do
         get '/afterparty' => 'after_parties#show', as: 'party'
         resources :event_users, only: [:index, :create, :update, :destroy]
         resources :entry_tables, only: [:update, :destroy]
+        post 'musics/new_confirm' => 'musics#new_confirm', as: 'music_new_confirm'
+        patch 'musics/:id/edit_confirm' => 'musics#edit_confirm', as: 'music_edit_confirm'
         resources :musics, except: [:index] do
             resources :music_comments, only: [:create, :destroy]
             post '/lyrics/new_confirm' => 'lyrics#new_confirm', as: 'lyric_new_confirm'
@@ -29,8 +31,6 @@ Rails.application.routes.draw do
             patch '/lyrics/select' => 'lyrics#select', as: 'lyric_select'
             resources :lyrics, only: [:new, :create, :edit, :update, :destroy]
         end
-        post 'musics/new_confirm' => 'musics#new_confirm', as: 'new_confirm'
-        patch 'musics/:id/edit_confirm' => 'musics#edit_confirm', as: 'edit_confirm'
         post 'event_threads/confirm' => 'event_threads#confirm', as: 'threads_confirm'
         resources :event_threads, only: [:new, :create, :show, :update, :destroy] do
             resources :event_thread_comments, only: [:create, :destroy]

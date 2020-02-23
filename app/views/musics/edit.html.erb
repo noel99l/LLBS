@@ -1,14 +1,14 @@
 <% content_for(:html_title) { "#{@music.title}編集" } %>
-<%= render 'events/event-header', event: @event, event_users: @event_users %>
 <div class="container">
     <div class="row">
+    	<%= render 'events/event-header', event: @event, event_users: @event_users %>
         <div class="col-md-8 col-md-offset-2">
             <div class="form-user style-1 rounded has-shadow-1">
                 <div class="form-header">
                     <div class="form-header text-center">
                         <h2 class="form-header-title">曲編集</h2>
                     </div>
-                    <%= form_for [@event,@music] do |f| %>
+                    <%= form_for [@event,@music], url:event_music_edit_confirm_path(@event, @music) do |f| %>
                     <%= render 'layouts/error_messages', model: f.object %>
                     <table class="table table-bordered">
                       	<tbody>
@@ -34,7 +34,7 @@
 					                            パート
 					                        	</th>
 					                        	<% @parts.each do |part| %>
-					                        	<td>
+					                        	<td class="active">
 					                        		<%= part.part_name %>
 					                        	</td>
 					                        	<% end %>
@@ -64,7 +64,7 @@
 								<%= f.hidden_field :event_id, :value => @event.id %>
 						</tbody>
 					</table>
-						<%= f.submit "送信する", class: "btn btn-lg btn-primary mt-20 pull-right" %>
+						<%= f.submit "確認画面へ", class: "btn btn-lg btn-block btn-primary" %>
 					<% end %>
 				</div>
 			</div>

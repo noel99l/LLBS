@@ -47,18 +47,21 @@ class MusicsController < ApplicationController
   end
 
   def edit
-    @event = Event.friendly.find(params[:event_id])
     @music = Music.find(params[:id])
     @entry_table = @music.entry_tables.all
     @parts = Part.where(event_id: @event.id).order(:id)
   end
 
   def edit_confirm
+    @music = Music.find(params[:id])
+    @parts = Part.where(event_id: @event.id).order(:id)
+    @music.attributes = music_params
+    render :edit if @music.invalid?
   end
 
   def update
     @music = Music.find(params[:id])
-    if @music.update(music_params)
+    if @music.update!(music_params)
       @music.establishment_count = @music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count
       @music.save
       if params[:name] == "lyric"
@@ -98,9 +101,5 @@ class MusicsController < ApplicationController
   def music_params
     params.require(:music).permit(:event_id, :title, :artist, :music_url, :remarks, :user_id, :lyric_id,
      entry_tables_attributes: [:id, :event_user_id, :music_id, :part_id, :recruitment_status, :requirement_status])
-  end
-
-  def lyric_params
-    params.require(:lyric).permit(:user_id, :title, :artist, :lyric)
   end
 end

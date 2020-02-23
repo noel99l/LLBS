@@ -8,7 +8,7 @@
 		            <div class="form-header text-center">
 		                <h2 class="form-header-title">曲追加</h2>
 		            </div>
-		            <%= form_for [@event,@music], url: event_new_confirm_path(@event, @music) do |f| %>
+		            <%= form_for [@event,@music], url: event_music_new_confirm_path(@event, @music) do |f| %>
 		            <%= render 'layouts/error_messages', model: f.object %>
 		            <table class="table table-bordered">
 		              	<tbody>
