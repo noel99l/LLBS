@@ -1,7 +1,7 @@
 <% content_for(:html_title) { "新規イベント確認" } %>
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="form-user style-1 rounded has-shadow-1">
                 <div class="form-header">
                     <div class="form-header text-center">
@@ -82,12 +82,23 @@
         						    <% @event.parts.each do |part| %>
         						    	<%= part.part_name %><br>
         						    <% end %>
-        						</td>
-        						<%= f.fields_for :parts do |p| %>
-        						    <%= p.hidden_field :part_name %>
-        						    <%= p.hidden_field :event_id %>
-        						<% end %>
-                        	</tr>
+                                    <% if params[:event][:observe] == '1' %>
+                                        見学
+                                    <% end %>
+                                    <!-- パート -->
+                                    <%= f.fields_for :parts do |p| %>
+                                        <%= p.hidden_field :part_name %>
+                                        <%= p.hidden_field :event_id %>
+                                    <% end %>
+                                    <!-- パートテーブル -->
+            						<%= f.fields_for :part_tables do |p| %>
+            						    <%= p.hidden_field :part_name %>
+            						    <%= p.hidden_field :event_id %>
+                                        <%= p.hidden_field :count %>
+                                        <%= p.hidden_field :observe %>
+            						<% end %>
+                                    </td>
+                            </tr>
                         	<tr>
                             	<th class="active"><%= f.label :overview %></th>
                             	<td>
@@ -139,7 +150,7 @@
         			</table>
         			<% end %>
                     <div class="actions">
-                      <%= f.submit 'イベントを新規作成', class:"btn btn-primary btn-block" %>
+                      <%= f.submit 'イベントを新規作成', class:"btn btn-lg btn-primary btn-block" %>
                     </div>
                   <% end %>
                 </div>

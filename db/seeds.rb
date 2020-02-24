@@ -91,6 +91,39 @@ end
 }
 
 1.upto(4) { |n|
+	PartTable.create!([
+		{ event_id: n,
+		  part_name: "Vo",
+		  count: 3,
+		  observe: 0},
+		{ event_id: n,
+		  part_name: "Gt",
+		  count: 2,
+		  observe: 0},
+		{ event_id: n,
+		  part_name: "Ba",
+		  count: 1,
+		  observe: 0},
+		{ event_id: n,
+		  part_name: "Dr",
+		  count: 1,
+		  observe: 0},
+		{ event_id: n,
+		  part_name: "Key",
+		  count: 1,
+		  observe: 0},
+		{ event_id: n,
+		  part_name: "Perc",
+		  count: 1,
+		  observe: 0},
+		{ event_id: n,
+		  part_name: "見学",
+		  count: 1,
+		  observe: 1}
+	])
+}
+
+1.upto(4) { |n|
 	Part.create!([
 		{ event_id: n,
 		  part_name: "Vo1"},
@@ -117,7 +150,7 @@ end
   n = m + 1
   event_user = EventUser.find_or_create_by!(user_id: n) do |e|
 	e.event_id = 1
-	e.part_id = n % 10 + 1
+	e.part_table_id = 1
 	e.party_participate = n % 3
   end
 }

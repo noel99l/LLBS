@@ -71,6 +71,6 @@ class EventUsersController < ApplicationController
 
   private
   def event_users_params
-    params.require(:event_user).permit(:event_id, :part_id, :party_participate).merge(user_id: current_user.id)
+    params.require(:event_user).permit(:event_id, :part_table_id, :party_participate).merge(user_id: current_user.id)
   end
 end

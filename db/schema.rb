@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_02_21_083001) do
+ActiveRecord::Schema.define(version: 2020_02_24_120600) do
 
   create_table "admins", force: :cascade do |t|
     t.string "email", default: "", null: false
@@ -68,7 +68,7 @@ ActiveRecord::Schema.define(version: 2020_02_21_083001) do
   create_table "event_users", force: :cascade do |t|
     t.integer "user_id", null: false
     t.integer "event_id", null: false
-    t.integer "part_id", null: false
+    t.integer "part_table_id", null: false
     t.integer "party_participate", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -131,6 +131,15 @@ ActiveRecord::Schema.define(version: 2020_02_21_083001) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
+  end
+
+  create_table "part_tables", force: :cascade do |t|
+    t.integer "event_id", null: false
+    t.string "part_name", null: false
+    t.integer "count", default: 1, null: false
+    t.boolean "observe", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "parts", force: :cascade do |t|

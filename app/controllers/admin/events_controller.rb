@@ -1,12 +1,22 @@
 class Admin::EventsController < AdminController
   def new
     @event = Event.new
-    @part = @event.parts.build
+    # cocoonでデフォルト３つ表示させるために3回作成
+    3.times {@event.part_tables.build}
+    # has_oneの場合のbuildはは少し表記が変わる
     @after_party = @event.build_after_party
   end
 
   def new_confirm
     @event = Event.new(event_params)
+    @event.create_part
+    # チェックが入っているときに見学パートテーブル作成
+    if params[:event][:observe] == '1'
+      part_table = @event.part_tables.build
+      part_table.part_name = "見学"
+      part_table.event_id = @event.id
+      part_table.observe = "見学"
+    end
     render :new if @event.invalid?
   end
 
@@ -82,7 +92,9 @@ class Admin::EventsController < AdminController
     params.require(:event).permit(:after_party_id, :event_name, :friendly_url, :overview, :date,
       :meeting_time, :start_time, :finish_time, :entry_start_time, :entry_finish_time,
       :place, :place_url, :performance_fee, :visit_fee, :image, :remote_image_url,
+      check_val: [:observe],
       parts_attributes: [:event_id, :part_name, :_destroy, :id],
+      part_tables_attributes: [:event_id, :part_name, :count, :observe, :id, :_destroy],
       after_party_attributes: [:party_place, :party_postalcode, :party_address, :party_url, :party_fee, :party_overview, :_destroy])
   end
 end

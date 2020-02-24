@@ -28,7 +28,7 @@
 			</div>
 				<%= f.hidden_field :user_id, value: current_user.id %>
 				<%= f.hidden_field :event_id, value: @event.id %>
-				<h4>参加パート：<%= f.select :part_id, @parts.map { |part| [part.part_name, part.id] }, {include_blank: '選択してください'} %></h4><br>
+				<h4>参加パート：<%= f.select :part_table_id, @part_tables.map { |part_table| [part_table.part_name, part_table.id] }, {include_blank: '選択してください'} %></h4><br>
 			<div class="panel panel-info">
 				<div class="panel-heading">
 					<h4 class="panel-title"><%= @event.event_name %>打ち上げについて</h4>

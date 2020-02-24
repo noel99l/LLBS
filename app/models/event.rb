@@ -2,9 +2,11 @@ class Event < ApplicationRecord
 	has_many :musics, dependent: :destroy
 	has_many :event_users, dependent: :destroy
 	has_many :parts, dependent: :destroy
+	has_many :part_tables, dependent: :destroy
 	has_one :after_party, dependent: :destroy
 	attachment :image
 
+	accepts_nested_attributes_for :part_tables, allow_destroy: true, update_only: true
 	accepts_nested_attributes_for :parts, allow_destroy: true, update_only: true
 	accepts_nested_attributes_for :after_party, allow_destroy: true, update_only: true
 
@@ -23,6 +25,23 @@ class Event < ApplicationRecord
 
 	include FriendlyId
   		friendly_id :friendly_url
+
+  	def create_part
+  		self.part_tables.each do |part_table|
+	      	m = part_table.count
+	      	n = 1
+	      	m.times do
+		        @part = self.parts.build
+		        if m == 1
+		          	@part.part_name = part_table.part_name
+		        elsif m > 1
+		          	@part.part_name = part_table.part_name + n.to_s
+		        end
+		        @part.event_id = part_table.event_id
+		        n = n + 1
+	      	end
+	    end
+  	end
 
   	def create_meeting_time
     	self.meeting_time = Time.zone.parse(self.date.to_s + " " + self.meeting_time.strftime('%H:%M:%S'))

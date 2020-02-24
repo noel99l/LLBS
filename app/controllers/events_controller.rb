@@ -3,7 +3,7 @@ class EventsController < ApplicationController
   def confirm
     @event_user = EventUser.new
     @event = Event.friendly.find(params[:event_id])
-    @parts = Part.where(event_id: @event.id).order(:id)
+    @part_tables = PartTable.where(event_id: @event.id).order(:id)
     @after_party = AfterParty.find_by(event_id: @event.id)
     @event_users = EventUser.where(event_id: @event.id)
   end

@@ -17,7 +17,7 @@
 					<th>
 						<%= link_to user_path(event_user.user_id) do %>
 							<%= attachment_image_tag event_user.user, :image, :fill, 50, 50, format: 'jpeg', fallback: "no_image.jpg", size:'50x50', class:"img-thumbnail" %><% end %>　
-						<%= link_to "#{event_user.user.name} (#{event_user.part.part_name})", user_path(event_user.user_id) %>
+						<%= link_to "#{event_user.user.name} (#{event_user.part_table.part_name})", user_path(event_user.user_id) %>
 					</th>
 					<td>
 						<% @entry_tables.joins(:music).where('event_user_id = ? and establishment_count = ?', event_user.id, 0 ).each do |entry_table| %>

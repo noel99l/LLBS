@@ -1,7 +1,7 @@
 <% content_for(:html_title) { "イベント新規作成" } %>
 <div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="form-user style-1 rounded has-shadow-1">
                 <div class="form-header">
                     <div class="form-header text-center">
@@ -65,16 +65,26 @@
                                 	<%= f.attachment_field :image, onchange: "previewFile()" %></td>
                         	</tr>
                         	<tr>
-                                <th class="active"><%= f.label :parts, "パート" %></th>
+                                <th class="active"><%= f.label :part_tables, "パート" %></th>
 	                            <td>
-								    <%= f.fields_for :parts do |p| %>
-								        <%= render "part_fields", f: p %>
+								    <%= f.fields_for :part_tables do |p| %>
+								        <%= render "part_table_fields", f: p %>
 								    <% end %>
 							        <div class="links">
-							            <%= link_to_add_association ">>パートを追加", f, :parts, class:"btn btn-sm btn-primary" %>
+							            <%= link_to_add_association ">>パートを追加", f, :part_tables, class:"btn btn-sm btn-primary pull-right" %>
 							        </div>
+							        <%= check_box_tag 'event[observe]' %><%= f.label :observe, "見学あり" %>
 								</td>
                         	</tr>
+                        	<tr>
+                        		<div class="field">
+	                        	<th class="active"><%= f.label :overview %></th>
+	                        	<td>
+	                        		<%= f.hidden_field :overview, size: "20x100", id: :article_text %>
+									<trix-editor input="article_text"></trix-editor>
+	                        	</td>
+	                        	</div>
+	                        </tr>
 	                    </tbody>
 	                </table>
 	                <div class="form-header text-center">
@@ -85,7 +95,7 @@
 	                <% end %>
 
 	                <div class="actions">
-                      <%= f.submit '確認画面', class:"btn btn-primary btn-block" %>
+                      <%= f.submit '確認画面へ', class:"btn btn-lg btn-primary btn-block" %>
                     </div>
                   <% end %>
 	            </div>

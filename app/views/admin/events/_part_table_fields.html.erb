@@ -1,0 +1,7 @@
+<div class="nested-fields">
+    <%= f.text_field :part_name %>　
+    パート数：<%= f.number_field :count, min:0,max:10 %>
+    <%= f.hidden_field :event_id, :value => @event.id %>
+    <%= f.hidden_field :observe, :value => "演奏参加" %>
+    <%= link_to_remove_association "削除", f %>
+</div>

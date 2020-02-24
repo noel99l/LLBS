@@ -85,6 +85,7 @@ gem 'geocoder'
 gem 'dotenv-rails'
 gem 'twitter'
 
+
 gem 'rubocop', require: false
 gem 'rubocop-rails'
 
