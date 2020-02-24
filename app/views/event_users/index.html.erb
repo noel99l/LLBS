@@ -20,12 +20,12 @@
 						<%= link_to "#{event_user.user.name} (#{event_user.part.part_name})", user_path(event_user.user_id) %>
 					</th>
 					<td>
-						<% @entry_tables.joins(:music).where('event_user_id = ? and establishment_status = ?', event_user.id, 1 ).each do |entry_table| %>
+						<% @entry_tables.joins(:music).where('event_user_id = ? and establishment_count = ?', event_user.id, 0 ).each do |entry_table| %>
 							<%= entry_table.music.title %>(<%= entry_table.part.part_name %>)<br>
 						<% end %>
 					</td>
 					<td>
-						<% @entry_tables.joins(:music).where('event_user_id = ? and establishment_status = ?', event_user.id, 0 ).each do |entry_table| %>
+						<% @entry_tables.joins(:music).where('event_user_id = ? and establishment_count > ?', event_user.id, 0 ).each do |entry_table| %>
 							<%= entry_table.music.title %>(<%= entry_table.part.part_name %>)<br>
 						<% end %>
 					</td>

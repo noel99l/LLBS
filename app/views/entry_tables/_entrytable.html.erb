@@ -40,10 +40,8 @@
 										<% end %>
 									<!-- ユーザーがイベントに参加していない時 -->
 									<% else %>
-										<% if event.entry_start_time <= now && now < event.entry_finish_time %>
+										<% if now < event.entry_finish_time %>
 											<a class="link" data-toggle="modal" data-target="#attendanceModal">エントリー</a>
-										<% elsif event.entry_start_time > now %>
-											<a class="link" data-toggle="modal" data-target="#notentryModal">エントリー</a>
 										<% elsif now >= event.entry_finish_time %>
 											受付終了
 										<% end %>
@@ -88,10 +86,8 @@
 										<% end %>
 									<!-- ユーザーがイベントに参加していない時 -->
 									<% else %>
-										<% if event.entry_start_time <= now && now < event.entry_finish_time %>
+										<% if now < event.entry_finish_time %>
 											<a class="link" data-toggle="modal" data-target="#attendanceModal">(エントリー)</a>
-										<% elsif event.entry_start_time > now %>
-											<a class="link" data-toggle="modal" data-target="#notentryModal">(エントリー)</a>
 										<% elsif now >= event.entry_finish_time %>
 											受付終了
 										<% end %>

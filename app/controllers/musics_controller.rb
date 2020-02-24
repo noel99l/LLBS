@@ -64,11 +64,7 @@ class MusicsController < ApplicationController
     if @music.update!(music_params)
       @music.establishment_count = @music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count
       @music.save
-      if params[:name] == "lyric"
-        flash[:success] = "#{@music.title}のパート分けを更新しました！"
-      else
       flash[:success] = "#{@music.title}を更新しました！"
-    end
       redirect_to event_music_path(@music.event.friendly_url, @music)
     else
       @event = Event.friendly.find(params[:event_id])

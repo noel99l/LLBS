@@ -8,7 +8,7 @@
             <div class="form-user style-1 rounded has-shadow-1">
                 <div class="form-header">
                     <div class="form-header text-center">
-                        <h2 class="form-header-title">新規掲示板</h2>
+                        <h2 class="form-header-title">新規掲示板作成</h2>
                     </div>
                     <%= form_for [@event, @event_thread], url: event_threads_confirm_path(@event.friendly_id) do |f| %>
                     <%= render 'layouts/error_messages', model: f.object %>

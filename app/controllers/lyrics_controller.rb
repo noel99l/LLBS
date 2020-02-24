@@ -24,7 +24,8 @@ class LyricsController < ApplicationController
     lyric.save
     music.lyric_id = Lyric.last.id
     music.save
-    flash[:success] = "#{music.title}の歌詞分けを新規作成、登録しました！"
+    calculate_level(5)
+    flash[:success] = "#{music.title}の歌詞分けを作成しました！"
     redirect_to event_music_path(music.event.friendly_url, music)
   end
 
@@ -44,7 +45,7 @@ class LyricsController < ApplicationController
   	music = Music.find(params[:music_id])
   	lyric = Lyric.find(params[:id])
   	lyric.update(lyric_params)
-  	flash[:success] = "#{music.title}の歌詞分けを更新しました！"
+  	flash[:success] = "#{music.title}のパート分けを編集しました！"
   	redirect_to event_music_path(music.event.friendly_url, music)
   end
 
@@ -58,8 +59,19 @@ class LyricsController < ApplicationController
   def select
     music = Music.find(params[:music_id])
     music.update(music_params)
-    flash[:success] = "#{music.title}の歌詞分けを登録しました！"
+    flash[:success] = "#{music.title}のパート分けを更新しました！"
     redirect_to event_music_path(music.event.friendly_url, music)
+  end
+
+  def calculate_level(exp)
+    if exp < 0
+      current_user.level_up?(exp)
+      flash[:info] = "パート分け削除 #{exp.to_i}pt"
+    elsif current_user.level_up?(exp)
+      flash[:info] = "パート分け追加 #{exp.to_i}pt Get! Level UP!!"
+    else
+      flash[:info] = "パート分け追加 #{exp.to_i}pt Get!"
+    end
   end
 
   private

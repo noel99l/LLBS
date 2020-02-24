@@ -1,4 +1,4 @@
-<% content_for(:html_title) { "歌詞登録" } %>
+<% content_for(:html_title) { "パート分け登録" } %>
 <div class="container">
     <div class="row">
     	<%= render 'events/event-header', event: @event, event_users: @event_users %>
@@ -7,7 +7,7 @@
 	            <div class="form-user style-1 rounded has-shadow-1">
 	                <div class="form-header">
 	                    <div class="form-header text-center">
-	                        <h2 class="form-header-title">歌詞新規作成</h2>
+	                        <h2 class="form-header-title">新規パート分け作成</h2>
 	                    </div>
 				    	<%= form_for @lyric,url:event_music_lyric_new_confirm_path(@event.friendly_url, @music) do |f| %>
 					    	<table class="table table-bordered">
@@ -41,8 +41,8 @@
 			</div>
 		<% else %>
 	    	<ul class="nav nav-tabs">
-				<li class="active"><a href="#ContentA" data-toggle="tab">歌詞登録</a></li>
-				<li><a href="#ContentB" data-toggle="tab">歌詞新規作成</a></li>
+				<li class="active"><a href="#ContentA" data-toggle="tab">パート分け選択</a></li>
+				<li><a href="#ContentB" data-toggle="tab">パート分け新規作成</a></li>
 			</ul>
 			<div class="tab-content">
 				<div class="tab-pane fade in active" id="ContentA">
@@ -51,7 +51,7 @@
 							<div class="form-user style-1 rounded has-shadow-1">
 				                <div class="form-header">
 				                    <div class="form-header text-center">
-				                        <h2 class="form-header-title">歌詞登録</h2>
+				                        <h2 class="form-header-title">パート分け選択</h2>
 				                    </div>
 							    	<%= form_for @music,url:event_music_lyric_select_confirm_path(@event.friendly_url, @music) do |f| %>
 								    	<table class="table table-bordered">
@@ -85,7 +85,7 @@
 			            <div class="form-user style-1 rounded has-shadow-1">
 			                <div class="form-header">
 			                    <div class="form-header text-center">
-			                        <h2 class="form-header-title">歌詞新規作成</h2>
+			                        <h2 class="form-header-title">新規パート分け作成</h2>
 			                    </div>
 						    	<%= form_for @lyric,url:event_music_lyric_new_confirm_path(@event.friendly_url, @music) do |f| %>
 							    	<table class="table table-bordered">
