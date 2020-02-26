@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+    post '/callback' => 'linebot#callback'
 	devise_for :admins, controllers: {
     sessions:      'admins/sessions',
     passwords:     'admins/passwords',

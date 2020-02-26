@@ -1,8 +1,8 @@
-<% content_for(:html_title) { "#{@event.friendly_url}編集確認" } %>
+<% content_for(:html_title) { "#{@event.friendly_url}編集" } %>
 <div class="container">
     <div class="row"><div class="container">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
+        <div class="col-md-10 col-md-offset-1">
             <div class="form-user style-1 rounded has-shadow-1">
                 <div class="form-header">
                     <div class="form-header text-center">
@@ -140,7 +140,7 @@
         			</table>
         			<% end %>
                     <div class="actions">
-                      <%= f.submit 'イベントを編集', class:"btn btn-primary btn-block" %>
+                      <%= f.submit 'イベントを編集', class:"btn btn-lg btn-primary btn-block" %>
                     </div>
                   <% end %>
                 </div>

@@ -84,6 +84,8 @@ gem 'trix'
 gem 'geocoder'
 gem 'dotenv-rails'
 gem 'twitter'
+gem 'line-bot-api'
+
 
 
 gem 'rubocop', require: false
