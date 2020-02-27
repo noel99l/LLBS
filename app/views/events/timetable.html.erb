@@ -1,0 +1,49 @@
+<div class="table-responsive">
+	<table class="table table-bordered" style="table-layout:fixed;">
+		<thead>
+			<tr class="info">
+				<th class="active" style="width:100px;">曲名</th>
+				<th class="active" style="width:100px;">アーティスト名</th>
+				<% parts.each do |part| %>
+					<th class="active" style="width:80px;"><%= part.part_name %></th>
+				<% end %>
+			</tr>
+			<% musics.each do |music| %>
+			<tr>
+				<th>
+					<div>
+					<%= link_to "#{music.title}", event_music_path(event.friendly_url, music.id) %>
+					</div>
+				</th>
+				<td>
+					<%= music.artist %>
+				</td>
+				<% parts.each do |part| %>
+					<td>
+						<!-- パートが不要な時 -->
+						<% if entry_tables.find_by(music_id: music, part_id: part)&.requirement_status == "不要" %>
+						<!-- 空欄 -->
+						<!-- エントリーステータスが必須の時 -->
+						<% elsif entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "必須" %>
+							<!-- 楽曲にユーザーがエントリーしていない時 -->
+							<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
+							<!-- 楽曲にユーザーがエントリーしている時 -->
+							<% else %>
+								<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+							<% end %>
+						<!-- エントリーステータスが任意の時 -->
+						<% elsif entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "任意" %>
+							<!-- 楽曲にユーザーがエントリーしていない時 -->
+							<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
+							<!-- 楽曲にユーザーがエントリーしている時 -->
+							<% else %>
+								<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+							<% end %>
+						<% end %>
+					</td>
+				<% end %>
+				</tr>
+			<% end %>
+		</thead>
+	</table>
+</div>

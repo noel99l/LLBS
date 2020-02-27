@@ -34,6 +34,9 @@
 					</tbody>
 				</table>
 				<div class="text-right">
+					<%= link_to event_timetable_path(@event.friendly_url), class:"btn btn-lg btn-info" do %>
+						<i class="fas fa-users"></i> タイムテーブル
+					<% end %>
 					<%= link_to event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning" do %>
 						<i class="fas fa-beer icon_custom,"></i> 打ち上げ詳細
 					<% end %>
@@ -56,11 +59,18 @@
 
 		<div class="col-xs-12 clearfix">
 			<h3>楽曲一覧　<span style="font-size:15px;" >エントリー期間:　<%= @event.entry_start_time %> 〜 <%= @event.entry_finish_time %></h3>
-			<h4>成立曲 (<%= @complete_musics.count %>曲)</h4>
+			<h4>成立曲 (<%= @complete_musics.count %>曲)
+				<span style="font-size: 15px;">
+					<%= link_to ">>CSV出力", event_path(@event, format: :csv, name: "complete"), class: "pull-right" %>
+				</span>
+			</h4>
 			<%= render 'entry_tables/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @complete_musics, now: @now %>
 
-			<br>
-			<h4>未成立曲 (<%= @incomplete_musics.count %>曲)</h4>
+			<h4>未成立曲 (<%= @incomplete_musics.count %>曲)
+				<span style="font-size: 15px;">
+					<%= link_to ">>CSV出力", event_path(@event, format: :csv, name: "incomplete"), class: "pull-right" %>
+				</span>
+			</h4>
 			<%= render 'entry_tables/entrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @incomplete_musics, now: @now %>
 
 			<% if user_signed_in? && @event_users.where(user_id: current_user.id).presence && @event.finish_time > @now %>

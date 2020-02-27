@@ -18,6 +18,7 @@ Rails.application.routes.draw do
     patch 'users/twitter_update/:id' => 'users#twitter_update', as: 'user_twitter_update'
     resources :users, only: [:show, :edit, :update]
     resources :events, only: [:show, :index] do
+        get '/timetable' => 'events#timetable', as: 'timetable'
         get '/confirm' => 'events#confirm', as: 'confirm'
         get '/afterparty' => 'after_parties#show', as: 'party'
         resources :event_users, only: [:index, :create, :update, :destroy]
