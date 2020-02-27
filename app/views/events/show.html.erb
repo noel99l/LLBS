@@ -34,10 +34,7 @@
 					</tbody>
 				</table>
 				<div class="text-right">
-					<%= link_to event_timetable_path(@event.friendly_url), class:"btn btn-lg btn-info" do %>
-						<i class="fas fa-users"></i> タイムテーブル
-					<% end %>
-					<%= link_to event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning" do %>
+					<%= link_to event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning", data: {"turbolinks" => false} do %>
 						<i class="fas fa-beer icon_custom,"></i> 打ち上げ詳細
 					<% end %>
 					<%= link_to event_event_users_path(@event.friendly_url), class:"btn btn-lg btn-info" do %>
