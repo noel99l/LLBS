@@ -85,9 +85,7 @@ gem 'geocoder'
 gem 'dotenv-rails'
 gem 'twitter'
 gem 'line-bot-api'
-
-
-
+gem 'acts_as_list'
 gem 'rubocop', require: false
 gem 'rubocop-rails'
 

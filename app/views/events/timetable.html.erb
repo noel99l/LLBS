@@ -1,49 +1,97 @@
-<div class="table-responsive">
-	<table class="table table-bordered" style="table-layout:fixed;">
-		<thead>
-			<tr class="info">
-				<th class="active" style="width:100px;">曲名</th>
-				<th class="active" style="width:100px;">アーティスト名</th>
-				<% parts.each do |part| %>
-					<th class="active" style="width:80px;"><%= part.part_name %></th>
-				<% end %>
-			</tr>
-			<% musics.each do |music| %>
-			<tr>
-				<th>
-					<div>
-					<%= link_to "#{music.title}", event_music_path(event.friendly_url, music.id) %>
-					</div>
-				</th>
-				<td>
-					<%= music.artist %>
-				</td>
-				<% parts.each do |part| %>
-					<td>
-						<!-- パートが不要な時 -->
-						<% if entry_tables.find_by(music_id: music, part_id: part)&.requirement_status == "不要" %>
-						<!-- 空欄 -->
-						<!-- エントリーステータスが必須の時 -->
-						<% elsif entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "必須" %>
-							<!-- 楽曲にユーザーがエントリーしていない時 -->
-							<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
-							<!-- 楽曲にユーザーがエントリーしている時 -->
+<% content_for(:html_title) { "#{@event.event_name}タイムテーブル" } %>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+<div class="container">
+    <div class="row">
+    	<div class="form-header text-center">
+            <h2 class="form-header-title">
+            	<%= @event.event_name %>タイムテーブル</h2>
+        </div>
+		<div class="table-responsive">
+			<table class="table table-bordered table-sortable" style="table-layout:fixed;" id="sortable">
+				<thead>
+					<tr class="info">
+						<th class="active" style="width:100px;">曲名</th>
+						<th class="active" style="width:100px;">アーティスト名</th>
+						<% @parts.each do |part| %>
+							<th class="active" style="width:80px;"><%= part.part_name %></th>
+						<% end %>
+					</tr>
+				</thead>
+				<tbody>
+					<% @musics.each do |music| %>
+					<tr class="item">
+						<th>
+							<div>
+							<%= link_to "#{music.title}", event_music_path(@event.friendly_url, music.id) %>
+							</div>
+						</th>
+						<td>
+							<%= music.artist %>
+						</td>
+						<% @parts.each do |part| %>
+							<!-- パートが不要な時 -->
+							<% if @entry_tables.find_by(music_id: music, part_id: part)&.requirement_status == "不要" %>
+							<td>
+							<!-- エントリーステータスが必須または任意の時 -->
 							<% else %>
-								<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
-							<% end %>
-						<!-- エントリーステータスが任意の時 -->
-						<% elsif entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "任意" %>
-							<!-- 楽曲にユーザーがエントリーしていない時 -->
-							<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
-							<!-- 楽曲にユーザーがエントリーしている時 -->
-							<% else %>
-								<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+								<!-- 楽曲にユーザーがエントリーしていない時 -->
+								<% if @entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
+									<td>
+								<!-- 楽曲にエントリーしているユーザーが本人の時 -->
+								<% elsif @entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user == current_user %>
+									<td class="danger">
+										<%= link_to "#{@entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(@entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+								<!-- 楽曲にユーザーがエントリーしている時 -->
+								<% else %>
+									<td>
+									<%= link_to "#{@entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(@entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+								<% end %>
+								</td>
 							<% end %>
 						<% end %>
-					</td>
-				<% end %>
-				</tr>
-			<% end %>
-		</thead>
-	</table>
+						</tr>
+					<% end %>
+				</tbody>
+			</table>
+
+			<div class="col-xs-12 clearfix">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h4 class="panel-title">注意事項</h4>
+					</div>
+					<div class="panel-body">
+						<h4>イベント当日に関する注意</h4>
+						・セッション参加3つのルール(①怪我をしないさせない　②転換演奏込み10分　③貴重品の管理は自己責任)は全員必ず守りましょう！<br>
+						・機材置き場には限りがございますので、可能な限り荷物は少なめにお願いいたします。<br>
+						・最初の受付時にイベント参加費(<%= @event.performance_fee %>円 or <%= @event.visit_fee %>円)と打ち上げ参加費(<%= @event.after_party.party_fee %>円)を合わせて徴収させていただきますので事前に用意をお願いします。<br>
+						・セッティング完了後の音出し厳禁！！円滑な進行のためにもご協力お願いいたします。<br>
+						<br>
+						<%= link_to event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning pull-right", data: {"turbolinks" => false} do %>
+							<i class="fas fa-beer icon_custom,"></i> 打ち上げ詳細
+						<% end %>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 </div>
+<script>
+$(function(){
+  $("#sortable").sortable({
+  items: ".item",
+  axis: "y",
+  onUpdate: function(evt) {
+    return $.ajax({
+      url: 'event/' + $("#event_id").val() + '/sort',
+      type: 'patch',
+      data: {
+        from: evt.oldIndex,
+        to: evt.newIndex
+      }
+    });
+  }
+  });
+});
+</script>

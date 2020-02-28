@@ -20,7 +20,6 @@
 @import 'bootstrap-datetimepicker';
 @import url(//fonts.googleapis.com/earlyaccess/notosansjapanese.css);
 @import "trix";
-
 .wf-notosansjapanese {
 font-family: 'Noto Sans Japanese', serif;
 }
@@ -106,6 +105,11 @@ min-height: 600px;
 #map{
   width: 100%;
   height: 500px;
+}
+
+#map2{
+  width: 100%;
+  height: 300px;
 }
 
 .icon-custom {

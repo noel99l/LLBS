@@ -68,6 +68,13 @@ class EventsController < ApplicationController
     @parts = Part.where(event_id: @event.id).order(:id)
     @event_users = EventUser.where(event_id: @event.id)
     @entry_tables = EntryTable.where(part_id: @parts)
-    @complete_musics = Music.where(event_id: @event, establishment_count:0).order(:updated_at)
+    @musics = Music.where(event_id: @event, establishment_count:0).order(:updated_at)
+  end
+
+  def sort
+    @event = Event.friendly.find(params[:event_id])
+    music = @event.music(params[:from].to_i)
+    music.insert_at(params[:to].to_i + 1)
+    head :ok
   end
 end

@@ -53,8 +53,10 @@
                 <div class="panel-heading">
                     パート分け
                     <% if @music.lyric_id.present? %> (<%= @music.lyric.user.name %>さん作成)<% end %>
-                    <% if @event_users.where(user_id: current_user.id).presence %>
-                        <%= link_to "歌詞登録", new_event_music_lyric_path(@event.friendly_url, @music), class:"pull-right" %>
+                    <% if user_signed_in? %>
+                        <% if @event_users.where(user_id: current_user.id).presence %>
+                            <%= link_to "歌詞登録", new_event_music_lyric_path(@event.friendly_url, @music), class:"pull-right" %>
+                        <% end %>
                     <% end %>
                 </div>
                 <div class="panel-body">
@@ -63,8 +65,10 @@
                             歌詞が登録されていません
                         <% else %>
                             <%= sanitize @music.lyric.lyric, attributes:  %w(id class href) %>
-                            <% if @music.lyric.user_id == current_user.id %>
-                                <%= link_to "パート分けを編集する", edit_event_music_lyric_path(@event.friendly_url, @music, @music.lyric_id), class:"pull-right" %>
+                            <% if user_signed_in? %>
+                                <% if @music.lyric.user_id == current_user.id %>
+                                    <%= link_to "パート分けを編集する", edit_event_music_lyric_path(@event.friendly_url, @music, @music.lyric_id), class:"pull-right" %>
+                                <% end %>
                             <% end %>
                         <% end %>
                     </div>

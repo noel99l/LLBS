@@ -10,6 +10,10 @@
 						<% else %>
 							<p class="pull-right">参加中</p>
 						<% end %>
+					<% else %>
+						<div class="btn btn-lg btn-primary pull-right">
+							<a class="link" data-toggle="modal" data-target="#loginModal" style="color:white;">参加する！</a>
+						</div>
 					<% end %>
 				</h2>
 			<%= event.date.to_s(:date) %> (<%= event.start_time.to_s(:time) %>〜<%= event.finish_time.to_s(:time) %>)
@@ -17,3 +21,4 @@
 		</div>
 	</div>
 </div>
+<%= render 'homes/modal_signin' %>

@@ -61,6 +61,7 @@ end
 				music.remarks = "LLBS#{n}music#{o}の曲です"
 				music.user_id = o % 10 + 1
 				music.lyric_id = 1
+				position = o
 			end
 	}
 	4.times{ |p|

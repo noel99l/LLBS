@@ -1,5 +1,5 @@
 class Event < ApplicationRecord
-	has_many :musics, dependent: :destroy
+	has_many :musics, -> { order(position: :asc) }, dependent: :destroy
 	has_many :event_users, dependent: :destroy
 	has_many :parts, dependent: :destroy
 	has_many :part_tables, dependent: :destroy

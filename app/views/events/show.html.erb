@@ -34,8 +34,11 @@
 					</tbody>
 				</table>
 				<div class="text-right">
+					<%= link_to event_timetable_path(@event.friendly_url), class:"btn btn-lg btn-success", data: {"turbolinks" => false} do %>
+						<i class="fas fa-list"></i> タイムテーブル 
+					<% end %>
 					<%= link_to event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning", data: {"turbolinks" => false} do %>
-						<i class="fas fa-beer icon_custom,"></i> 打ち上げ詳細
+						<i class="fas fa-beer icon_custom,"></i> 打ち上げ詳細 
 					<% end %>
 					<%= link_to event_event_users_path(@event.friendly_url), class:"btn btn-lg btn-info" do %>
 						<i class="fas fa-users"></i> 参加者一覧
@@ -44,7 +47,7 @@
 			</div>
 		</div>
 		<div class="col-xs-12">
-		 	<div class="panel panel-default">
+		 	<div class="panel panel-default panel-info">
 		    	<div class="panel-heading">イベント概要</div>
 		    	<div class="panel-body">
 		    		<%= sanitize @event.overview, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %>
