@@ -236,7 +236,7 @@ GEM
     pry-rails (0.3.9)
       pry (>= 0.10.4)
     public_suffix (4.0.3)
-    puma (3.12.3)
+    puma (3.12.4)
     rack (2.2.2)
     rack-protection (2.0.8.1)
       rack
@@ -341,9 +341,6 @@ GEM
     tilt (2.0.10)
     trix (0.10.1)
       rails
-    turbolinks (5.2.1)
-      turbolinks-source (~> 5.2)
-    turbolinks-source (5.2.0)
     twitter (7.0.0)
       addressable (~> 2.3)
       buftok (~> 0.2.0)
@@ -421,7 +418,6 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0.0)
   sqlite3
   trix
-  turbolinks (~> 5)
   twitter
   tzinfo-data
   uglifier (>= 1.3.0)

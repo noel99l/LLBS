@@ -19,7 +19,7 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :edit, :update]
     resources :events, only: [:show, :index] do
         get '/timetable' => 'events#timetable', as: 'timetable'
-        patch '/:id/sort' => 'events#sort'
+        patch '/timetable/sort' => 'events#sort'
         get '/confirm' => 'events#confirm', as: 'confirm'
         get '/afterparty' => 'after_parties#show', as: 'party'
         resources :event_users, only: [:index, :create, :update, :destroy]

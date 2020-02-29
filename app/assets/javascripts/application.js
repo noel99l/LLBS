@@ -12,8 +12,8 @@
 //
 //= require rails-ujs
 //= require activestorage
-//= require turbolinks
 //= require jquery
+//= require jquery_ujs
 //= require bootstrap-sprockets
 //= require cocoon
 //= require moment
@@ -22,10 +22,50 @@
 //= require trix
 //= require_tree .
 
-var data = {'data-format': 'yyyy-MM-dd hh:mm:ss' };
+
+// タイムテーブル並べ替え
 $(function(){
-    $('.datepicker').attr(data);
-    $('.datepicker').datetimepicker();
+  // トークンの取得
+   $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+      var token;
+      if (!options.crossDomain) {
+        token = $('meta[name="csrf-token"]').attr('content');
+        if (token) {
+             return jqXHR.setRequestHeader('X-CSRF-Token', token);
+         }
+      }
+  });
+
+  // テーブルの横幅をとってくる
+   function fixPlaceHolderWidth(event, ui){
+        // adjust placeholder td width to original td width
+        ui.children().each(function(){
+            $(this).width($(this).width());
+        });
+        return ui;
+    };
+  // sortable
+    var el = document.getElementById('sortable');
+    if (el !== null) {
+      return sortable = Sortable.create(el, {
+        // テーブルの横幅をそのままに
+        start: function(event, ui){
+            ui.placeholder.height(ui.helper.outerHeight());
+        },
+        helper: fixPlaceHolderWidth,
+        // 移動した時
+        onUpdate: function(evt) {
+          return $.ajax({
+            url: 'timetable/sort',
+            type: 'patch',
+            data:{
+              from: evt.oldIndex,
+              to: evt.newIndex
+            }
+          });
+        }
+      });
+  };
 });
 
 
@@ -102,4 +142,11 @@ $(document).on('turbolinks:load', function(){
     // 1枚目のスライド表示時に戻る矢印を表示するかどうか（falseで非表示）
     hidePrevious : false
   });
+});
+
+
+var data = {'data-format': 'yyyy-MM-dd hh:mm:ss' };
+$(function(){
+    $('.datepicker').attr(data);
+    $('.datepicker').datetimepicker();
 });

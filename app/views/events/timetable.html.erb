@@ -9,7 +9,7 @@
             	<%= @event.event_name %>タイムテーブル</h2>
         </div>
 		<div class="table-responsive">
-			<table class="table table-bordered table-sortable" style="table-layout:fixed;" id="sortable">
+			<table class="table table-bordered" style="table-layout:fixed;">
 				<thead>
 					<tr class="info">
 						<th class="active" style="width:100px;">曲名</th>
@@ -19,7 +19,7 @@
 						<% end %>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="sortable">
 					<% @musics.each do |music| %>
 					<tr class="item">
 						<th>
@@ -33,28 +33,30 @@
 						<% @parts.each do |part| %>
 							<!-- パートが不要な時 -->
 							<% if @entry_tables.find_by(music_id: music, part_id: part)&.requirement_status == "不要" %>
-							<td>
+							<td>　</td>
 							<!-- エントリーステータスが必須または任意の時 -->
 							<% else %>
 								<!-- 楽曲にユーザーがエントリーしていない時 -->
 								<% if @entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
-									<td>
+									<td>　</td>
 								<!-- 楽曲にエントリーしているユーザーが本人の時 -->
 								<% elsif @entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user == current_user %>
 									<td class="danger">
 										<%= link_to "#{@entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(@entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+									</td>
 								<!-- 楽曲にユーザーがエントリーしている時 -->
 								<% else %>
 									<td>
 									<%= link_to "#{@entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(@entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+									</td>
 								<% end %>
-								</td>
 							<% end %>
 						<% end %>
 						</tr>
 					<% end %>
 				</tbody>
 			</table>
+			<%= hidden_field_tag :event_id, @event.id %>
 
 			<div class="col-xs-12 clearfix">
 				<div class="panel panel-info">
@@ -68,7 +70,7 @@
 						・最初の受付時にイベント参加費(<%= @event.performance_fee %>円 or <%= @event.visit_fee %>円)と打ち上げ参加費(<%= @event.after_party.party_fee %>円)を合わせて徴収させていただきますので事前に用意をお願いします。<br>
 						・セッティング完了後の音出し厳禁！！円滑な進行のためにもご協力お願いいたします。<br>
 						<br>
-						<%= link_to event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning pull-right", data: {"turbolinks" => false} do %>
+						<%= link_to event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning pull-right" do %>
 							<i class="fas fa-beer icon_custom,"></i> 打ち上げ詳細
 						<% end %>
 					</div>
@@ -77,21 +79,3 @@
 		</div>
 	</div>
 </div>
-<script>
-$(function(){
-  $("#sortable").sortable({
-  items: ".item",
-  axis: "y",
-  onUpdate: function(evt) {
-    return $.ajax({
-      url: 'event/' + $("#event_id").val() + '/sort',
-      type: 'patch',
-      data: {
-        from: evt.oldIndex,
-        to: evt.newIndex
-      }
-    });
-  }
-  });
-});
-</script>

@@ -6,7 +6,7 @@
 					    <% if event.finish_time < Time.current %>
 					    	<p class="pull-right">終了</p>
 					    <% elsif event_users.where(user_id: current_user.id).empty? %>
-						<%= link_to "参加する！", event_confirm_path(event.friendly_url), data: {"turbolinks" => false} , class: "btn btn-lg btn-primary pull-right"%>
+						<%= link_to "参加する！", event_confirm_path(event.friendly_url), class: "btn btn-lg btn-primary pull-right"%>
 						<% else %>
 							<p class="pull-right">参加中</p>
 						<% end %>
