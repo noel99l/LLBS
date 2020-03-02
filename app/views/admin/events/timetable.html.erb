@@ -1,4 +1,6 @@
-<% content_for(:html_title) { "#{@event.event_name}タイムテーブル" } %>
+<% content_for(:html_title) { "#{@event.event_name}タイムテーブル作成" } %>
+<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 <div class="container">
     <div class="row">
@@ -17,7 +19,7 @@
 						<% end %>
 					</tr>
 				</thead>
-				<tbody>
+				<tbody id="sortable">
 					<% @musics.each do |music| %>
 					<tr>
 						<th>
@@ -55,25 +57,13 @@
 				</tbody>
 			</table>
 			<%= hidden_field_tag :event_id, @event.id %>
+			<%= form_for @event, url: admin_event_path(@event), method: :patch do |f| %>
+				公開設定：<%= f.select :timetable_releace, {公開: 1, 非公開: 0}, onchange:"submit(this.form)" %>
+			<%= f.submit "購入を確定する", class:"btn btn-primary btn-lg center-block" %>
+			<% end %>
 
-			<div class="col-xs-12 clearfix">
-				<div class="panel panel-info">
-					<div class="panel-heading">
-						<h4 class="panel-title">注意事項</h4>
-					</div>
-					<div class="panel-body">
-						<h4>イベント当日に関する注意</h4>
-						・セッション参加3つのルール(①怪我をしないさせない　②転換演奏込み10分　③貴重品の管理は自己責任)は全員必ず守りましょう！<br>
-						・機材置き場には限りがございますので、可能な限り荷物は少なめにお願いいたします。<br>
-						・最初の受付時にイベント参加費(<%= @event.performance_fee %>円 or <%= @event.visit_fee %>円)と打ち上げ参加費(<%= @event.after_party.party_fee %>円)を合わせて徴収させていただきますので事前に用意をお願いします。<br>
-						・セッティング完了後の音出し厳禁！！円滑な進行のためにもご協力お願いいたします。<br>
-						<br>
-						<%= link_to event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning pull-right" do %>
-							<i class="fas fa-beer icon_custom,"></i> 打ち上げ詳細
-						<% end %>
-					</div>
-				</div>
-			</div>
+			<%= link_to "公開", admin_event_timetable_releace_path(@event.friendly_url), method: :patch %>
+
 		</div>
 	</div>
 </div>

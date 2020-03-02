@@ -90,6 +90,8 @@ ActiveRecord::Schema.define(version: 2020_02_27_112454) do
     t.integer "performance_fee"
     t.integer "visit_fee"
     t.string "image_id"
+    t.boolean "releace_flag", default: false, null: false
+    t.boolean "timetable_releace", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["event_name"], name: "index_events_on_event_name", unique: true

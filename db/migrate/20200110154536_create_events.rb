@@ -15,6 +15,8 @@ class CreateEvents < ActiveRecord::Migration[5.2]
 	t.integer :performance_fee
 	t.integer :visit_fee
 	t.string :image_id
+	t.boolean :releace_flag, default: false, null: false
+	t.boolean :timetable_releace, default: false, null: false
   	t.timestamps
     end
   end

@@ -71,10 +71,4 @@ class EventsController < ApplicationController
     @musics = Music.where(event_id: @event, establishment_count:0).order(:position)
   end
 
-  def sort
-    event = Event.friendly.find(params[:event_id])
-    music = event.musics.find_by(event_id: event, establishment_count: 0, position: params[:from].to_i + 1)
-    music.insert_at(params[:to].to_i + 1)
-    head :ok
-  end
 end

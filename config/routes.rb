@@ -19,7 +19,6 @@ Rails.application.routes.draw do
     resources :users, only: [:show, :edit, :update]
     resources :events, only: [:show, :index] do
         get '/timetable' => 'events#timetable', as: 'timetable'
-        patch '/timetable/sort' => 'events#sort'
         get '/confirm' => 'events#confirm', as: 'confirm'
         get '/afterparty' => 'after_parties#show', as: 'party'
         resources :event_users, only: [:index, :create, :update, :destroy]
@@ -47,6 +46,9 @@ Rails.application.routes.draw do
     namespace :admin do
       post 'events/new_confirm' => 'events#new_confirm', as: 'new_confirm'
       resources :events do
+        get '/timetable' => 'events#timetable', as: 'timetable'
+        patch '/timetable/releace' => 'events#timetable_releace', as: 'timetable_releace'
+        patch '/timetable/sort' => 'events#sort'
         patch 'edit_confirm' => 'events#edit_confirm', as: 'edit_confirm'
         resources :entry_tables, only: [:update]
         resources :event_users, only: [:index, :update, :destroy]

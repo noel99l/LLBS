@@ -73,7 +73,7 @@ class Admin::EventsController < AdminController
     event.create_finish_time
     event.save(event_params)
     flash[:success] = "#{event.event_name}を更新しました！"
-    redirect_to admin_event_path(event)
+    redirect_to admin_events_path(event)
   end
 
   def destroy
@@ -87,11 +87,37 @@ class Admin::EventsController < AdminController
     end
   end
 
+  def timetable
+    @event = Event.friendly.find(params[:event_id])
+    @parts = Part.where(event_id: @event.id).order(:id)
+    @event_users = EventUser.where(event_id: @event.id)
+    @entry_tables = EntryTable.where(part_id: @parts)
+    @musics = Music.where(event_id: @event, establishment_count:0).order(:position)
+  end
+
+  def sort
+    event = Event.friendly.find(params[:event_id])
+    music = event.musics.find_by(event_id: event, establishment_count: 0, position: params[:from].to_i + 1)
+    music.insert_at(params[:to].to_i + 1)
+    head :ok
+  end
+
+  def timetable_releace
+    event = Event.friendly.find(params[:event_id])
+    if event.timetable_releace == true
+      event.timetable_releace = false
+    elsif event.timetable_releace == false
+      event.timetable_releace = true
+    end
+    event.save
+    redirect_back(fallback_location: admin_event_timetable_path(event.friendly_url))
+  end
+
   private
   def event_params
     params.require(:event).permit(:after_party_id, :event_name, :friendly_url, :overview, :date,
       :meeting_time, :start_time, :finish_time, :entry_start_time, :entry_finish_time,
-      :place, :place_url, :performance_fee, :visit_fee, :image, :remote_image_url,
+      :place, :place_url, :performance_fee, :visit_fee, :image, :remote_image_url,:releace_flag, :timetable_releace,
       check_val: [:observe],
       parts_attributes: [:event_id, :part_name, :_destroy, :id],
       part_tables_attributes: [:event_id, :part_name, :count, :observe, :id, :_destroy],
