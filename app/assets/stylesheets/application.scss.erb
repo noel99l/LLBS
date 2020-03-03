@@ -263,7 +263,6 @@ min-height: 600px;
     background-image: url(<%= asset_url 'LLBS_image1.jpg' %>);
     background-size: cover;
     background-position: center;
-    margin-bottom: -70px;
 }
 
 .mv-title {
@@ -273,3 +272,73 @@ min-height: 600px;
     width:800px;
     height:200px;
 }
+
+#portfolio {
+    background-color: #ECEFF1;
+}
+
+.heading {
+    padding-top: 90px;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: 32px;
+}
+
+.heading::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 3px;
+    margin: 8px auto 0 auto;
+    background-color: #EC715F;
+}
+
+.heading-text {
+    padding-top: 30px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.production-group {
+    width: 920px;
+    padding: 30px 0 90px 0;
+    margin: 0 auto;
+}
+
+.production {
+    float: left;
+    width: 300px;
+    height: 250px;
+    margin: 10px 10px 0 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.production:nth-child(3n) {
+    margin-right: 0;
+}
+
+.bg-1 {
+    background-image: url(<%= asset_url 'LLBS_image2.jpg' %>);
+}
+
+.bg-2 {
+    background-image: url(<%= asset_url 'LLBS_image3.jpg' %>);
+}
+
+.bg-3 {
+    background-image: url(<%= asset_url 'LLBS_image4.jpg' %>);
+}
+
+.bg-4 {
+    background-image: url(<%= asset_url 'LLBS_image5.jpg' %>);
+}
+
+.bg-5 {
+    background-image: url(<%= asset_url 'LLBS_image1.jpg' %>);
+}
+
+.bg-6 {
+    background-image: url(<%= asset_url 'LLBS_image1.jpg' %>);
+}
+
