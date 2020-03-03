@@ -1,28 +1,6 @@
 <% content_for(:html_title) { "トップページ" } %>
-<div class="skippr-container center">
-    <div id="theTarget">
-        <div class="img-size" style="background-image: url(<%= asset_url 'LLBS_image1.jpg' %>)"></div>
-        <div class="img-size" style="background-image: url(<%= asset_url 'LLBS_image2.jpg' %>)"></div>
-        <div class="img-size" style="background-image: url(<%= asset_url 'LLBS_image3.jpg' %>)"></div>
-        <div class="img-size" style="background-image: url(<%= asset_url 'LLBS_image4.jpg' %>)"></div>
-        <div class="img-size" style="background-image: url(<%= asset_url 'LLBS_image5.jpg' %>)"></div>
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-    	<h1>LLBSへようこそ！</h1>
-		<p>イベント一覧から気になるイベントを探してみてください！</p>
-	</div>
-</div>
-
-<div id='sosyal'>
-   <%= link_to 'Twitter', "https://twitter.com/share?url=#{request.url}&text=LLBS トップページ", class: 'twitter', title: 'Twitter', target: '_blank' %>
-   <%= link_to 'Facebook', "https://www.facebook.com/sharer/sharer.php?u=#{request.url}&text=タイトル", class: 'facebook', title: 'Facebook', target: '_blank' %>
-   <%= link_to 'LINE', "http://line.me/R/msg/text/?#{request.url}&text=タイトル", class: 'line', title: 'LINE', target: '_blank' %>
-</div>
-
-<a class="twitter-timeline" data-lang="ja" data-width="300" data-height="500" href="https://twitter.com/LLBS_log?ref_src=twsrc%5Etfw">Tweets by LLBS_log</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<a href="https://twitter.com/LLBS_log?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-lang="ja" data-dnt="true" data-show-count="false">Follow @LLBS_log</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-
-<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<section id="mv">
+  <div class="container">
+    <%= image_tag('LLBS_LOGO5.png', class:"mv-title") %>
+  </div>
+</section>
