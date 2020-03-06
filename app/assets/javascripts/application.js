@@ -116,6 +116,10 @@ function previewFile() {
   }
 }
 
+function previewLyric() {
+  var preview = document.getElementById('lyric_preview');
+}
+
 
 var data = {'data-format': 'yyyy-MM-dd hh:mm:ss' };
 $(function(){

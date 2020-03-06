@@ -30,8 +30,11 @@
 								<!-- 楽曲にユーザーがエントリーしていない時 -->
 								<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
 									<!-- ユーザーがイベントに参加している時 -->
-									<% if @event_users.where(user_id: current_user.id).present? %>
-										<% if event.entry_start_time <= now && now < event.entry_finish_time %>
+									<% if event_users.find_by(user_id: current_user.id).present? %>
+										<!-- ユーザーが見学参加の場合 -->
+										<% if event_users.find_by(user_id: current_user.id).part_table.part_name == "見学" %>
+											<a class="link" data-toggle="modal" data-target="#observeModal">エントリー</a>
+										<% elsif event.entry_start_time <= now && now < event.entry_finish_time %>
 											<%= link_to "エントリー", event_entry_table_path(event, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
 										<% elsif event.entry_start_time > now %>
 											<a class="link" data-toggle="modal" data-target="#notentryModal">エントリー</a>
@@ -76,8 +79,10 @@
 								<!-- 楽曲にユーザーがエントリーしていない時 -->
 								<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
 									<!-- ユーザーがイベントに参加している時 -->
-									<% if @event_users.where(user_id: current_user.id).present? %>
-										<% if event.entry_start_time <= now && now < event.entry_finish_time %>
+									<% if event_users.where(user_id: current_user.id).present? %>
+										<% if event_users.find_by(user_id: current_user.id).part_table.part_name == "見学" %>
+											<a class="link" data-toggle="modal" data-target="#observeModal">(エントリー)</a>
+										<% elsif event.entry_start_time <= now && now < event.entry_finish_time %>
 											<%= link_to "(エントリー)", event_entry_table_path(event.id, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
 										<% elsif event.entry_start_time > now %>
 											<a class="link" data-toggle="modal" data-target="#notentryModal">(エントリー)</a>
@@ -126,4 +131,5 @@
 </div>
 <%= render 'homes/modal_signin' %>
 <%= render 'entry_tables/modal_notentry', event: event %>
+<%= render 'entry_tables/modal_observe' %>
 <%= render 'events/modal_attendance', event: event %>

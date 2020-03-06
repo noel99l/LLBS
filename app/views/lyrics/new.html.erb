@@ -67,8 +67,13 @@
 												<tr>
 								                	<th class="active"><%= f.label :lyric_id %></th>
 								                	<td>
-														<%= f.select :lyric_id, @lyrics.map { |lyric| ["#{lyric.created_at} by #{lyric.user.name}", lyric.id] } %>
-
+														<%= f.select :lyric_id, @lyrics.map { |lyric| ["#{lyric.created_at} by #{lyric.user.name}", lyric.id] }, id: "lyric_preview" %>
+								                	</td>
+								                </tr>
+								                <tr>
+								                	<th class="active">歌詞分け</th>
+								                	<td>
+														<%= f.text_field :lyric_id, onchange: "previewLyric()" %>
 								                	</td>
 								                </tr>
 								            </tbody>

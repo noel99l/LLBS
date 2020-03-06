@@ -3,5 +3,4 @@ class PartTable < ApplicationRecord
 	belongs_to :event
 
 	validates :part_name, :uniqueness => {:scope => :event_id}
-	enum observe: { 演奏参加: 0, 見学: 1}
 end
