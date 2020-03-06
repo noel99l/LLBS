@@ -140,7 +140,7 @@ ActiveRecord::Schema.define(version: 2020_02_27_112454) do
     t.integer "event_id", null: false
     t.string "part_name", null: false
     t.integer "count", default: 1, null: false
-    t.boolean "observe", null: false
+    t.boolean "observe", default: false, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

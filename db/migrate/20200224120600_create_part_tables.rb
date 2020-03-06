@@ -4,7 +4,7 @@ class CreatePartTables < ActiveRecord::Migration[5.2]
       t.integer :event_id, null: false
       t.string :part_name, null: false
       t.integer :count, null: false, default: 1
-      t.boolean :observe, null: false
+      t.boolean :observe, null: false, default: 0
       t.timestamps
     end
   end

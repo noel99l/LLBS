@@ -9,6 +9,8 @@ class Admin::EventsController < AdminController
 
   def new_confirm
     @event = Event.new(event_params)
+    render :new if @event.invalid?
+    #eventモデルのcreate_partメソッドを呼び出し、パートを作成
     @event.create_part
     # チェックが入っているときに見学パートテーブル作成
     if params[:event][:observe] == '1'
@@ -17,7 +19,6 @@ class Admin::EventsController < AdminController
       part_table.event_id = @event.id
       part_table.observe = "見学"
     end
-    render :new if @event.invalid?
   end
 
   def create
