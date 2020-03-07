@@ -4,66 +4,92 @@
 
 <div class="container">
     <div class="row">
+    	<div class="col-xs-12 clearfix">
+			<div class="event-header">
+				<h2><%= link_to "#{@event.event_name}", admin_event_path(@event) %>
+					<p class="pull-right">管理者</p>
+				</h2>
+				<%= @event.date.to_s(:date) %> (<%= @event.start_time.to_s(:time) %>〜<%= @event.finish_time.to_s(:time) %>)
+				<br><br>
+			</div>
+		</div>
     	<div class="form-header text-center">
             <h2 class="form-header-title">
             	<%= @event.event_name %>タイムテーブル</h2>
         </div>
-		<div class="table-responsive">
-			<table class="table table-bordered" style="table-layout:fixed;">
-				<thead>
-					<tr class="info">
-						<th class="active" style="width:100px;">曲名</th>
-						<th class="active" style="width:100px;">アーティスト名</th>
-						<% @parts.each do |part| %>
-							<th class="active" style="width:80px;"><%= part.part_name %></th>
-						<% end %>
-					</tr>
-				</thead>
-				<tbody id="sortable">
-					<% @musics.each do |music| %>
-					<tr>
-						<th>
-							<div>
-							<%= link_to "#{music.title}", event_music_path(@event.friendly_url, music.id) %>
-							</div>
-						</th>
-						<td>
-							<%= music.artist %>
-						</td>
-						<% @parts.each do |part| %>
-							<!-- パートが不要な時 -->
-							<% if @entry_tables.find_by(music_id: music, part_id: part)&.requirement_status == "不要" %>
-							<td>　</td>
-							<!-- エントリーステータスが必須または任意の時 -->
-							<% else %>
-								<!-- 楽曲にユーザーがエントリーしていない時 -->
-								<% if @entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
-									<td>　</td>
-								<!-- 楽曲にエントリーしているユーザーが本人の時 -->
-								<% elsif @entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user == current_user %>
-									<td class="danger">
-										<%= link_to "#{@entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(@entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
-									</td>
-								<!-- 楽曲にユーザーがエントリーしている時 -->
-								<% else %>
-									<td>
-									<%= link_to "#{@entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(@entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
-									</td>
-								<% end %>
+        <div class="clearfix">
+	        <div class="col-xs-1">
+		        <div class="table-responsive">
+		        	<table class="table">
+		        		<thead>
+							<tr>
+								<td>　</td>
+							</tr>
+						</thead>
+						<tbody>
+							<% @musics.count.times do |n| %>
+							<tr>
+								<td class="pull-right" style="border-top: 1px solid #ddd0;">
+									<%= (@event.start_time + 600 * n).to_s(:time) %>
+								</td>
+							</tr>
 							<% end %>
-						<% end %>
-						</tr>
-					<% end %>
-				</tbody>
-			</table>
-			<%= hidden_field_tag :event_id, @event.id %>
-			<%= form_for @event, url: admin_event_path(@event), method: :patch do |f| %>
-				公開設定：<%= f.select :timetable_releace, {公開: 1, 非公開: 0}, onchange:"submit(this.form)" %>
-			<%= f.submit "購入を確定する", class:"btn btn-primary btn-lg center-block" %>
-			<% end %>
-
-			<%= link_to "公開", admin_event_timetable_releace_path(@event.friendly_url), method: :patch %>
-
+						</tbody>
+		        	</table>
+		        </div>
+		    </div>
+		    <div class="col-xs-11">
+				<div class="table-responsive">
+					<table class="table table-bordered" style="table-layout:fixed; white-space: nowrap;">
+						<thead>
+							<tr class="info">
+								<th class="active" style="width:100px;">曲名</th>
+								<th class="active" style="width:100px;">アーティスト名</th>
+								<% @parts.each do |part| %>
+									<th class="active" style="width:80px;"><%= part.part_name %></th>
+								<% end %>
+							</tr>
+						</thead>
+						<tbody id="sortable">
+							<% @musics.each do |music| %>
+							<tr>
+								<th>
+									<div>
+									<%= link_to "#{music.title}", event_music_path(@event.friendly_url, music.id) %>
+									</div>
+								</th>
+								<td>
+									<%= music.artist %>
+								</td>
+								<% @parts.each do |part| %>
+									<!-- パートが不要な時 -->
+									<% if @entry_tables.find_by(music_id: music, part_id: part)&.requirement_status == "不要" %>
+									<td>　</td>
+									<!-- エントリーステータスが必須または任意の時 -->
+									<% else %>
+										<!-- 楽曲にユーザーがエントリーしていない時 -->
+										<% if @entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
+											<td>　</td>
+										<!-- 楽曲にユーザーがエントリーしている時 -->
+										<% else %>
+											<td>
+											<%= link_to "#{@entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(@entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+											</td>
+										<% end %>
+									<% end %>
+								<% end %>
+								</tr>
+							<% end %>
+						</tbody>
+					</table>
+				</div>
+			</div>
 		</div>
+		<%= hidden_field_tag :event_id, @event.id %>
+		<% if @event.timetable_releace == false %>
+			<%= link_to "タイムテーブル公開", admin_event_timetable_releace_path(@event.friendly_url), method: :patch, class:"btn btn-lg btn-block btn-primary" %>
+		<% elsif @event.timetable_releace == true %>
+			<%= link_to "タイムテーブル非公開", admin_event_timetable_releace_path(@event.friendly_url), method: :patch, class:"btn btn-lg btn-block btn-danger" %>
+		<% end %>
 	</div>
 </div>

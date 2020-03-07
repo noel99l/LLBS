@@ -3,7 +3,7 @@
     <div class="row">
 		<div class="col-xs-12 clearfix">
 			<div class="event-header">
-				<h2><%= link_to "#{@event.event_name}", event_path(@event) %>
+				<h2><%= link_to "#{@event.event_name}", admin_event_path(@event) %>
 					<p class="pull-right">管理者</p>
 				</h2>
 				<%= @event.date.to_s(:date) %> (<%= @event.start_time.to_s(:time) %>〜<%= @event.finish_time.to_s(:time) %>)
@@ -42,10 +42,8 @@
 					</tbody>
 				</table>
 				<div class="text-right">
-					<% if @event.timetable_releace == true %>
-						<%= link_to event_timetable_path(@event.friendly_url), class:"btn btn-lg btn-success" do %>
-							<i class="fas fa-list"></i> タイムテーブル 
-						<% end %>
+					<%= link_to admin_event_timetable_path(@event.friendly_url), class:"btn btn-lg btn-success" do %>
+						<i class="fas fa-list"></i> タイムテーブル作成 
 					<% end %>
 					<%= link_to event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning" do %>
 						<i class="fas fa-beer icon_custom,"></i> 打ち上げ詳細 
