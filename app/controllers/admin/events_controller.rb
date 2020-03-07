@@ -75,7 +75,7 @@ class Admin::EventsController < AdminController
     event.create_finish_time
     event.save(event_params)
     flash[:success] = "#{event.event_name}を更新しました！"
-    redirect_to admin_events_path(event)
+    redirect_to admin_event_path(event)
   end
 
   def destroy
