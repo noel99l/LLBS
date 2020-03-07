@@ -1,0 +1,19 @@
+<div class="modal fade" id="adminentryModal" tabindex="-1">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
+				<h4 class="modal-title">参加者エントリー</h4>
+			</div>
+			<div class="modal-body">
+				<%= form_with(model: @event_table, local: true, url: admin_event_entry_table_path(event_id: event, music_id:music, part_id: part, name: "entry"), method: :patch ) do |f| %>
+					参加ユーザー選択： <%= f.select :event_user, event.event_users.map { |event_user| ["#{event_user.user.name} (#{event_user.part_table.part_name})", event_user.id] } %>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-default pull-left" data-dismiss="modal">閉じる</button>
+				<%= f.submit "エントリー", class:"btn btn-primary pull-right" %>
+				<% end %>
+			</div>
+		</div>
+	</div>
+</div>

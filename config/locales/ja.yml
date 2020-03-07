@@ -21,6 +21,7 @@ ja:
       event_thread_comment: イベント掲示板コメント
       level: レベル
       lyric: 歌詞
+      part_tables: パートテーブル
     attributes:
       admin:
         email: メールアドレス
@@ -101,6 +102,11 @@ ja:
         title: 楽曲名
         artist: アーティスト名
         lyric: 歌詞
+      part_tables:
+        event_id: イベントID
+        part_name: パートテーブル名
+        count: パート作成数
+        observe: 見学パートフラグ
   date:
     abbr_day_names:
     - 日

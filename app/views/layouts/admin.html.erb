@@ -39,11 +39,7 @@
                 </div>
             </header>
         </div>
-            <% flash.each do |message_type, message| %>
-                <div class="alert alert-<%= message_type %>">
-                    <%= simple_format message %>
-                </div>
-            <% end %>
+            <%= render 'layouts/flash_messages' %>
         <%= yield %>
         <footer>
             <p class="footer-text">© All rights reserved by noel99l</p>

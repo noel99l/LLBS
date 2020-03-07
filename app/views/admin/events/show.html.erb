@@ -1,19 +1,16 @@
 <% content_for(:html_title) { "#{@event.friendly_url}" } %>
 <div class="container">
-    <div class="row"><div class="container">
     <div class="row">
-    	<div class="clearfix">
-			<div class="col-xs-12">
-				<div class="event-header">
-					<h2><%= link_to "#{@event.event_name}", event_path(@event) %>
-						<p class="pull-right">管理者</p>
-					</h2>
-					<%= @event.date.to_s(:date) %> (<%= @event.start_time.to_s(:time) %>〜<%= @event.finish_time.to_s(:time) %>)
-					<br><br>
-				</div>
+		<div class="col-xs-12 clearfix">
+			<div class="event-header">
+				<h2><%= link_to "#{@event.event_name}", event_path(@event) %>
+					<p class="pull-right">管理者</p>
+				</h2>
+				<%= @event.date.to_s(:date) %> (<%= @event.start_time.to_s(:time) %>〜<%= @event.finish_time.to_s(:time) %>)
+				<br><br>
 			</div>
 		</div>
-		<div class="event-container">
+		<div class="event-container clearfix">
 			<div class="col-xs-3">
 				<div class="text-center">
 				<%= attachment_image_tag @event, :image, :fill, 300, 300, format: 'jpeg', fallback: "no_image.jpg", size:'300x300', class:"img-thumbnail" %>
@@ -45,17 +42,19 @@
 					</tbody>
 				</table>
 				<div class="text-right">
-					<%= link_to event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning" do %>
-						<i class="fas fa-beer icon_custom,"></i> 打ち上げ詳細
+					<% if @event.timetable_releace == true %>
+						<%= link_to event_timetable_path(@event.friendly_url), class:"btn btn-lg btn-success" do %>
+							<i class="fas fa-list"></i> タイムテーブル 
+						<% end %>
 					<% end %>
-					<%= link_to admin_event_event_users_path(@event.friendly_url), class:"btn btn-lg btn-info" do %>
+					<%= link_to event_party_path(@event.friendly_url), class:"btn btn-lg btn-warning" do %>
+						<i class="fas fa-beer icon_custom,"></i> 打ち上げ詳細 
+					<% end %>
+					<%= link_to event_event_users_path(@event.friendly_url), class:"btn btn-lg btn-info" do %>
 						<i class="fas fa-users"></i> 参加者一覧
 					<% end %>
 				</div>
 			</div>
-		</div>
-
-		<div class="clearfix">
 		</div>
 
 		<div class="col-xs-12">
@@ -67,19 +66,12 @@
 			</div>
 		</div>
 
-		<h3>楽曲一覧</h3>
-		<br>
-		<h4>成立曲 (<%= @complete_musics.count %>曲)</h4>
-		<%= render 'admin/entry_tables/adminentrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @complete_musics %>
-
-		<br>
-		<h4>未成立曲 (<%= @incomplete_musics.count %>曲)</h4>
-		<%= render 'admin/entry_tables/adminentrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @incomplete_musics %>
-		<% if user_signed_in? && @event_users.where(user_id: current_user.id).presence %>
-			<%= link_to new_event_music_path(@event.friendly_id), class: "btn btn-lg btn-primary btn-block" do %>
-			<i class="fas fa-plus-circle icon_custom"></i> 曲を追加する
-			<% end %>
-		<% end %>
-		<br>
+		<div class="col-xs-12 clearfix">
+			<h3>楽曲一覧　<span style="font-size:15px;" >エントリー期間:　<%= @event.entry_start_time %> 〜 <%= @event.entry_finish_time %></span></h3>
+			<h4>成立曲 (<%= @complete_musics.count %>曲)</h4>
+				<%= render 'admin/entry_tables/adminentrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @complete_musics, now: @now %>
+			<h4>未成立曲 (<%= @incomplete_musics.count %>曲)</h4>
+			<%= render 'admin/entry_tables/adminentrytable', parts: @parts, event: @event, entry_tables: @entry_tables, event_users: @event_users, musics: @incomplete_musics, now: @now %>
+		</div>
 	</div>
 </div>

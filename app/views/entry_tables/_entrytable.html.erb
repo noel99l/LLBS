@@ -25,101 +25,70 @@
 						<!-- 空欄 -->
 						<!-- エントリーステータスが必須の時 -->
 						<% elsif entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "必須" %>
-							<!-- ユーザーがログインしている時 -->
-							<% if user_signed_in? %>
-								<!-- 楽曲にユーザーがエントリーしていない時 -->
-								<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
-									<!-- ユーザーがイベントに参加している時 -->
-									<% if event_users.find_by(user_id: current_user.id).present? %>
-										<!-- ユーザーが見学参加の場合 -->
-										<% if event_users.find_by(user_id: current_user.id).part_table.part_name == "見学" %>
-											<a class="link" data-toggle="modal" data-target="#observeModal">エントリー</a>
-										<% elsif event.entry_start_time <= now && now < event.entry_finish_time %>
-											<%= link_to "エントリー", event_entry_table_path(event, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
-										<% elsif event.entry_start_time > now %>
-											<a class="link" data-toggle="modal" data-target="#notentryModal">エントリー</a>
-										<% elsif now >= event.entry_finish_time %>
-											受付終了
-										<% end %>
-									<!-- ユーザーがイベントに参加していない時 -->
-									<% else %>
-										<% if now < event.entry_finish_time %>
-											<a class="link" data-toggle="modal" data-target="#attendanceModal">エントリー</a>
-										<% elsif now >= event.entry_finish_time %>
-											受付終了
-										<% end %>
-									<% end %>
-								<!-- 楽曲にユーザーがエントリーしている時 -->
-								<% else %>
-									<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
-									<!-- 楽曲にエントリーしているユーザーが本人の時 -->
-	                                <% if entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user == current_user %>
-	                                    <%= link_to event_entry_table_path(event, music_id: music, part_id: part, name: "cancel"), method: :patch, data: {confirm: "本当にエントリーを取り消してもよろしいですか？"} do %>
-	                                    	<i class="fas fa-times-circle"></i>
-	                                    <% end %>
-	                                <% end %>
-								<% end %>
-							<!-- ユーザーがログインしていない時 -->
-							<% else %>
-								<!-- 楽曲にユーザーがエントリーしていない時 -->
-								<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
-									<% if now < event.entry_finish_time %>
-										<a class="link" data-toggle="modal" data-target="#loginModal">エントリー</a>
+							<!-- 楽曲にユーザーがエントリーしていない時 -->
+							<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
+								<!-- ユーザーがイベントに参加している時 -->
+								<% if event_users.find_by(user_id: current_user.id).present? %>
+									<!-- ユーザーが見学参加の場合 -->
+									<% if event_users.find_by(user_id: current_user.id).part_table.part_name == "見学" %>
+										<a class="link" data-toggle="modal" data-target="#observeModal">エントリー</a>
+									<% elsif event.entry_start_time <= now && now < event.entry_finish_time %>
+										<%= link_to "エントリー", event_entry_table_path(event, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
+									<% elsif event.entry_start_time > now %>
+										<a class="link" data-toggle="modal" data-target="#notentryModal">エントリー</a>
 									<% elsif now >= event.entry_finish_time %>
 										受付終了
 									<% end %>
-								<!-- 楽曲にユーザーがエントリーしている時 -->
+								<!-- ユーザーがイベントに参加していない時 -->
 								<% else %>
-									<%= entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name %>
+									<% if now < event.entry_finish_time %>
+										<a class="link" data-toggle="modal" data-target="#attendanceModal">エントリー</a>
+									<% elsif now >= event.entry_finish_time %>
+										受付終了
+									<% end %>
 								<% end %>
+							<!-- 楽曲にユーザーがエントリーしている時 -->
+							<% else %>
+								<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+								<!-- 楽曲にエントリーしているユーザーが本人の時 -->
+                                <% if entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user == current_user %>
+                                    <%= link_to event_entry_table_path(event, music_id: music, part_id: part, name: "cancel"), method: :patch, data: {confirm: "本当にエントリーを取り消してもよろしいですか？"} do %>
+                                    	<i class="fas fa-times-circle"></i>
+                                    <% end %>
+                                <% end %>
 							<% end %>
 						<!-- エントリーステータスが任意の時 -->
 						<% elsif entry_tables.find_by(music_id: music.id, part_id: part.id)&.requirement_status == "任意" %>
-							<% if user_signed_in? %>
-								<!-- 楽曲にユーザーがエントリーしていない時 -->
-								<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
-									<!-- ユーザーがイベントに参加している時 -->
-									<% if event_users.where(user_id: current_user.id).present? %>
-										<% if event_users.find_by(user_id: current_user.id).part_table.part_name == "見学" %>
-											<a class="link" data-toggle="modal" data-target="#observeModal">(エントリー)</a>
-										<% elsif event.entry_start_time <= now && now < event.entry_finish_time %>
-											<%= link_to "(エントリー)", event_entry_table_path(event.id, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
-										<% elsif event.entry_start_time > now %>
-											<a class="link" data-toggle="modal" data-target="#notentryModal">(エントリー)</a>
-										<% elsif now >= event.entry_finish_time %>
-											受付終了
-										<% end %>
-									<!-- ユーザーがイベントに参加していない時 -->
-									<% else %>
-										<% if now < event.entry_finish_time %>
-											<a class="link" data-toggle="modal" data-target="#attendanceModal">(エントリー)</a>
-										<% elsif now >= event.entry_finish_time %>
-											受付終了
-										<% end %>
-									<% end %>
-								<!-- 楽曲にユーザーがエントリーしている時 -->
-								<% else %>
-									<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
-									<!-- 楽曲にエントリーしているユーザーが本人の時 -->
-	                                <% if entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user == current_user %>
-	                                    <%= link_to event_entry_table_path(event, music_id: music, part_id: part, name: "cancel"), method: :patch, data: {confirm: "本当にエントリーを取り消してもよろしいですか？"} do %>
-	                                    	<i class="fas fa-times-circle"></i>
-	                                    <% end %>
-	                                <% end %>
-								<% end %>
-							<!-- ユーザーがログインしていない時 -->
-							<% else %>
-								<!-- 楽曲にユーザーがエントリーしていない時 -->
-								<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
-									<% if now < event.entry_finish_time %>
-										<a class="link" data-toggle="modal" data-target="#loginModal">(エントリー)</a>
+							<!-- 楽曲にユーザーがエントリーしていない時 -->
+							<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
+								<!-- ユーザーがイベントに参加している時 -->
+								<% if event_users.where(user_id: current_user.id).present? %>
+									<% if event_users.find_by(user_id: current_user.id).part_table.part_name == "見学" %>
+										<a class="link" data-toggle="modal" data-target="#observeModal">(エントリー)</a>
+									<% elsif event.entry_start_time <= now && now < event.entry_finish_time %>
+										<%= link_to "(エントリー)", event_entry_table_path(event.id, music_id: music.id, part_id: part.id, name: "entry"), method: :patch %>
+									<% elsif event.entry_start_time > now %>
+										<a class="link" data-toggle="modal" data-target="#notentryModal">(エントリー)</a>
 									<% elsif now >= event.entry_finish_time %>
 										受付終了
 									<% end %>
-								<!-- 楽曲にユーザーがエントリーしている時 -->
+								<!-- ユーザーがイベントに参加していない時 -->
 								<% else %>
-									<%= entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name %>
+									<% if now < event.entry_finish_time %>
+										<a class="link" data-toggle="modal" data-target="#attendanceModal">(エントリー)</a>
+									<% elsif now >= event.entry_finish_time %>
+										受付終了
+									<% end %>
 								<% end %>
+							<!-- 楽曲にユーザーがエントリーしている時 -->
+							<% else %>
+								<%= link_to "#{entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user&.name}", user_path(entry_tables.find_by(music_id: music, part_id: part).event_user.user) %>
+								<!-- 楽曲にエントリーしているユーザーが本人の時 -->
+                                <% if entry_tables.find_by(music_id: music, part_id: part)&.event_user&.user == current_user %>
+                                    <%= link_to event_entry_table_path(event, music_id: music, part_id: part, name: "cancel"), method: :patch, data: {confirm: "本当にエントリーを取り消してもよろしいですか？"} do %>
+                                    	<i class="fas fa-times-circle"></i>
+                                    <% end %>
+                                <% end %>
 							<% end %>
 						<% end %>
 					</td>

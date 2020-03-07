@@ -35,16 +35,16 @@ end
 
 4.times { |m|
   n = m + 1
-	event = Event.find_or_create_by!(event_name: "LLBS#{n}") do |e|
+	event = Event.find_or_create_by!(event_name: "セッションvol.#{n}") do |e|
 		e.friendly_url = "LLBS#{n}"
 		e.overview = "第#{n}回目の開催となるLLBSです。みなさま奮ってご参加ください。<br>
 					　詳細はHPで！"
-		e.date = "2020-0#{n}-0#{n}"
-		e.meeting_time = "2020-0#{n}-0#{n} 12:00:00"
-		e.start_time = "2020-0#{n}-0#{n} 13:00:00"
-		e.finish_time = "2020-0#{n}-0#{n} 18:00:00"
-		e.entry_start_time = "2020-0#{n}-1#{n} 13:00:00"
-		e.entry_finish_time =  "2020-0#{n}-2#{n} 18:00:00"
+		e.date = "2020-03-31"
+		e.meeting_time = "2020-03-31 12:00:00"
+		e.start_time = "2020-03-31 13:00:00"
+		e.finish_time = "2020-03-31 18:00:00"
+		e.entry_start_time = "2020-03-01 13:00:00"
+		e.entry_finish_time =  "2020-03-31 18:00:00"
 		e.place = "ノアスタジオ学芸大学店#{n}号店"
 		e.place_url = 'https://www.studionoah.jp/shibuya1/'
 		e.performance_fee = 2500
