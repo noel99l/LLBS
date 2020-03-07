@@ -87,7 +87,7 @@
                     <% @music_comments.each do |music_comment| %>
                         <% if music_comment.user == current_user %>
                             <div class="voice-img-left" >
-                                <%= attachment_image_tag music_comment.user, :image, format: 'jpeg', fallback: "no_imager.jpg", size:'60x60', class:"img-circle" %><br>
+                                <%= attachment_image_tag music_comment.user, :image, format: 'jpeg', fallback: "no_image.jpg", size:'60x60', class:"img-circle" %><br>
                                 <div class="voice-img-description">
                                     <%= link_to "#{music_comment.user.name}", user_path(music_comment.user_id) %>
                                 </div>
@@ -105,7 +105,7 @@
                             </div>
                         <% else %>
                             <div class="voice-img-right" >
-                                <%= attachment_image_tag music_comment.user, :image, format: 'jpeg', fallback: "no_imager.jpg", size:'60x60', class:"img-circle" %><br>
+                                <%= attachment_image_tag music_comment.user, :image, format: 'jpeg', fallback: "no_image.jpg", size:'60x60', class:"img-circle" %><br>
                                 <div class="voice-img-description">
                                     <%= link_to "#{music_comment.user.name}", user_path(music_comment.user_id) %>
                                 </div>
