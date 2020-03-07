@@ -24,6 +24,8 @@ end
     u.introduction = "セッション参加は#{n}回目です。よろしくお願いします。"
     u.password = 'password'
     u.password_confirmation = 'password'
+    u.exp = 90
+    u.level_id = 2
   end
 
   lyric = Lyric.find_or_create_by!(title: "LLBS3music#{n}") do |l|

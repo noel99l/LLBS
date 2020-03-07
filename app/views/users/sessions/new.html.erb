@@ -1,30 +1,39 @@
-<div class="container">
-    <div class="row">
-      <h2>Log in</h2>
+<% content_for(:html_title) { "ゲストユーザーログイン" } %>
+<section class="slice slice-lg sct-color-1">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4 col-md-offset-4">
+                <div class="form-user style-1 rounded has-shadow-1">
+                    <div class="form-header text-center">
+                        <h2 class="form-header-title">ゲストユーザーログイン</h2><br>
+                    </div>
+                    <div class="form-body">
+                      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                        <%= f.email_field :email, autofocus: true, autocomplete: "email", class:"form-control", id:"inputName", placeholder:"メールアドレス" %>
+                      </div><br>
 
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
-        <div class="field">
-          <%= f.label :email %><br />
-          <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+                      <div class="input-group">
+                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                        <%= f.password_field :password, autocomplete: "current-password", class:"form-control", id:"inputName", placeholder:"パスワード" %>
+                      </div>
+                      <br>
+                      <% if devise_mapping.rememberable? %>
+                        <div class="field">
+                          <%= f.check_box :remember_me %>
+                          <%= f.label :remember_me %>
+                        </div>
+                      <% end %>
+                      <br>
+                      <div class="actions">
+                        <%= f.submit "ログイン", class:"btn btn-primary btn-lg btn-block" %>
+                      </div>
+                    <% end %>
+                    <br>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <div class="field">
-          <%= f.label :password %><br />
-          <%= f.password_field :password, autocomplete: "current-password" %>
-        </div>
-
-        <% if devise_mapping.rememberable? %>
-          <div class="field">
-            <%= f.check_box :remember_me %>
-            <%= f.label :remember_me %>
-          </div>
-        <% end %>
-
-        <div class="actions">
-          <%= f.submit "Log in" %>
-        </div>
-      <% end %>
-
-      <%= render "users/shared/links" %>
     </div>
-</div>
+</section>
