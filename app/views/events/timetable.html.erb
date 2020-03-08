@@ -10,6 +10,7 @@
 			<table class="table table-bordered" style="table-layout:fixed;">
 				<thead>
 					<tr class="info">
+						<th class="active" style="width:44px;">時間</th>
 						<th class="active" style="width:100px;">曲名</th>
 						<th class="active" style="width:100px;">アーティスト名</th>
 						<% @parts.each do |part| %>
@@ -18,8 +19,15 @@
 					</tr>
 				</thead>
 				<tbody>
+					<% n = 0 %>
 					<% @musics.each do |music| %>
 					<tr>
+						<td>
+							<div>
+							<%= (@event.start_time + 600 * n).to_s(:time) %>
+							<% n = n + 1 %>
+							</div>
+						</td>
 						<th>
 							<div>
 							<%= link_to "#{music.title}", event_music_path(@event.friendly_url, music.id) %>
