@@ -1,9 +1,9 @@
-<div class="modal fade" id="adminentryModal" tabindex="-1">
+<div class="modal fade" id="adminentryModal<%= n %>" tabindex="-1"> <!-- エントリーモーダルの内容ごとにIDとして変数nを付与 -->
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" class="close" data-dismiss="modal"><span>×</span></button>
-				<h4 class="modal-title">参加者エントリー</h4>
+				<h4 class="modal-title"><%= music.title %>(<%= part.part_name %>)へのエントリー</h4>
 			</div>
 			<div class="modal-body">
 				<%= form_with(model: @event_table, local: true, url: admin_event_entry_table_path(event_id: event, music_id:music, part_id: part, name: "entry"), method: :patch ) do |f| %>

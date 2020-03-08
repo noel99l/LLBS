@@ -8,6 +8,7 @@
 					<th class="active" style="width:80px;"><%= part.part_name %></th>
 				<% end %>
 			</tr>
+			<% n = 0 %> <!-- エントリーモーダルのID用に初期値を設定 -->
 			<% musics.each do |music| %>
 			<tr>
 				<th>
@@ -28,8 +29,9 @@
 						<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
 							<!-- 時系列処理 -->
 							<% if now < event.entry_finish_time %>
-								<a class="link" data-toggle="modal" data-target="#adminentryModal">エントリー</a>
-								<%= render 'admin/entry_tables/modal_adminentry', event: event, music: music, part: part %>
+								<a class="link" data-toggle="modal" data-target="#adminentryModal<%= n %>">エントリー</a>
+								<%= render 'admin/entry_tables/modal_adminentry', event: event, music: music, part: part, n: n %>
+								<% n = n + 1 %> <!-- エントリーモーダルのIDを更新 -->
 							<% elsif now >= event.entry_finish_time %>
 								受付終了
 							<% end %>
@@ -45,8 +47,9 @@
 						<!-- 楽曲にユーザーがエントリーしていない時 -->
 						<% if entry_tables.find_by(music_id: music, part_id: part)&.event_user_id == nil %>
 							<% if now < event.entry_finish_time %>
-								<a class="link" data-toggle="modal" data-target="#adminentryModal">(エントリー)</a>
-								<%= render 'admin/entry_tables/modal_adminentry', event: event, music: music, part: part %>
+								<a class="link" data-toggle="modal" data-target="#adminentryModal<%= n %>">(エントリー)</a>
+								<%= render 'admin/entry_tables/modal_adminentry', event: event, music: music, part: part, n: n %>
+								<% n = n + 1 %> <!-- エントリーモーダルのIDを更新 -->
 							<% elsif now >= event.entry_finish_time %>
 								受付終了
 							<% end %>

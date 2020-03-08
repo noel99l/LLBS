@@ -155,6 +155,7 @@ end
 	e.event_id = 1
 	e.part_table_id = 1
 	e.party_participate = n % 3
+	e.part_table_id = (n - 1) % 7 + 1
   end
 }
 

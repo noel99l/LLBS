@@ -2,6 +2,7 @@
 
 <div class="container">
     <div class="row">
+    	<%= render 'events/event-header', event: @event, event_users: @event_users %>
     	<div class="form-header text-center">
             <h2 class="form-header-title">
             	<%= @event.event_name %>タイムテーブル</h2>
@@ -19,12 +20,12 @@
 					</tr>
 				</thead>
 				<tbody>
-					<% n = 0 %>
+					<% n = 0 %> <!-- タイムテーブル時間設定のための初期値設定 -->
 					<% @musics.each do |music| %>
 					<tr>
 						<td>
 							<div>
-							<%= (@event.start_time + 600 * n).to_s(:time) %>
+							<%= (@event.start_time + 600 * n ).to_s(:time) %>
 							<% n = n + 1 %>
 							</div>
 						</td>
