@@ -47,10 +47,8 @@ class EventUsersController < ApplicationController
       entry_table.save
       # 成立していた楽曲の成立落ち
       music = entry_table.music
-         if music.establishment_status == "成立" && music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).any?
-            music.establishment_status = "募集中"
-            music.save
-         end
+      music.establishment_count = music.entry_tables.where(requirement_status: "必須" ,event_user_id: nil).count
+      music.save
     end
     event_user.destroy
     calculate_level(-50)
