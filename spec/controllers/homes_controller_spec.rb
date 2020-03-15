@@ -9,7 +9,7 @@ RSpec.describe HomesController, type: :controller do
            expect(response.status).to eq 200
         end
         render_views
-        it '文言が正しく表示されること' do
+        it '内容が正しく表示されること' do
           expect(response.body).to include("みんなで奏でる物語")
         end
       end

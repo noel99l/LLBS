@@ -89,7 +89,12 @@ gem 'acts_as_list'
 gem 'rubocop', require: false
 gem 'rubocop-rails'
 
+gem 'capybara', '>= 2.15'
 gem 'rspec-rails'
+gem "factory_bot_rails"
+gem 'faker'
+gem 'database_cleaner'
+
 
 group :production do
   gem 'mysql2'
