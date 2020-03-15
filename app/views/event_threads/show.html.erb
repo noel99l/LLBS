@@ -19,71 +19,38 @@
                     </h3>
                 </div>
                 <div class="panel-body">
-                    <% if @event_thread.user == current_user %><!-- ユーザーが書き込んだ本人の場合 -->
-                        <div class="voice-img-right" >
-                            <%= attachment_image_tag @event_thread.user, :image, format: 'jpeg', fallback: "no_image.jpg", size:'60x60', class:"img-circle" %><br>
-                            <div class="voice-img-description">
-                                <%= link_to "#{@event_thread.user.name}", user_path(@event_thread.user_id) %>
-                            </div>
+                    <div class="voice-img" >
+                        <%= attachment_image_tag @event_thread.user, :image, format: 'jpeg', fallback: "no_image.jpg", size:'60x60', class:"img-circle" %><br>
+                        <div class="voice-img-description">
+                            <%= link_to "#{@event_thread.user.name}", user_path(@event_thread.user_id) %>
                         </div>
-                        <div class="voice">
-                            <div class="voice-text-right">
-                               <%= sanitize @event_thread.body, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %><br>
-                            </div>
-                            <div class="comment-datetime-right">
+                    </div>
+                    <div class="voice">
+                        <div class="voice-text">
+                            <%=safe_join(@event_thread.body.split("\n"),tag(:br))%><br>
+                        </div>
+                        <div class="comment-datetime">
                             <%= @event_thread.created_at.to_s(:datetime) %>
-                            </div>
                         </div>
-                    <% else %><!-- ユーザーが書き込んだ本人でない場合 -->
-                        <div class="voice-img-left" >
-                            <%= attachment_image_tag @event_thread.user, :image, format: 'jpeg', fallback: "no_image.jpg", size:'60x60', class:"img-circle" %><br>
+                    </div><br>
+                    <% @event_thread_comments.each do |event_thread_comment| %>
+                        <div class="voice-img" >
+                            <%= attachment_image_tag event_thread_comment.user, :image, format: 'jpeg', fallback: "no_image.jpg", size:'60x60', class:"img-circle" %><br>
                             <div class="voice-img-description">
-                                <%= link_to "#{@event_thread.user.name}", user_path(@event_thread.user_id) %>
+                                <%= link_to "#{event_thread_comment.user.name}", user_path(event_thread_comment.user_id) %>
                             </div>
                         </div>
                         <div class="voice">
-                            <div class="voice-text-left">
-                               <%= sanitize @event_thread.body, tags: %w(h1 h2 h3 h4 h5 h6 ul ol li p a img table tr td em br strong div), attributes:  %w(id class href) %><br>
+                            <div class="voice-text">
+                                <%= safe_join(event_thread_comment.comment.split("\n"),tag(:br))%>
                             </div>
-                            <div class="comment-datetime-left">
-                                <%= @event_thread.created_at.to_s(:datetime) %>
-                            </div>
-                        </div>
-                    <% end %><br>
-
-                    <% @event_thread_comments.each do |event_thread_comment| %>
-                        <% if event_thread_comment.user == current_user %>
-                            <div class="voice-img-right" >
-                                <%= attachment_image_tag event_thread_comment.user, :image, format: 'jpeg', fallback: "no_image.jpg", size:'60x60', class:"img-circle" %><br>
-                                <div class="voice-img-description">
-                                    <%= link_to "#{event_thread_comment.user.name}", user_path(event_thread_comment.user_id) %>
-                                </div>
-                            </div>
-                            <div class="voice">
-                                <div class="voice-text-right">
-                                   <%= safe_join(event_thread_comment.comment.split("\n"),tag(:br))%>
-                                </div>
-                                <div class="comment-datetime-right">
-                                <%= link_to "削除", event_event_thread_event_thread_comment_path(@event,@event_thread,event_thread_comment), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"} %>
+                            <div class="comment-datetime">
+                                <% if event_thread_comment.user == current_user %>
+                                    <%= link_to "削除", event_event_thread_event_thread_comment_path(@event,@event_thread,event_thread_comment), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"} %>
+                                <% end %>
                                 <%= event_thread_comment.created_at.to_s(:datetime) %>
-                                </div>
                             </div>
-                        <% else %>
-                            <div class="voice">
-                                <div class="voice-text-left">
-                                    <%= safe_join(event_thread_comment.comment.split("\n"),tag(:br))%>
-                                </div>
-                                <div class="comment-datetime-left">
-                                    <%= event_thread_comment.created_at.to_s(:datetime) %>
-                                </div>
-                            </div>
-                            <div class="voice-img-left" >
-                                <%= attachment_image_tag event_thread_comment.user, :image, format: 'jpeg', fallback: "no_image.jpg", size:'60x60', class:"img-circle" %><br>
-                                <div class="voice-img-description">
-                                    <%= link_to "#{event_thread_comment.user.name}", user_path(event_thread_comment.user_id) %>
-                                </div>
-                            </div>
-                        <% end %><br>
+                        </div><br>
                         <span class="comment-score"><% event_thread_comment&.score %></span>
                     <% end %>
                     <% if user_signed_in? && @event_users.where(user_id: current_user.id).presence %>

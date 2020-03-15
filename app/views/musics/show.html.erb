@@ -85,40 +85,23 @@
             <div class="panel-body">
                 <% if user_signed_in? %>
                     <% @music_comments.each do |music_comment| %>
-                        <% if music_comment.user == current_user %><!-- ユーザーが書き込んだ本人の場合 -->
-                            <div class="voice-img-right" >
-                                <%= attachment_image_tag music_comment.user, :image, format: 'jpeg', fallback: "no_image.jpg", size:'60x60', class:"img-circle" %><br>
-                                <div class="voice-img-description">
-                                    <%= link_to "#{music_comment.user.name}", user_path(music_comment.user_id) %>
-                                </div>
+                        <div class="voice-img" >
+                            <%= attachment_image_tag music_comment.user, :image, format: 'jpeg', fallback: "no_image.jpg", size:'60x60', class:"img-circle" %><br>
+                            <div class="voice-img-description">
+                                <%= link_to "#{music_comment.user.name}", user_path(music_comment.user_id) %>
                             </div>
-                            <div class="voice">
-                                <div class="voice-text-right">
-                        	       <%= music_comment.comment %><br>
-                                </div>
-                                <div class="comment-datetime-right">
+                        </div>
+                        <div class="voice">
+                            <div class="voice-text">
+                               <%= music_comment.comment %><br>
+                            </div>
+                            <div class="comment-datetime">
                                 <% if music_comment.user == current_user %>
                                     <%= link_to "削除", event_music_music_comment_path(@event,@music,music_comment), method: :delete, data: {confirm: "本当に削除してもよろしいですか？"} %>
                                 <% end %>
                                 <%= music_comment.created_at.to_s(:datetime) %>
-                                </div>
                             </div>
-                        <% else %><!-- ユーザーが書き込んだ本人でない場合 -->
-                            <div class="voice-img-left" >
-                                <%= attachment_image_tag music_comment.user, :image, format: 'jpeg', fallback: "no_image.jpg", size:'60x60', class:"img-circle" %><br>
-                                <div class="voice-img-description">
-                                    <%= link_to "#{music_comment.user.name}", user_path(music_comment.user_id) %>
-                                </div>
-                            </div>
-                            <div class="voice">
-                                <div class="voice-text-left">
-                                   <%= music_comment.comment %><br>
-                                </div>
-                                <div class="comment-datetime-left">
-                                    <%= music_comment.created_at.to_s(:datetime) %>
-                                </div>
-                            </div>
-                        <% end %>
+                        </div>
                         <!-- AI機能実装 -->
                         <span class="comment-score"><% music_comment&.score %></span>
                         <!-- AI機能実装終了 -->
