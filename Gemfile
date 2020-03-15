@@ -89,6 +89,8 @@ gem 'acts_as_list'
 gem 'rubocop', require: false
 gem 'rubocop-rails'
 
+gem 'rspec-rails'
+
 group :production do
   gem 'mysql2'
 end

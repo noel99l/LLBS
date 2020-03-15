@@ -67,12 +67,12 @@
                             </ul>
                         <% else %>
                             <ul class="nav navbar-nav navbar-right">
-                                <li><%= link_to events_path do %>
+                                <li><%= link_to events_path, class:"btn header-btn" do %>
                                     <i class="fas fa-music icon-custom"></i><br>
                                     イベント一覧
                                     <% end %>
                                 </li>
-                                <li><%= link_to user_twitter_omniauth_authorize_path do %>
+                                <li><%= link_to user_twitter_omniauth_authorize_path, class:"btn header-btn" do %>
                                     <i class="fab fa-twitter icon-custom"></i><br>
                                     ログイン
                                     <% end %>
