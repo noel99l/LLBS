@@ -15,11 +15,23 @@ Level.find_or_create_by!(threshold: 250)
   Level.find_or_create_by!(threshold: threshold)
 end
 
-50.times { |m|
-  n = m + 1
-  user = User.find_or_create_by!(email: "user#{n}@llbs") do |u|
+#テストユーザー作成
+User.create!({
+	name:"TEST USER",
+	provider: 'twitter',
+  	email: 'user1@llbs',
+    nickname: "TEST_USER",
+    introduction: "テストユーザーです。",
+    password: 'password',
+    password_confirmation: 'password',
+    exp: 20,
+    level_id: 1
+})
+
+49.times { |n|
+    User.find_or_create_by(name: Faker::Name.name) do |u|
   	u.provider = 'twitter'
-    u.name = "ユーザー#{n}"
+  	u.email = Faker::Internet.email
     u.nickname = "user#{n}"
     u.introduction = "セッション参加は#{n}回目です。よろしくお願いします。"
     u.password = 'password'
@@ -28,59 +40,76 @@ end
     u.level_id = 2
   end
 
-  lyric = Lyric.find_or_create_by!(title: "LLBS3music#{n}") do |l|
-	l.user_id = n
-	l.artist = LLBS
-	l.lyric = "<div>TEST</div>"
-  end
+	Lyric.create do |l|
+		l.title = "LLBSmusic"
+		l.user_id = rand(50) + 1
+		l.artist = LLBS
+		l.lyric = "<div>TEST lyric</div>"
+	end
 }
 
-4.times { |m|
-  n = m + 1
-	event = Event.find_or_create_by!(event_name: "セッションvol.#{n}") do |e|
-		e.friendly_url = "LLBS#{n}"
-		e.overview = "第#{n}回目の開催となるLLBSです。みなさま奮ってご参加ください。<br>
-					　詳細はHPで！"
-		e.date = "2020-03-31"
-		e.meeting_time = "2020-03-31 12:00:00"
-		e.start_time = "2020-03-31 13:00:00"
-		e.finish_time = "2020-03-31 18:00:00"
-		e.entry_start_time = "2020-03-01 13:00:00"
-		e.entry_finish_time =  "2020-03-31 18:00:00"
-		e.place = "ノアスタジオ学芸大学店#{n}号店"
-		e.place_url = 'https://www.studionoah.jp/shibuya1/'
-		e.performance_fee = 2500
-		e.visit_fee = 1000
+1.upto(4) { |n|
+	Event.create do |event|
+		event.event_name = Faker::Music.genre + "セッション#{n}"
+		event.friendly_url = "LLBS#{n}"
+		event.overview = "第#{n}回目の開催となるセッションです。みなさま奮ってご参加ください。"
+		event.date = "2020-0#{n}-28"
+		event.meeting_time = "2020-0#{n}-31 12:00:00"
+		event.start_time = "2020-0#{n}-31 13:00:00"
+		event.finish_time = "2020-0#{n}-31 18:00:00"
+		event.entry_start_time = "2020-0#{n}-01 13:00:00"
+		event.entry_finish_time =  "2020-0#{n}-31 18:00:00"
+		event.place = "ノアスタジオ学芸大学店#{n}号店"
+		event.place_url = 'https://www.studionoah.jp/shibuya1/'
+		event.performance_fee = 2500
+		event.visit_fee = 1000
+		event.releace_flag = true
+		event.timetable_releace = false
 	end
 
-	10.times{ |p|
-		o = p + 1
-			music = Music.find_or_create_by!(title: "LLBS#{n}music#{o}") do |music|
-				music.event_id = n
-				music.artist = "artist"
-				music.music_url = "https://LLBS#{n}music#{o}"
-				music.establishment_count = 0
-				music.remarks = "LLBS#{n}music#{o}の曲です"
-				music.user_id = o % 10 + 1
-				music.lyric_id = 1
-				position = o
-			end
+	5.times{ |p|
+		music = Music.create do |music|
+			music.title = Faker::Music::Phish.song
+			music.event_id = n
+			music.artist = Faker::Music.band
+			music.music_url = "https://www.youtube.com/watch?v=" + SecureRandom.base64(11)
+			music.establishment_count = 0
+			music.remarks = "LLBS#{n}music#{p}の曲です"
+			music.user_id = rand(50) + 1
+			music.lyric_id = 1
+			position = p + 1
+		end
 	}
+
+	6.upto(10){ |p|
+		music = Music.create do |music|
+			music.title = Faker::Music::Phish.song
+			music.event_id = n
+			music.artist = Faker::Music.band
+			music.music_url = "https://www.youtube.com/watch?v=" + SecureRandom.base64(11)
+			music.establishment_count = 9
+			music.remarks = "LLBS#{n}music#{p}の曲です"
+			music.user_id = rand(50) + 1
+			music.lyric_id = 1
+			position = p
+		end
+	}
+
 	4.times{ |p|
-		o = p + 1
-			event_thread = EventThread.find_or_create_by!(title: "LLBS#{n}の掲示板#{o}") do |eventthread|
-				eventthread.event_id = n
-				eventthread.user_id = o % 4 + 1
-				eventthread.body = "LLBS#{n}掲示板#{o}の書き込みです"
+		EventThread.create do |eventthread|
+			eventthread.title = Faker::Music.genre + "が好きな人話しましょう！"
+			eventthread.event_id = n
+			eventthread.user_id = rand(50) + 1
+			eventthread.body = "LLBS#{n}掲示板#{p}の書き込みです"
 			end
-			4.times{ |r|
-				q = r + 1
-					event_thread_comment = EventThreadComment.find_or_create_by!(comment: "LLBS#{n}の掲示板#{o}のコメント#{q}です。") do |event_thread_comment|
-						event_thread_comment.event_thread_id = o
-						event_thread_comment.user_id = q
-						event_thread_comment.score = 0
-					end
-			}
+		4.times{ |r|
+			EventThreadComment.create do |event_thread_comment|
+				event_thread_comment.comment = "テストコメント#{n}#{p}#{r}です。"
+				event_thread_comment.event_thread_id = rand(16) + 1
+				event_thread_comment.user_id = rand(50) + 1
+				event_thread_comment.score = 1
+			end
+		}
 	}
 
 	after_party = AfterParty.find_or_create_by!(event_id: n) do |p|
@@ -149,21 +178,21 @@ end
 	])
 }
 
-50.times { |m|
-  n = m + 1
-  event_user = EventUser.find_or_create_by!(user_id: n) do |e|
-	e.event_id = 1
-	e.part_table_id = 1
-	e.party_participate = n % 3
-	e.part_table_id = (n - 1) % 7 + 1
-  end
+1.upto(4) { |n|
+	1.upto(50) { |p|
+		event_user = EventUser.find_or_create_by(user_id: p, event_id: n) do |e|
+		e.party_participate = rand(3)
+		e.part_table_id = rand(7 * (n - 1) + 1 .. 7 * n)
+		end
+	}
 }
 
+#エントリーテーブル作成
 1.upto(5) { |p|
 	1.upto(9) { |n|
-	    entry_table = EntryTable.find_or_create_by!(event_user_id: n, music_id: p) do |e|
-		    e.part_id = n
-		    e.recruitment_status = 0
+	    EntryTable.find_or_create_by!(part_id: n, music_id: p) do |e|
+		    e.event_user_id = rand(50) + 1
+		    e.recruitment_status = 1
 		    e.requirement_status = 0
 	    end
 	}
@@ -171,6 +200,72 @@ end
 
 6.upto(10) { |p|
 	1.upto(9) { |n|
+	    EntryTable.create!(
+	    	event_user_id: nil,
+	    	music_id: p,
+		    part_id: n,
+		    recruitment_status: 0,
+		    requirement_status: 0
+	    )
+	}
+}
+
+11.upto(15) { |p|
+	10.upto(18) { |n|
+	    EntryTable.find_or_create_by!(part_id: n, music_id: p) do |e|
+		    e.event_user_id = rand(50) + 1
+		    e.recruitment_status = 1
+		    e.requirement_status = 0
+	    end
+	}
+}
+
+16.upto(20) { |p|
+	10.upto(18) { |n|
+	    EntryTable.create!(
+	    	event_user_id: nil,
+	    	music_id: p,
+		    part_id: n,
+		    recruitment_status: 0,
+		    requirement_status: 0
+	    )
+	}
+}
+
+21.upto(25) { |p|
+	19.upto(27) { |n|
+	    EntryTable.find_or_create_by!(part_id: n, music_id: p) do |e|
+		    e.event_user_id = rand(50) + 1
+		    e.recruitment_status = 1
+		    e.requirement_status = 0
+	    end
+	}
+}
+
+26.upto(30) { |p|
+	19.upto(27) { |n|
+	    EntryTable.create!(
+	    	event_user_id: nil,
+	    	music_id: p,
+		    part_id: n,
+		    recruitment_status: 0,
+		    requirement_status: 0
+	    )
+	}
+}
+
+31.upto(35) { |p|
+	28.upto(36) { |n|
+	    EntryTable.find_or_create_by!(part_id: n, music_id: p) do |e|
+		    e.event_user_id = rand(50) + 1
+		    e.recruitment_status = 1
+		    e.requirement_status = 0
+	    end
+	}
+}
+
+36.upto(40) { |p|
+	28.upto(36) { |n|
 	    EntryTable.create!(
 	    	event_user_id: nil,
 	    	music_id: p,
