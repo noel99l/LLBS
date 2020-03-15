@@ -17,7 +17,7 @@
                 <div class="container">
                     <div class="row">
                         <div class= "col-xs-4">
-                            <div class="navbar-left">
+                            <div class="navbar-left navbar-user">
                                 <%= link_to image_tag("LLBS_LOGO5.png",:size=>"212x50", :alt=>"LOGO"), root_path %>
                             </div>
                         </div>
@@ -49,17 +49,17 @@
                             </div>
                             <ul class="nav navbar-nav navbar-right">
                                 <li>
-                                    <%= link_to user_path(current_user.id) do %>
-                                    <i class="fas fa-user icon-custom"></i><br>
-                                    マイページ
+                                    <%= link_to user_path(current_user.id), class:"btn header-btn" do %>
+                                        <i class="fas fa-user icon-custom"></i><br>
+                                        マイページ
                                     <% end %>
                                 </li>
-                                <li><%= link_to events_path do %>
+                                <li><%= link_to events_path, class:"btn header-btn" do %>
                                     <i class="fas fa-music icon-custom"></i><br>
                                     イベント一覧
                                     <% end %>
                                 </li>
-                                <li><%= link_to destroy_user_session_path, method: :delete do %>
+                                <li><%= link_to destroy_user_session_path, class:"btn header-btn", method: :delete do %>
                                     <i class="fas fa-sign-out-alt icon-custom"></i><br>
                                     ログアウト
                                     <% end %>
