@@ -1,24 +1,48 @@
-# README
+# LLBS
+LLBSは、音楽セッションイベント用アプリケーションです。
+https://LLBS.info
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+## アプリ概要
+管理者の方がイベントの立ち上げ、ユーザーはイベント、楽曲、打ち上げへの参加意思表明などを手順に沿って行うことでセッション当日までの作業をアプリケーション内での完結させることができるアプリケーションです。
 
-Things you may want to cover:
+## 工夫した点
+  - 楽曲のテーブル機能の充実(必須、任意、不要)を図ることでより楽曲の編成内容に近しい形で成立がされるように工夫した。
+  - twitterAPIを使用したログインを採用することでユーザー・パスワードの入力と管理を不要とし、また手軽にログインできることでサイトへの登録、イベントへの参加のハードルを下げた。
+  - イベント参加の段階で打ち上げの出席有無を確認することで、直前になって打ち上げ会場側に人数変更の連絡をしなくてはならなかった状況の改善を試みた。
+  - 経験値機能といったRPG的な要素を取り入れることで楽しみつつ積極的なエントリーや掲示板への書き込みを促すのと同時に、初心者、中級者、上級者を可視化することで将来的に初心者向けのコーチング系イベントや、上級者向けの高い演奏スキルを必要とするアドリブセッションイベントなど対象ユーザーごとに参加を限定するイベントを企画することができるようになった。
+  - コメント機能にGoogle Natural Language APIを搭載することでポジティブなコメントの方がもらえる経験値が高くなるようにした。
+  - 従来使用していたtwiplaによる打ち上げの参加申請、Googleスプレッドシートによるタイムテーブル作成の機能をアプリケーション内に内臓することで外部アプリケーションへデータの受け渡しをする必要性を排除し、操作性の向上を図った。
+  - 歌詞の歌い分けをデータベース化することで楽曲新規作成のたびに新たに歌詞分けを記載する必要性を排除した。
+  - CSVダウンロード機能により外部ツールによるデータ加工にも対応
 
-* Ruby version
 
-* System dependencies
+## 使用技術
+- Ruby 2.5.7
+- Ruby on Rails 5.2.4.1
+- MySQL
+- Nginx
+- HTML
+- Sass
+- Javascript
+- jQuery
+- AWS
+  - EC2, RDS, ALB, Route53, S3, SES, IAM
 
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+## 使用したgem
+- テスト、静的解析
+  - rspec, capybara, factory_bot_rails
+  - rubocop
+  - faker
+- ログイン機能
+  - devise
+- 画像アップロード
+  - refile
+- Viewの補助機能
+  - ransack, kaminari
+  - will_paginate
+- javascriptライブラリ系
+  - cocoon, datetimepicker-rails, acts_as_list
+- インフラ補助
+  - omniauth
+- WYSIWYG editor
+  - trix
