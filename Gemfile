@@ -71,8 +71,6 @@ gem 'enum_help'
 gem 'pry-rails'
 gem 'font-awesome-sass', '~> 5.4.1'
 gem 'omniauth-twitter'
-gem 'omniauth-facebook'
-gem 'omniauth-google-oauth2'
 gem 'cocoon'
 gem 'will_paginate'
 gem 'bootstrap-will_paginate'
@@ -83,12 +81,12 @@ gem 'rails-i18n'
 gem 'trix'
 gem 'geocoder'
 gem 'dotenv-rails'
-gem 'twitter'
-gem 'line-bot-api'
 gem 'acts_as_list'
 gem 'rubocop', require: false
 gem 'rubocop-rails'
 
+
+# テスト用gem
 gem 'capybara', '>= 2.15'
 gem 'rspec-rails'
 gem "factory_bot_rails"

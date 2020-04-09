@@ -19,13 +19,13 @@ end
 User.create!({
 	name:"TEST USER",
 	provider: 'twitter',
-  	email: 'user1@llbs',
+  	email: 'test@user',
     nickname: "TEST_USER",
     introduction: "テストユーザーです。",
     password: 'password',
     password_confirmation: 'password',
-    exp: 20,
-    level_id: 1
+    exp: 90,
+    level_id: 2
 })
 
 49.times { |n|
