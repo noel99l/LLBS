@@ -1,13 +1,13 @@
 class EntryTablesController < ApplicationController
-  before_action :twitter_client #twitterBot用
-    def twitter_client
-    @twitter = Twitter::REST::Client.new do |config|
-      config.consumer_key = ENV.fetch("TWITTER_API_KEY")
-      config.consumer_secret = ENV.fetch("TWITTER_API_SECRET_KEY")
-      config.access_token = ENV.fetch("TWITTER_ACCESS_TOKEN")
-      config.access_token_secret = ENV.fetch("TWITTER_ACCESS_TOKEN_SECRET")
-    end
-  end
+  # before_action :twitter_client #twitterBot用
+  #   def twitter_client
+  #   @twitter = Twitter::REST::Client.new do |config|
+  #     config.consumer_key = ENV.fetch("TWITTER_API_KEY")
+  #     config.consumer_secret = ENV.fetch("TWITTER_API_SECRET_KEY")
+  #     config.access_token = ENV.fetch("TWITTER_ACCESS_TOKEN")
+  #     config.access_token_secret = ENV.fetch("TWITTER_ACCESS_TOKEN_SECRET")
+  #   end
+  # end
 
   def update
     event = Event.friendly.find(params[:event_id])
