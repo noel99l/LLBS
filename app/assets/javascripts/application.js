@@ -30,7 +30,7 @@ $(function(){
       if (!options.crossDomain) {
         token = $('meta[name="csrf-token"]').attr('content');
         if (token) {
-             return jqXHR.setRequestHeader('X-CSRF-Token', token);
+            return jqXHR.setRequestHeader('X-CSRF-Token', token);
          }
       }
   });
@@ -82,13 +82,9 @@ function initMap(latlng) {
 
 function getLatLng(address) {
   var geocoder = new google.maps.Geocoder();
- console.log(geocoder);
- console.log(address);
   geocoder.geocode({
     address: address
   }, function(results, status) {
-     console.log(results);
-     console.log(status);
     if (status == google.maps.GeocoderStatus.OK) {
       for (var i in results) {
         if (results[i].geometry) {

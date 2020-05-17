@@ -1,14 +1,15 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= content_for?(:html_title) ? "LLBS | #{yield(:html_title)}" : "LLBS" %></title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= stylesheet_link_tag    'sns', media: 'all', 'data-turbolinks-track' => true %>
-    <script src="https://kit.fontawesome.com/83beaa6ece.js" crossorigin="anonymous"></script>
-  </head>
+    <head>
+        <title><%= content_for?(:html_title) ? "LLBS | #{yield(:html_title)}" : "LLBS" %></title>
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <%= stylesheet_link_tag    'sns', media: 'all', 'data-turbolinks-track' => true %>
+        <script src="https://kit.fontawesome.com/83beaa6ece.js" crossorigin="anonymous"></script>
+        <script data-ad-client="ca-pub-8197195503994621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    </head>
 
 <body class="wf-notosansjapanese">
     <div class="wrapper">
@@ -89,5 +90,6 @@
             <p class="footer-text">© All rights reserved by noel99l</p>
         </footer>
     </div>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
 </body>
 </html>
