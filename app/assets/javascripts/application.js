@@ -1,15 +1,5 @@
 // This is a manifest file that'll be compiled into application.js, which will include all the files
 // listed below.
-//
-// Any JavaScript/Coffee file within this directory, lib/assets/javascripts, or any plugin's
-// vendor/assets/javascripts directory can be referenced here using a relative path.
-//
-// It's not advisable to add code directly here, but if you do, it'll appear at the bottom of the
-// compiled file. JavaScript code in this file should be added after the last require_* statement.
-//
-// Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
-// about supported directives.
-//
 //= require rails-ujs
 //= require activestorage
 //= require jquery
@@ -25,24 +15,24 @@
 // タイムテーブル並べ替え
 $(function(){
   // トークンの取得
-   $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
+  $.ajaxPrefilter(function(options, originalOptions, jqXHR) {
       var token;
       if (!options.crossDomain) {
         token = $('meta[name="csrf-token"]').attr('content');
         if (token) {
             return jqXHR.setRequestHeader('X-CSRF-Token', token);
-         }
+        }
       }
   });
 
   // テーブルの横幅をとってくる
-   function fixPlaceHolderWidth(event, ui){
-        // adjust placeholder td width to original td width
-        ui.children().each(function(){
-            $(this).width($(this).width());
-        });
-        return ui;
-    };
+  function fixPlaceHolderWidth(event, ui){
+    // adjust placeholder td width to original td width
+    ui.children().each(function(){
+        $(this).width($(this).width());
+    });
+    return ui;
+  };
   // sortable
     var el = document.getElementById('sortable');
     if (el !== null) {
