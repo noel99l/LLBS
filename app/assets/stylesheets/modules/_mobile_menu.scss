@@ -1,0 +1,128 @@
+$cPink: #EB6F8B;
+$cLightPink: #FAD9E0;
+$cGray: #E5E4E4;
+$cBlack: black;
+$cBlue: #6FCEEB;
+$cLightBlue: #B7E0EB;
+
+/* --- ハンバーガーアイコン --- */
+
+#mobile-menu {
+    &__btn {
+        display: block;
+        z-index: 10;
+        padding-top: 5px;
+    }
+}
+
+.menu-trigger,
+.menu-trigger span {
+    display: inline-block;
+    transition: all .4s;
+    box-sizing: border-box;
+}
+
+.menu-trigger {
+    position: relative;
+    &>span {
+        background-color: black;
+        width: 35px;
+        height: 2px;
+        display: block;
+        margin-bottom: 9px;
+        transition: transform 0.7s;
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+}
+
+.menu-trigger.active span {
+    &:nth-child(1) {
+        transition-delay: 70ms;
+        transform: translateY(11px) rotate(135deg);
+    }
+    &:nth-child(2) {
+        transition-delay: 0s;
+        transform: translateX(-18px) scaleX(0);
+    }
+    &:nth-child(3) {
+        transition-delay: 140ms;
+        transform: translateY(-11px) rotate(-135deg);
+    }
+}
+
+
+/* ------ spメニュー ------ */
+
+#mobile-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: white;
+    color: black;
+    width: 100%;
+    min-height: 100%;
+    display: none;
+    z-index: 9;
+}
+
+.mobile-menu {
+    &__content {
+        padding: 10vh 0 20vh 0;
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        align-items: center;
+        height: 100vh;
+        z-index: 20;
+        color: black;
+    }
+}
+
+.moblie-btn {
+    cursor: pointer;
+    padding: 15px 0;
+    width: 70vw;
+    &.white {
+        background-color: $cGray;
+        color: black;
+        font-size: 1.4em;
+        transition: all 500ms;
+    }
+    &.pink {
+        background-color: $cPink;
+        color: white;
+        font-size: 1.4em;
+        transition: all 500ms;
+        &:hover {
+            background-color: $cLightPink;
+            color: black;
+        }
+        &:active {
+            background-color: $cPink;
+            color: white;
+        }
+    }
+    &.blue {
+        background-color: $cBlue;
+        color: white;
+        font-size: 1.4em;
+        transition: all 500ms;
+        &:hover {
+            background-color: $cLightBlue;
+            color: black;
+        }
+        &:active {
+            background-color: $cBlue;
+            color: white;
+        }
+    }
+}
+
+.mb-menu-logo {
+    width: 65vw;
+    height: auto;
+    margin: 30px;
+}

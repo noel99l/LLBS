@@ -1,3 +1,103 @@
-// Place all the styles related to the homes controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+/*
+ *= require_self
+ */
+
+.mv-title {
+    margin: 225px auto;
+    object-fit: contain;
+    background-repeat: no-repeat;
+    width: 70%;
+    height: 30%;
+}
+
+#portfolio {
+    background-color: #ECEFF1;
+}
+
+.heading {
+    padding-top: 50px;
+    text-align: center;
+    font-family: 'Raleway', sans-serif;
+    font-size: 32px;
+}
+
+.heading::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 3px;
+    margin: 8px auto 0 auto;
+    background-color: #ff6a00;
+}
+
+.heading-text {
+    padding-top: 30px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.production-group {
+    width: 920px;
+    padding: 30px 0 90px 0;
+    margin: 0 auto;
+}
+
+.production {
+    float: left;
+    width: 300px;
+    height: 250px;
+    margin: 10px 10px 0 0;
+    background-size: cover;
+    background-position: center;
+}
+
+.production:nth-child(3n) {
+    margin-right: 0;
+}
+
+.description-group {
+    padding: 50px 5%;
+}
+
+.left-content {
+    width: 50%;
+    float: left;
+}
+
+.right-content {
+    width: 50%;
+    float: right;
+}
+
+.description-picture {
+    width: 400px;
+    height: 250px;
+    margin: 0 auto;
+    background-size: cover;
+}
+
+.discription-title {
+    margin: 20px 0 5px 0;
+    font-size: 20px;
+}
+
+.discription-text {
+    font-size: 15px;
+}
+
+.discription-text-item {
+    font-size: 12px;
+}
+
+#profile {
+    background-color: #ECEFF1;
+}
+
+.profile-group {
+    padding: 30px 0 90px 0;
+}
+
+.contact-group {
+    padding: 30px 0 90px 0;
+    margin: 0 auto;
+}
