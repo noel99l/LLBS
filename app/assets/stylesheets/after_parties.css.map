@@ -1,6 +1,6 @@
 {
     "version": 3,
-    "mappings": "AAGA,AAAA,QAAQ,CAAC;EACL,KAAK,EAAE,IAAI;CACd",
+    "mappings": "",
     "sources": [
         "after_parties.scss"
     ],

@@ -22,6 +22,26 @@
 //= require_tree .
 
 
+
+$(function() {
+    var pageURL = location.pathname,
+        pageURLArr = pageURL.split('/'), //パスを分割して配列化する
+        pageURLArrCategory = pageURLArr[1]; //パスから第1階層を取得
+
+    $('#pc-menu > ul > li > a').each(function(i, v) {
+        var selfhref = $(v).attr('href'),
+            hrefArr = selfhref.split('/'), //href属性の値を分割して配列化する
+            hrefArrCategory = hrefArr[1]; //href属性の第1階層を取得
+
+        //パスの第1階層とhref属性の第1階層を比較して同じ値であればcurrentを付与する
+        if (pageURLArrCategory === hrefArrCategory) {
+            $(v).parent().addClass('active');
+        }
+
+    });
+});
+
+
 // モバイルメニュー開閉
 $('.menu-trigger').on('click', function(event) {
     $(this).toggleClass('active');

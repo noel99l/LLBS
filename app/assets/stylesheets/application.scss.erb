@@ -11,7 +11,6 @@
  * It is generally better to create a new file per style scope.
  *
 
- *= require_tree .
  *= require_self
  */
 
@@ -64,20 +63,6 @@ font-family: 'Noto Sans Japanese', serif;
     position: relative;
     padding-bottom: 100px;
     box-sizing: border-box;
-}
-
-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 60px;
-    width: 100%;
-    padding: 10px 20px;
-}
-
-.header-logo {
-    width: 150px;
-    height: auto;
 }
 
 .table thead tr th {
@@ -139,10 +124,6 @@ ul,ol,li {
     padding:2px 0 2px 0;
     border-top: 1px solid #eee;
     border-bottom:none;
-}
-
-header {
-    box-shadow: 0px 0px 10px 0px gray;
 }
 
 .icon-custom {
@@ -240,10 +221,6 @@ header {
     border-radius: 30px;
 }
 
-.header-btn{
-    font-size: 12px;
-}
-
 h1 {
     text-align: center;
     margin: 50px 0;
@@ -257,7 +234,70 @@ h1 {
     background-color: #eee;
 }
 
-//トップページ
+
+// ヘッダー
+
+header {
+    height: 60px;
+    width: 100%;
+    padding: 10px 20px;
+    box-shadow: 0px 0px 10px 0px gray;
+}
+
+.header-contents {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1080px;
+}
+
+.header-logo {
+    width: 150px;
+    height: auto;
+    padding-top: 2px;
+}
+
+.pc-menu{
+    &__content {
+        display: flex;
+    }
+
+    &__item {
+        width: 140px;
+        font-size: 1.2em;
+        text-align: center;
+        a {
+            color: #8D8A8B;
+            text-decoration: none;
+            i {
+                font-size: 1.5em;
+            }
+            span {
+                vertical-align : 10%;
+                margin-left: -5px;
+            }
+        }
+        &:hover > a {
+            color: #2C2627;
+        }
+        &.active {
+            a {
+                color: #2C2627;
+            }
+            &::after{
+                content: "";
+                display: block;
+                width: 83px;
+                height: 5px;
+                margin: 10px 20px -12px auto;
+                background-color: #EB6F8B;
+            }
+        }
+    }
+}
+
+// トップページ
 
 #mv {
     width: 100%;
@@ -269,59 +309,6 @@ h1 {
     background-position: center;
 }
 
-.mv-title {
-    margin: 225px auto;
-    object-fit: contain;
-    background-repeat:  no-repeat;
-    width:70%;
-    height:30%;
-}
-
-#portfolio {
-    background-color: #ECEFF1;
-}
-
-.heading {
-    padding-top: 50px;
-    text-align: center;
-    font-family: 'Raleway', sans-serif;
-    font-size: 32px;
-}
-
-.heading::after {
-    content: "";
-    display: block;
-    width: 70px;
-    height: 3px;
-    margin: 8px auto 0 auto;
-    background-color: #ff6a00;
-}
-
-.heading-text {
-    padding-top: 30px;
-    text-align: center;
-    font-size: 16px;
-}
-
-.production-group {
-    width: 920px;
-    padding: 30px 0 90px 0;
-    margin: 0 auto;
-}
-
-
-.production {
-    float: left;
-    width: 300px;
-    height: 250px;
-    margin: 10px 10px 0 0;
-    background-size: cover;
-    background-position: center;
-}
-
-.production:nth-child(3n) {
-    margin-right: 0;
-}
 
 .bg-1 {
     background-image: url(<%= asset_url 'LLBS_image01.jpg' %>);
@@ -347,26 +334,6 @@ h1 {
     background-image: url(<%= asset_url 'LLBS_image06.jpg' %>);
 }
 
-.description-group {
-    padding: 50px 5%;
-}
-
-.left-content {
-    width: 50%;
-    float: left;
-}
-
-.right-content {
-    width: 50%;
-    float: right;
-}
-
-.description-picture {
-    width: 400px;
-    height: 250px;
-    margin: 0 auto;
-    background-size: cover;
-}
 
 .desc-bg1 {
     background-image: url(<%= asset_url 'desc_image1.jpg' %>);
@@ -394,26 +361,6 @@ h1 {
     background-image: url(<%= asset_url 'desc_image6.jpg' %>);
 }
 
-.discription-title {
-    margin: 20px 0 5px 0;
-    font-size: 20px;
-}
-
-.discription-text {
-    font-size: 15px;
-}
-
-.discription-text-item {
-    font-size: 12px;
-}
-
-#profile {
-    background-color: #ECEFF1;
-}
-
-.profile-group {
-    padding: 30px 0 90px 0;
-}
 
 .my-face {
     width: 300px;
@@ -423,9 +370,3 @@ h1 {
     background-image: url(<%= asset_url 'profile2.jpg' %>);
     background-size: cover;
 }
-
-.contact-group {
-    padding: 30px 0 90px 0;
-    margin: 0 auto;
-}
-
