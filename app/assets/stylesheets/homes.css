@@ -118,6 +118,9 @@
 Stylesheet: 960px以上のモニタで適用
 
 ******************************************************************/
+  #mv {
+    height: 650px;
+  }
   .mv-title {
     -o-object-fit: contain;
        object-fit: contain;
