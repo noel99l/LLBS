@@ -4,166 +4,33 @@
         <title><%= content_for?(:html_title) ? "LLBS | #{yield(:html_title)}" : "LLBS" %></title>
         <%= csrf_meta_tags %>
         <%= csp_meta_tag %>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
         <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= stylesheet_link_tag    'sns', media: 'all', 'data-turbolinks-track' => true %>
         <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.11/css/unicons.css">
-
+        <!-- CSS読み込み開始 -->
         <%= yield :css %>
+        <!-- CSS読み込み終了 -->
 
-        <meta name="viewport" content="width=device-width,initial-scale=1">
         <script src="https://kit.fontawesome.com/83beaa6ece.js" crossorigin="anonymous"></script>
         <script data-ad-client="ca-pub-8197195503994621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </head>
 
-<body class="wf-notosansjapanese">
-    <div class="wrapper">
-        <header>
-            <div class="header-contents">
-                <div class="logo">
-                    <%= link_to root_path do %>
-                        <img src="assets/LLBS_LOGO5.png" alt="LLBS_logo" class="header-logo">
-                    <% end %>
-                </div>
-                <% if user_signed_in? %>
-                    <div class="exp">
-                        <span class="user-name">
-                            <strong>
-                                <%= current_user.name %>さん 
-                                (Lv:<%= current_user.level_id %>)
-                            </strong>
-                        </span>
-                            <div class="progress">
-                                <% if current_user.level_id == 1 %>
-                                    <% @percentage = current_user.exp * 100 / Level.find(1).threshold %>
-                                <% else %>
-                                    <% @percentage = (current_user.exp - Level.find(current_user.level_id - 1).threshold) *100 /(Level.find(current_user.level_id).threshold - Level.find(current_user.level_id - 1).threshold ) %>
-                                <% end %>
-                                <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" style="width: <%= @percentage.to_i %>%;">
-                                    <% if current_user.level_id == 1 %>
-                                        <% @percentage = current_user.exp * 100 / Level.find(1).threshold %>
-                                    <% else %>
-                                        <%= current_user.exp - Level.find(current_user.level_id - 1).threshold %>/<%= Level.find(current_user.level_id).threshold - Level.find(current_user.level_id - 1).threshold %>
-                                    <% end %>
-                                </div>
-                            </div>
-                        <span style="color: red;">
-                            <strong><%= flash[:info] %></strong>
-                        </span>
-                    </div>
-                    <div class="menu">
-                        <div id="pc-menu">
-                            <ul class="pc-menu__content">
-                                <li>
-                                    <%= link_to user_path(current_user.id), class:"btn header-btn" do %>
-                                        <i class="uil uil-home-alt"></i>
-                                        マイページ
-                                    <% end %>
-                                </li>
-                                <li><%= link_to events_path, class:"btn header-btn" do %>
-                                    <i class="fas fa-music icon-custom"></i><br>
-                                    イベント一覧
-                                    <% end %>
-                                </li>
-                                <li><%= link_to destroy_user_session_path, class:"btn header-btn", method: :delete do %>
-                                    <i class="fas fa-sign-out-alt icon-custom"></i><br>
-                                    ログアウト
-                                    <% end %>
-                                </li>
-                            </ul>
-                        </div>
-                        <div id="mobile-menu">
-                            <ul class="mobile-menu__content">
-                                <img src="assets/LLBS_LOGO5.png" alt="LLBS_logo" class="mb-menu-logo">
-                                <li>
-                                    <%= link_to "トップ", root_path, class:"btn slide-bg moblie-btn white"%>
-                                </li>
-                                <li>
-                                    <%= link_to "マイページ", user_path(current_user.id), class:"btn slide-bg moblie-btn white" %>
-                                </li>
-                                <li>
-                                    <%= link_to "イベント", events_path, class:"btn slide-bg moblie-btn white"%>
-                                </li>
-                                <li>
-                                    <%= link_to "ログアウト", destroy_user_session_path, class:"btn moblie-btn blue", method: :delete %>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                <% else %>
-                    <div class="menu">
-                        <div id="pc-menu">
-                            <ul class="pc-menu__content">
-                                <li class="gmenuTopPage pc-menu__item">
-                                    <%= link_to root_path do %>
-                                        <i class="uil uil-home-alt"></i>
-                                        <span class>トップ<span>
-                                    <% end %>
-                                </li>
-                                <li class="gmenuAbout pc-menu__item">
-                                    <%= link_to root_path do %>
-                                        <i class="uil uil-info-circle"></i>
-                                        <span>使い方</span>
-                                    <% end %>
-                                </li>
-                                <li class="gmenuEvents pc-menu__item">
-                                    <%= link_to events_path do %>
-                                        <i class="uil uil-calendar-alt"></i>
-                                        <span>イベント</span>
-                                    <% end %>
-                                </li>
-                                <li class="gmenuLogin pc-menu__item">
-                                    <%= link_to user_twitter_omniauth_authorize_path do %>
-                                        <i class="uil uil-user"></i>
-                                        <span>ログイン</span>
-                                    <% end %>
-                                </li>
-                            </ul>
-                        </div>
-                        <div id="mobile-menu">
-                            <ul class="mobile-menu__content">
-                                <img src="assets/LLBS_LOGO5.png" alt="LLBS_logo" class="mb-menu-logo">
-                                <li>
-                                    <%= link_to root_path, class:"btn slide-bg moblie-btn white" do %>
-                                        <span>トップ</span>
-                                    <% end %>
-                                </li>
-                                <li>
-                                    <%= link_to root_path, class:"btn slide-bg moblie-btn white" do %>
-                                        <span>使い方</span>
-                                    <% end %>
-                                </li>
-                                <li>
-                                    <%= link_to events_path, class:"btn slide-bg moblie-btn white" do %>
-                                        <span>イベント</span>
-                                    <% end %>
-                                </li>
-                                <li>
-                                    <%= link_to user_twitter_omniauth_authorize_path, class:"btn moblie-btn pink" do %>
-                                        <span>ログイン</span>
-                                    <% end %>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                <% end %>
-                <div id="mobile-menu__btn">
-                    <a class="menu-trigger" href="#">
-                        <span></span>
-                        <span></span>
-                        <span></span>
-                    </a>
-                </div>
+    <body class="wf-notosansjapanese">
+        <div class="wrapper">
+            <%= render 'layouts/header' %>
+            <%= render 'layouts/flash_messages' %>
+
+            <div class="main-content">
+                <%= yield %>
             </div>
-        </header>
 
-        <%= render 'layouts/flash_messages' %>
-        <%= yield %>
-        <footer>
-            <p class="footer-text">© All rights reserved by noel99l</p>
-        </footer>
-    </div>
+            <%= render 'layouts/footer' %>
+        </div>
 
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-    <%= yield :js %>
-</body>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <!-- JS読み込み開始 -->
+        <%= yield :js %>
+        <!-- JS読み込み終了 -->
+    </body>
 </html>

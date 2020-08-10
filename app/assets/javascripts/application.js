@@ -34,10 +34,9 @@ $(function() {
             hrefArrCategory = hrefArr[1]; //href属性の第1階層を取得
 
         //パスの第1階層とhref属性の第1階層を比較して同じ値であればcurrentを付与する
-        if (pageURLArrCategory === hrefArrCategory) {
+        if (pageURLArrCategory === hrefArrCategory && hrefArr[2] !== 'sign_out') {
             $(v).parent().addClass('active');
         }
-
     });
 });
 

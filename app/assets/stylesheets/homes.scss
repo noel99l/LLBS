@@ -1,13 +1,7 @@
-/*
- *= require_self
- */
-
 .mv-title {
-    margin: 225px auto;
     object-fit: contain;
-    background-repeat: no-repeat;
-    width: 70%;
-    height: 30%;
+    width: 90%;
+    height: auto;
 }
 
 #portfolio {
@@ -89,15 +83,27 @@
     font-size: 12px;
 }
 
-#profile {
-    background-color: #ECEFF1;
-}
-
-.profile-group {
-    padding: 30px 0 90px 0;
+#contact {
+    background-color: #EB6F8B;
 }
 
 .contact-group {
-    padding: 30px 0 90px 0;
-    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    padding-top: 50px;
+    padding-bottom: 110px;
+}
+
+.twitter-timeline {
+    margin: 20px auto !important;
+    width: 70% !important;
+}
+
+.wrapper {
+    padding-bottom: 0;
+}
+
+@media (min-width: 960px) {
+    @import "breakpoints/960up";
 }

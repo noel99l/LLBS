@@ -16,4 +16,5 @@ Rails.application.config.assets.precompile += %w(
     nicEdit.js
     sns.scss
     homes.css
+    about.css
  )
