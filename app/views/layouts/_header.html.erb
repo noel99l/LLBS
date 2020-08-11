@@ -32,13 +32,13 @@
                         <li class="pc-menu__item">
                             <%= link_to root_path do %>
                                 <i class="uil uil-home-alt"></i>
-                                <span class>トップ<span>
+                                <span>トップ</span>
                             <% end %>
                         </li>
                         <li class="pc-menu__item">
                             <%= link_to user_path(current_user.id) do %>
                                 <i class="uil uil-user"></i>
-                                マイページ
+                                <span>マイページ</span>
                             <% end %>
                         </li>
                         <li class="pc-menu__item">
@@ -50,7 +50,7 @@
                         <li class="pc-menu__item">
                             <%= link_to destroy_user_session_path, method: :delete do %>
                             <i class="uil uil-sign-out-alt"></i>
-                                ログアウト
+                                <span>ログアウト</span>
                             <% end %>
                         </li>
                     </ul>
@@ -80,7 +80,7 @@
                         <li class="pc-menu__item">
                             <%= link_to root_path do %>
                                 <i class="uil uil-home-alt"></i>
-                                <span class>トップ<span>
+                                <span class>トップ</span>
                             <% end %>
                         </li>
                         <li class="pc-menu__item">

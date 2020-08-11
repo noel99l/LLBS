@@ -1,17 +1,21 @@
+@import 'modules/variables';
+.main-content {
+    margin-top: 0;
+}
+
+.wrapper {
+    padding-bottom: 0;
+}
+
 .mv-title {
     object-fit: contain;
     width: 90%;
     height: auto;
 }
 
-#portfolio {
-    background-color: #ECEFF1;
-}
-
 .heading {
-    padding-top: 50px;
+    margin: 50px 0;
     text-align: center;
-    font-family: 'Raleway', sans-serif;
     font-size: 32px;
 }
 
@@ -21,13 +25,138 @@
     width: 70px;
     height: 3px;
     margin: 8px auto 0 auto;
-    background-color: #ff6a00;
+    background-color: $cPink;
+}
+
+// 最新イベントセクション
+#current-events {
+    background-color: $cWhite;
+}
+
+.event-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.event-card {
+    width: 100%;
+    height: 320px;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 10px 5px $cGray;
+    position: relative;
+    transition: all 500ms;
+    &:hover {
+        box-shadow: 0px 0px 10px 0px $cGray;
+    }
+}
+
+.top-content {
+    height: 55%;
+    overflow: hidden;
+    .event-image {
+        width: 100%;
+        height: auto;
+        transform: translateY(-20%);
+    }
+    .date-container {
+        position: absolute;
+        top: 25px;
+        left: 30px;
+        width: 100px;
+        height: 128px;
+        .event-status {
+            background-color: $cPink;
+            color: $cWhite;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .date-status {
+            height: 100px;
+            border: 2px solid $cGray;
+            background-color: $cWhite;
+            .month {
+                display: block;
+                text-align: center;
+                font-size: 1.2em;
+                font-weight: bold;
+                padding-top: 13px;
+            }
+            .date {
+                display: block;
+                text-align: center;
+                font-size: 3em;
+                font-weight: bold;
+                margin-top: -10px;
+            }
+        }
+    }
+}
+
+.bottom-content {
+    height: 45%;
+    padding: 20px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    .event-title {
+        font-size: 1.5em;
+        font-weight: bold;
+    }
+    .event-desc {
+        color: $cDarkGray;
+        font-size: 1.2em;
+    }
+}
+
+.top-btn {
+    background-color: $cPink;
+    width: 70%;
+    font-size: 1.4em;
+    padding: 20px 0;
+    border-radius: 40px;
+    margin: 30px 0 80px;
+    color: $cWhite;
+    box-shadow: 5px 5px 10px 0px $cDarkGray;
+    transition: all 500ms;
+    &:hover {
+        box-shadow: none;
+        color: $cWhite;
+    }
+}
+
+// みんかなセクション
+#description {
+    background-color: #ECEFF1;
+}
+
+.swiper-container {
+    width: 100%;
+    height: 250px;
+    .swiper-slide {
+        height: 500px;
+        &>img {
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            object-fit: cover;
+        }
+    }
+}
+
+.desc-container {
+    margin-top: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .heading-text {
-    padding-top: 30px;
+    margin-top: 10px;
     text-align: center;
-    font-size: 16px;
+    font-size: 1.4em;
 }
 
 .production-group {
@@ -36,58 +165,17 @@
     margin: 0 auto;
 }
 
-.production {
-    float: left;
-    width: 300px;
-    height: 250px;
-    margin: 10px 10px 0 0;
-    background-size: cover;
-    background-position: center;
+// Q&Aセクション
+#question {
+    background-color: $cWhite;
 }
 
-.production:nth-child(3n) {
-    margin-right: 0;
+// SNSセクション
+#sns {
+    background-color: $cPink;
 }
 
-.description-group {
-    padding: 50px 5%;
-}
-
-.left-content {
-    width: 50%;
-    float: left;
-}
-
-.right-content {
-    width: 50%;
-    float: right;
-}
-
-.description-picture {
-    width: 400px;
-    height: 250px;
-    margin: 0 auto;
-    background-size: cover;
-}
-
-.discription-title {
-    margin: 20px 0 5px 0;
-    font-size: 20px;
-}
-
-.discription-text {
-    font-size: 15px;
-}
-
-.discription-text-item {
-    font-size: 12px;
-}
-
-#contact {
-    background-color: #EB6F8B;
-}
-
-.contact-group {
+.sns-group {
     display: flex;
     justify-content: space-around;
     flex-direction: column;
@@ -98,10 +186,6 @@
 .twitter-timeline {
     margin: 20px auto !important;
     width: 70% !important;
-}
-
-.wrapper {
-    padding-bottom: 0;
 }
 
 @media (min-width: 960px) {
