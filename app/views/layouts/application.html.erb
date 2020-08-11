@@ -11,12 +11,9 @@
         <!-- CSS読み込み開始 -->
         <%= yield :css %>
         <!-- CSS読み込み終了 -->
-
-        <script src="https://kit.fontawesome.com/83beaa6ece.js" crossorigin="anonymous"></script>
-        <script data-ad-client="ca-pub-8197195503994621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </head>
 
-    <body class="wf-notosansjapanese">
+    <body id="global-container" class="wf-notosansjapanese">
         <div class="wrapper">
             <%= render 'layouts/header' %>
             <%= render 'layouts/flash_messages' %>
@@ -27,7 +24,7 @@
 
             <%= render 'layouts/footer' %>
         </div>
-
+        <script src="https://kit.fontawesome.com/83beaa6ece.js" crossorigin="anonymous"></script>
         <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
         <!-- JS読み込み開始 -->
         <%= yield :js %>
