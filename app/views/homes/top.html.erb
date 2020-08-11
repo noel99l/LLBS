@@ -1,5 +1,6 @@
 <% content_for :css do %>
     <%= stylesheet_link_tag 'homes', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <link rel="stylesheet" href="https://unpkg.com/swiper/swiper-bundle.min.css">
 <% end %>
 
 <% content_for(:html_title) { "トップページ" } %>
@@ -61,8 +62,23 @@
 <section id="description">
     <div class="container">
         <h2 class="heading">みんなで奏でる物語</h2>
-        <div class="hero">
+    </div>
+    <div class="hero">
+        <!-- Slider main container -->
+        <div class="swiper-container">
+            <!-- Additional required wrapper -->
+            <div class="swiper-wrapper">
+                <!-- Slides -->
+                <div class="swiper-slide"><%= image_tag('LLBS_image01.jpg', class:"event-image") %></div>
+                <div class="swiper-slide"><%= image_tag('LLBS_image02.jpg', class:"event-image") %></div>
+                <div class="swiper-slide"><%= image_tag('LLBS_image03.jpg', class:"event-image") %></div>
+                <div class="swiper-slide"><%= image_tag('LLBS_image04.jpg', class:"event-image") %></div>
+                <div class="swiper-slide"><%= image_tag('LLBS_image05.jpg', class:"event-image") %></div>
+                <div class="swiper-slide"><%= image_tag('LLBS_image06.jpg', class:"event-image") %></div>
+            </div>
         </div>
+    </div>
+    <div class="container">
         <div class="desc-container">
             <p class="heading-text">
                 憧れのアーティストのあの曲をバンドで演奏してみたい、そう思ったことはありませんか。<br>
@@ -91,3 +107,7 @@
         </div>
     </div>
 </section>
+
+<% content_for :js do %>
+    <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+<% end %>
