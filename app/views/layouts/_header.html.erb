@@ -1,0 +1,141 @@
+<header>
+    <div class="header-contents">
+        <div class="header-logo">
+            <%= link_to root_path do %>
+                <img src="<%= asset_url 'LLBS_LOGO5.png' %>" alt="LLBS_logo" class="header-logo">
+            <% end %>
+        </div>
+        <% if user_signed_in? %>
+            <div class="exp">
+                <div class="name">
+                    <span><%= current_user.name %>さん</span>
+                    <span>(Lv:<%= current_user.level_id %>)</span>
+                </div>
+                <div class="progress">
+                    <% if current_user.level_id == 1 %>
+                        <% @percentage = current_user.exp * 100 / Level.find(1).threshold %>
+                    <% else %>
+                        <% @percentage = (current_user.exp - Level.find(current_user.level_id - 1).threshold) *100 /(Level.find(current_user.level_id).threshold - Level.find(current_user.level_id - 1).threshold ) %>
+                    <% end %>
+                    <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" style="width: <%= @percentage.to_i %>%;">
+                        <% if current_user.level_id == 1 %>
+                            <% @percentage = current_user.exp * 100 / Level.find(1).threshold %>
+                        <% else %>
+                            <%= current_user.exp - Level.find(current_user.level_id - 1).threshold %>/<%= Level.find(current_user.level_id).threshold - Level.find(current_user.level_id - 1).threshold %>
+                        <% end %>
+                    </div>
+                </div>
+            </div>
+            <div class="menu">
+                <div id="pc-menu">
+                    <ul class="pc-menu__content">
+                        <li class="pc-menu__item">
+                            <%= link_to root_path do %>
+                                <i class="uil uil-home-alt"></i>
+                                <span class>トップ<span>
+                            <% end %>
+                        </li>
+                        <li class="pc-menu__item">
+                            <%= link_to user_path(current_user.id) do %>
+                                <i class="uil uil-user"></i>
+                                マイページ
+                            <% end %>
+                        </li>
+                        <li class="pc-menu__item">
+                            <%= link_to events_path do %>
+                                <i class="uil uil-calendar-alt"></i>
+                                <span>イベント</span>
+                            <% end %>
+                        </li>
+                        <li class="pc-menu__item">
+                            <%= link_to destroy_user_session_path, method: :delete do %>
+                            <i class="uil uil-sign-out-alt"></i>
+                                ログアウト
+                            <% end %>
+                        </li>
+                    </ul>
+                </div>
+                <div id="mobile-menu">
+                    <ul class="mobile-menu__content">
+                        <img src="assets/LLBS_LOGO5.png" alt="LLBS_logo" class="mb-menu-logo">
+                        <li>
+                            <%= link_to "トップ", root_path, class:"btn slide-bg moblie-btn white"%>
+                        </li>
+                        <li>
+                            <%= link_to "マイページ", user_path(current_user.id), class:"btn slide-bg moblie-btn white" %>
+                        </li>
+                        <li>
+                            <%= link_to "イベント", events_path, class:"btn slide-bg moblie-btn white"%>
+                        </li>
+                        <li>
+                            <%= link_to "ログアウト", destroy_user_session_path, class:"btn moblie-btn blue", method: :delete %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        <% else %>
+            <div class="menu">
+                <div id="pc-menu">
+                    <ul class="pc-menu__content">
+                        <li class="pc-menu__item">
+                            <%= link_to root_path do %>
+                                <i class="uil uil-home-alt"></i>
+                                <span class>トップ<span>
+                            <% end %>
+                        </li>
+                        <li class="pc-menu__item">
+                            <%= link_to about_path do %>
+                                <i class="uil uil-info-circle"></i>
+                                <span>使い方</span>
+                            <% end %>
+                        </li>
+                        <li class="pc-menu__item">
+                            <%= link_to events_path do %>
+                                <i class="uil uil-calendar-alt"></i>
+                                <span>イベント</span>
+                            <% end %>
+                        </li>
+                        <li class="pc-menu__item">
+                            <%= link_to user_twitter_omniauth_authorize_path do %>
+                                <i class="uil uil-user"></i>
+                                <span>ログイン</span>
+                            <% end %>
+                        </li>
+                    </ul>
+                </div>
+                <div id="mobile-menu">
+                    <ul class="mobile-menu__content">
+                        <img src="assets/LLBS_LOGO5.png" alt="LLBS_logo" class="mb-menu-logo">
+                        <li>
+                            <%= link_to root_path, class:"btn slide-bg moblie-btn white" do %>
+                                <span>トップ</span>
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to about_path, class:"btn slide-bg moblie-btn white" do %>
+                                <span>使い方</span>
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to events_path, class:"btn slide-bg moblie-btn white" do %>
+                                <span>イベント</span>
+                            <% end %>
+                        </li>
+                        <li>
+                            <%= link_to user_twitter_omniauth_authorize_path, class:"btn moblie-btn pink" do %>
+                                <span>ログイン</span>
+                            <% end %>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        <% end %>
+        <div id="mobile-menu__btn">
+            <a class="menu-trigger" href="#">
+                <span></span>
+                <span></span>
+                <span></span>
+            </a>
+        </div>
+    </div>
+</header>

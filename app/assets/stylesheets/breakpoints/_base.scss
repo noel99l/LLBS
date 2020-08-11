@@ -1,0 +1,277 @@
+/******************************************************************
+
+Stylesheet: ベーススタイル
+
+******************************************************************/
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.wf-notosansjapanese {
+    font-family: 'Noto Sans Japanese', serif;
+}
+
+.wrapper {
+    min-height: 100vh;
+    position: relative;
+    padding-bottom: 60px;
+    box-sizing: border-box;
+}
+
+#pc-menu {
+    display: none;
+}
+
+// ヘッダー
+header {
+    position: fixed;
+    top: 0;
+    background-color: white;
+    height: 60px;
+    width: 100%;
+    padding: 10px 20px;
+    box-shadow: 0px 0px 10px 0px gray;
+    z-index: 99;
+}
+
+.header-contents {
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1080px;
+}
+
+.header-logo {
+    width: 150px;
+    height: auto;
+    padding-top: 2px;
+}
+
+// 非表示
+.name {
+    display: none;
+    font-weight: bold;
+}
+
+// 非表示
+.progress {
+    display: none;
+    width: 200px;
+}
+
+.pc-menu {
+    &__content {
+        display: flex;
+    }
+    &__item {
+        width: 140px;
+        font-size: 1.2em;
+        text-align: center;
+        a {
+            color: #8D8A8B;
+            text-decoration: none;
+            i {
+                font-size: 1.5em;
+            }
+            span {
+                vertical-align: 10%;
+                margin-left: -5px;
+            }
+        }
+        &:hover>a {
+            color: #2C2627;
+        }
+        &.active {
+            a {
+                color: #2C2627;
+            }
+            &::after {
+                content: "";
+                display: block;
+                width: 83px;
+                height: 5px;
+                margin: 10px 20px -12px auto;
+                background-color: #EB6F8B;
+            }
+        }
+    }
+}
+
+.main-content {
+    margin-top: 60px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 60px;
+    background-color: white;
+    span {
+        color: #707070;
+    }
+}
+
+// セッション
+.table thead tr th {
+    vertical-align: top;
+    border-bottom: 2px solid #ddd;
+}
+
+.event-header {
+    border-radius: 20px;
+    background-color: skyblue;
+    padding: 3px 15px;
+    border: 3px solid #53b9ff;
+}
+
+.event-container {
+    margin: 10px 10px 20px;
+}
+
+.member_list {
+    width: 100%;
+    padding: 5px;
+    margin-top: 5px;
+    min-height: 52px;
+}
+
+ul,
+ol,
+li {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+}
+
+.round_border {
+    border: 1px solid #cdcddd;
+    border-radius: 5px;
+    background: #fcfeff;
+}
+
+.member_list ul {
+    margin: 3px 0 0 0;
+}
+
+.member_list li {
+    margin: 0;
+    padding: 2px 0 2px 0;
+    border-top: 1px solid #eee;
+    border-bottom: none;
+}
+
+.icon-custom {
+    font-size: 25px;
+    text-align: center;
+    position: absolute;
+    top: 10px;
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+.event_container {
+    width: 100%;
+    height: 330px;
+    margin: 10px 0px;
+    padding: 10px;
+}
+
+.skippr-container {
+    width: 100%;
+    height: 500px;
+}
+
+.image_action:hover {
+    opacity: 0.5;
+}
+
+.progress {
+    margin: 5px 0;
+}
+
+.voice {
+    margin-bottom: 10px;
+}
+
+.voice-img {
+    margin-left: 4px;
+    margin-top: -1px;
+    float: left;
+    width: 70px;
+    height: 70px;
+}
+
+.voice-text {
+    color: #444;
+    position: relative;
+    margin-left: 100px;
+    margin-right: 20px;
+    padding: 1.2em;
+    border: 3px solid #eee;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+.voice-text:before {
+    position: absolute;
+    content: '';
+    border: 10px solid transparent;
+    border-right: 10px solid #eee;
+    top: 21px;
+    left: -23px;
+}
+
+.voice-text:after {
+    position: absolute;
+    content: '';
+    border: 10px solid transparent;
+    border-right: 10px solid #fff;
+    top: 21px;
+    left: -19px;
+    box-sizing: border-box;
+}
+
+.comment-datetime {
+    color: gray;
+    position: relative;
+    margin-right: 20px;
+    float: right;
+}
+
+.voice-img-description {
+    font-size: 5px;
+    margin-right: 4px;
+    margin-top: -1px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.btn {
+    margin-right: 4px;
+    margin-bottom: 4px;
+    font-size: 16px;
+    font-weight: 400;
+    border-radius: 30px;
+}
+
+h1 {
+    text-align: center;
+    margin: 50px 0;
+}
+
+.box {
+    height: 300px;
+    width: 90%;
+    max-width: 600px;
+    margin: 0 auto 50px;
+    background-color: #eee;
+}

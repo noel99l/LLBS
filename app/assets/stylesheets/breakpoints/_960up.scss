@@ -1,0 +1,38 @@
+/******************************************************************
+
+Stylesheet: 960px以上のモニタで適用
+
+******************************************************************/
+
+#mv {
+    height: 650px;
+}
+
+.mv-title {
+    object-fit: contain;
+    width: 70%;
+    height: auto;
+}
+
+#pc-menu {
+    display: block;
+}
+
+#mobile-menu {
+    &__btn {
+        display: none;
+    }
+}
+
+.contact-group {
+    padding-top: 50px;
+    padding-bottom: 110px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.twitter-timeline {
+    margin: 0 !important;
+    width: 45% !important;
+}

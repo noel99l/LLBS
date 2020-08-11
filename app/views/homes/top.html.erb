@@ -1,3 +1,7 @@
+<% content_for :css do %>
+  <%= stylesheet_link_tag 'homes', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
 <% content_for(:html_title) { "トップページ" } %>
 <section class="clearfix" id="mv">
   <div class="container">
@@ -27,138 +31,11 @@
       </div>
 </section>
 
-<section id="feature">
-  <div class="container">
-    <h2 class="heading">How to Use?</h2>
-    <div class="description-group clearfix">
-      <div class="left-content">
-        <div class="description-picture desc-bg1 img-thumbnail"></div>
-      </div>
-      <div class="right-content">
-        <h3 class="discription-title">ログイン</h3>
-        <p class="discription-text">
-          まずは右上のボタンからtwitterでログインをしましょう。<br>
-          初回は外部サービスのログイン画面や、同意を求める画面が表示されますので、それぞれの指示に従いログインすると、再び本サービスの画面に戻り、ユーザー登録画面が表示されます。<br>
-          ユーザー登録画面でユーザー情報を入力してください。<br>
-          ユーザー登録が完了すると、各イベントに参加登録できるようになります。<br>
-          名前はあんまり長い名前だとタイムテーブル作成の際、省略されてしまいますので５文字以内が推奨です！
-        </p>
-      </div>
-    </div>
-    <div class="description-group clearfix">
-      <div class="right-content">
-        <div class="description-picture desc-bg2 img-thumbnail pull-right"></div>
-      </div>
-      <div class="left-content">
-        <h3 class="discription-title">イベントに参加</h3>
-        <p class="discription-text">
-          LLBSは時期に応じて様々な種類のイベントをご用意しております。<br>
-          興味のあるイベントを見つけたら「参加する」ボタンを押してみましょう。<br>
-          すると、参加するパートや打ち上げ参加登録の項目がございますので、それらを選択して参加登録ボタンを押してもらえれば、参加登録完了です！
-        </p>
-      </div>
-    </div>
-    <div class="description-group clearfix">
-      <div class="left-content">
-        <div class="description-picture desc-bg3 img-thumbnail"></div>
-      </div>
-      <div class="right-content">
-        <h3 class="discription-title">楽曲エントリー</h3>
-        <p class="discription-text">
-          イベントに参加したらいよいよ楽曲エントリーをしましょう。<br>
-          自分の演奏したい曲を見つけたら演奏したいパートの「エントリー」ボタンを押すとエントリー完了です。<br>
-          エントリーが完了したら後は曲の成立を待つだけ！仲のいい友達を誘ったり、twitterなどで成立支援を呼びかけるのもいいかもしれませんね。
-        </p>
-      </div>
-    </div>
-    <div class="description-group clearfix">
-      <div class="right-content">
-        <div class="description-picture desc-bg4 img-thumbnail pull-right"></div>
-      </div>
-      <div class="left-content">
-        <h3 class="discription-title">楽曲追加</h3>
-        <p class="discription-text">
-          「あの曲を演奏したいのに曲がない・・・」<br>
-          そんな時は自分で曲を追加しちゃいましょう！
-          それぞれの募集パートについて
-          <div class="discription-text-item">
-            1. 必須：成立に必ず必要なパート。「必須」にしたパートが全てエントリーされると、めでたく成立楽曲扱いとなります。<br>
-            2. 任意：このパートがなくても楽曲としては成り立つけど、少し厚みが欲しい。そんな場合はこの任意パートにしておきましょう。<br>
-            3. なし：この楽曲にはいらないかなと思うパート<br>
-          </div>
-          <br>
-            曲一覧では、募集中の必須パートは「エントリー」、任意パートは「(エントリー)」と表示されるので一目で見分けることができます。
-        </p>
-      </div>
-    </div>
-    <div class="description-group clearfix">
-      <div class="left-content">
-        <div class="description-picture desc-bg5 img-thumbnail"></div>
-      </div>
-      <div class="right-content">
-        <h3 class="discription-title">掲示板</h3>
-        <p class="discription-text">
-          各イベントごとに掲示板があります。開催にあたっての相談ごとやレンタル機材などの相談に使いましょう。<br>
-          各楽曲ごとのコメント欄は演奏するパートや歌詞分けの相談に活用するもよし、その曲に対する想いを語るも良しです。
-        </p>
-      </div>
-    </div>
-    <div class="description-group clearfix">
-      <div class="right-content">
-        <div class="description-picture desc-bg6 img-thumbnail pull-right"></div>
-      </div>
-      <div class="left-content">
-        <h3 class="discription-title">歌詞分け</h3>
-        <p class="discription-text">
-          LLBSで初めて演奏する楽曲は歌詞分けが必要になります。<br>
-          楽曲詳細画面から新規歌詞分けを投稿しましょう。<br>
-          一度登録された歌詞分けは以降のイベントで同名の楽曲を登録した際に呼び出すことができます。<br>
-          今後使う人のことも考えて、丁寧かつ愛のある歌詞分けを投稿してあげましょうね。<br>
-          楽曲タイトルとアーティスト名が間違っているとうまく呼び出されない場合があるので必ず正確に登録しましょう。<br>
-        </p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="profile">
-  <div class="container">
-    <h2 class="heading">Profile</h2>
-    <div class="profile-group clearfix">
-      <div class="left-content">
-        <div class="my-face"></div>
-      </div>
-      <div class="right-content">
-        <h3 class="discription-title">Yusuke Kataoka</h3>
-        <p class="discription-text">
-          中学時代より父親の影響でギターを手に取る。<br>
-          大学在学時に自身が出演するイベントの企画を立ち上げた際、仲間たちと繰り上げていくイベント企画の虜となり、以降月一ペースで企画を開催するように。<br>
-          "終わらない文化祭前夜"をテーマに全員参加型の企画を幅広く行い、累計参加人数は4000人を超える。<br>
-          某金融機関で営業の経験を積んだのち今現在はエンジニア見習いとして日々学習中。<br>
-          特技は断捨離。友人に部屋の片付けを頼まれ、捨てすぎて泣かれたことがあるとか。<br>
-        </p>
-        <h3 class="discription-title">Events</h3>
-        <p class="discription-text">
-        LLBS, LLKS, LLBS文化祭, μ'sic paradise, 音で沼津を照らしたい, のえるフェス
-        </p>
-        <h3 class="discription-title">MySkills</h3>
-        <p class="discription-text">
-        HTML/CSS,Ruby on Rails,JavaScript,JQuery,AfterEffects,VDMX5</p>
-      </div>
-    </div>
-  </div>
-</section>
-
 <section id="contact">
   <div class="container">
-    <h2 class="heading">SNS</h2>
     <div class="contact-group clearfix">
-      <div class="left-content">
-        <a class="twitter-timeline" data-lang="ja" data-width="300" data-height="500" href="https://twitter.com/LLBS_log?ref_src=twsrc%5Etfw">Tweets by LLBS_log</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-      </div>
-      <div class="right-content">
-        <a class="twitter-timeline" data-lang="ja" data-width="300" data-height="500" data-theme="light" href="https://twitter.com/noel99l?ref_src=twsrc%5Etfw">Tweets by noel99l</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-      </div>
+        <a class="twitter-timeline" data-lang="ja" data-width="400" data-height="500" href="https://twitter.com/LLBS_log?ref_src=twsrc%5Etfw">Tweets by LLBS_log</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        <a class="twitter-timeline" data-lang="ja" data-width="400" data-height="500" data-theme="light" href="https://twitter.com/noel99l?ref_src=twsrc%5Etfw">Tweets by noel99l</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     </div>
   </div>
 </section>

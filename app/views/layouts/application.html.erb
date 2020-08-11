@@ -4,92 +4,33 @@
         <title><%= content_for?(:html_title) ? "LLBS | #{yield(:html_title)}" : "LLBS" %></title>
         <%= csrf_meta_tags %>
         <%= csp_meta_tag %>
-        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
         <%= stylesheet_link_tag    'sns', media: 'all', 'data-turbolinks-track' => true %>
+        <link rel="stylesheet" href="https://unicons.iconscout.com/release/v2.1.11/css/unicons.css">
+        <!-- CSS読み込み開始 -->
+        <%= yield :css %>
+        <!-- CSS読み込み終了 -->
+
         <script src="https://kit.fontawesome.com/83beaa6ece.js" crossorigin="anonymous"></script>
         <script data-ad-client="ca-pub-8197195503994621" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </head>
 
-<body class="wf-notosansjapanese">
-    <div class="wrapper">
-        <div class="drop_shadow">
-            <header class="navbar header">
-                <div class="container">
-                    <div class="row">
-                        <div class= "col-xs-4">
-                            <div class="navbar-left navbar-user">
-                                <%= link_to image_tag("LLBS_LOGO5.png",:size=>"212x50", :alt=>"LOGO"), root_path %>
-                            </div>
-                        </div>
-                        <% if user_signed_in? %>
-                            <div class= "col-xs-4">
-                                <span class="user-name">
-                                    <strong>
-                                        <%= current_user.name %>さん 
-                                        (Lv:<%= current_user.level_id %>)
-                                    </strong>
-                                </span>
-                                    <div class="progress">
-                                        <% if current_user.level_id == 1 %>
-                                            <% @percentage = current_user.exp * 100 / Level.find(1).threshold %>
-                                        <% else %>
-                                            <% @percentage = (current_user.exp - Level.find(current_user.level_id - 1).threshold) *100 /(Level.find(current_user.level_id).threshold - Level.find(current_user.level_id - 1).threshold ) %>
-                                        <% end %>
-                                        <div class="progress-bar progress-bar-info progress-bar-striped active" role="progressbar" style="width: <%= @percentage.to_i %>%;">
-                                            <% if current_user.level_id == 1 %>
-                                                <% @percentage = current_user.exp * 100 / Level.find(1).threshold %>
-                                            <% else %>
-                                                <%= current_user.exp - Level.find(current_user.level_id - 1).threshold %>/<%= Level.find(current_user.level_id).threshold - Level.find(current_user.level_id - 1).threshold %>
-                                            <% end %>
-                                        </div>
-                                    </div>
-                                <span style="color: red;">
-                                    <strong><%= flash[:info] %></strong>
-                                </span>
-                            </div>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li>
-                                    <%= link_to user_path(current_user.id), class:"btn header-btn" do %>
-                                        <i class="fas fa-user icon-custom"></i><br>
-                                        マイページ
-                                    <% end %>
-                                </li>
-                                <li><%= link_to events_path, class:"btn header-btn" do %>
-                                    <i class="fas fa-music icon-custom"></i><br>
-                                    イベント一覧
-                                    <% end %>
-                                </li>
-                                <li><%= link_to destroy_user_session_path, class:"btn header-btn", method: :delete do %>
-                                    <i class="fas fa-sign-out-alt icon-custom"></i><br>
-                                    ログアウト
-                                    <% end %>
-                                </li>
-                            </ul>
-                        <% else %>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><%= link_to events_path, class:"btn header-btn" do %>
-                                    <i class="fas fa-music icon-custom"></i><br>
-                                    イベント一覧
-                                    <% end %>
-                                </li>
-                                <li><%= link_to user_twitter_omniauth_authorize_path, class:"btn header-btn" do %>
-                                    <i class="fab fa-twitter icon-custom"></i><br>
-                                    ログイン
-                                    <% end %>
-                                </li>
-                            </ul>
-                        <% end %>
-                    </div>
-                </div>
-            </header>
+    <body class="wf-notosansjapanese">
+        <div class="wrapper">
+            <%= render 'layouts/header' %>
+            <%= render 'layouts/flash_messages' %>
+
+            <div class="main-content">
+                <%= yield %>
+            </div>
+
+            <%= render 'layouts/footer' %>
         </div>
-        <%= render 'layouts/flash_messages' %>
-        <%= yield %>
-        <footer>
-            <p class="footer-text">© All rights reserved by noel99l</p>
-        </footer>
-    </div>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-</body>
+
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+        <!-- JS読み込み開始 -->
+        <%= yield :js %>
+        <!-- JS読み込み終了 -->
+    </body>
 </html>

@@ -12,6 +12,7 @@ Rails.application.routes.draw do
     }
 
     root 'homes#top'
+    get '/about' => 'homes#about', as: 'about'
     post '/callback' => 'linebot#callback'
     get 'users/twitter_new' => 'users#twitter_new', as: 'user_twitter_new'
     patch 'users/twitter_update/:id' => 'users#twitter_update', as: 'user_twitter_update'

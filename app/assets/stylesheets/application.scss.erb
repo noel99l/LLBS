@@ -11,7 +11,6 @@
  * It is generally better to create a new file per style scope.
  *
 
- *= require_tree .
  *= require_self
  */
 
@@ -20,275 +19,48 @@
 @import 'bootstrap-datetimepicker';
 @import url(//fonts.googleapis.com/earlyaccess/notosansjapanese.css);
 @import "trix";
-.wf-notosansjapanese {
-font-family: 'Noto Sans Japanese', serif;
+
+@import 'modules/variables';
+@import 'modules/mixin';
+@import 'modules/mobile_menu';
+@import 'modules/button';
+
+// 原則モバイルファースト
+@import 'breakpoints/base';
+
+@media (min-width: 480px) {
+    @import "breakpoints/480up";
+}
+@media (min-width: 600px) {
+    @import "breakpoints/600up";
+}
+@media (min-width: 960px) {
+    @import "breakpoints/960up";
+}
+@media (min-width: 1280px) {
+    @import "breakpoints/1280up";
+}
+@media (min-resolution: 192dpi),
+       (-webkit-min-device-pixel-ratio: 2) {
+    @import "breakpoints/2x";
+}
+@media print {
+    @import "breakpoints/print";
 }
 
-.wrapper{
-    min-height: 100vh;
-    position: relative;
-    padding-bottom: 100px;
-    box-sizing: border-box;
-}
-
-header {
-  width: 100%;
-  padding: 15px 0;
-  margin: 0 auto;
-  text-align: center;
-}
-
-.navbar-user {
-  padding-top: 10px;
-}
-
-.table thead tr th {
-  vertical-align: top;
-  border-bottom: 2px solid #ddd;
-}
-
-footer {
-  width: 100%;
-  height: 50px;
-  margin: 0;
-  text-align: center;
-  background-color: #777777;
-  position: absolute;
-  bottom: 0;
-}
-
-.footer-text {
-  padding: 10px;
-  color: #fff;
-}
-
-.event-header {
-  border-radius: 20px;
-  background-color: skyblue;
-  padding: 3px 15px;
-  border: 3px solid #53b9ff;
-}
-
-.event-container {
-  margin: 10px 10px 20px;
-}
-
-.member_list{
-  width:100%;
-  padding:5px;
-  margin-top:5px;
-  min-height:52px;
-}
-
-ul,ol,li {
-  margin: 0;
-  padding: 0;
-  list-style-type: none;
-}
-
-.round_border{
-  border: 1px solid #cdcddd;
-  border-radius: 5px;
-  background:#fcfeff;
-}
-
-.member_list ul{
-  margin:3px 0 0 0;
-}
-
-.member_list li{
-  margin:0;
-  padding:2px 0 2px 0;
-  border-top: 1px solid #eee;
-  border-bottom:none;
-}
-
-.drop_shadow {
-box-shadow: 0px 0px 10px 0px gray;
-}
-
-.min-height{
-min-height: 600px;
-}
-
-#map{
-  width: 100%;
-  height: 500px;
-}
-
-#map2{
-  width: 100%;
-  height: 300px;
-}
-
-.icon-custom {
- font-size: 25px;
- text-align: center;
- position: absolute;
- top: 10px;
- left: 0;
- right: 0;
- margin: auto;
- }
-
- .event_container{
- width: 100%;
- height: 330px;
- margin: 10px 0px;
- padding: 10px;
- }
-
- .skippr-container{
-    width:100%;
-    height: 500px;
-}
-
-.image_action:hover {
- opacity: 0.5;
- }
-
-.progress {
-  margin: 5px 0;
-}
-
-.voice {
-    margin-bottom: 10px;
-}
-
-.voice-img {
-    margin-left: 4px;
-    margin-top: -1px;
-    float: left;
-    width: 70px;
-    height: 70px;
-}
-
-.voice-text {
-    color: #444;
-    position: relative;
-    margin-left: 100px;
-    margin-right: 20px;
-    padding: 1.2em;
-    border: 3px solid #eee;
-    background-color: #fff;
-    border-radius: 5px;
-}
-
-.voice-text:before {
-    position: absolute;
-    content: '';
-    border: 10px solid transparent;
-    border-right: 10px solid #eee;
-    top: 21px;
-    left: -23px;
-}
-
-.voice-text:after {
-    position: absolute;
-    content: '';
-    border: 10px solid transparent;
-    border-right: 10px solid #fff;
-    top: 21px;
-    left: -19px;
-    box-sizing: border-box;
-}
-
-.comment-datetime{
-  color: gray;
-  position: relative;
-  margin-right: 20px;
-  float: right;
-}
-
-.voice-img-description {
-    font-size: 5px;
-    margin-right: 4px;
-    margin-top: -1px;
-    font-weight: bold;
-    text-align: center;
-}
-
-.btn {
-    margin-right: 4px;
-    margin-bottom: 4px;
-    font-size: 16px;
-    font-weight: 400;
-    border-radius: 30px;
-}
-
-.header-btn{
-  font-size: 12px;
-}
-
-.navbar-nav li a{
-  padding-bottom: 5px;
-}
-
-//トップページ
+// トップページ
 
 #mv {
-    margin-top: -20px;
     width: 100%;
-    height: 650px;
+    height: 100vh;
     text-align: center;
     color: #FAFAFA;
     background-image: url(<%= asset_url 'LLBS_topimage1.jpg' %>);
     background-size: cover;
     background-position: center;
-}
-
-.mv-title {
-    margin: 225px auto;
-    object-fit: contain;
-    background-repeat:  no-repeat;
-    width:70%;
-    height:30%;
-}
-
-#portfolio {
-    background-color: #ECEFF1;
-}
-
-.heading {
-    padding-top: 50px;
-    text-align: center;
-    font-family: 'Raleway', sans-serif;
-    font-size: 32px;
-}
-
-.heading::after {
-    content: "";
-    display: block;
-    width: 70px;
-    height: 3px;
-    margin: 8px auto 0 auto;
-    background-color: #ff6a00;
-}
-
-.heading-text {
-    padding-top: 30px;
-    text-align: center;
-    font-size: 16px;
-}
-
-.production-group {
-    width: 920px;
-    padding: 30px 0 90px 0;
-    margin: 0 auto;
-}
-
-
-.production {
-    float: left;
-    width: 300px;
-    height: 250px;
-    margin: 10px 10px 0 0;
-    background-size: cover;
-    background-position: center;
-}
-
-.production:nth-child(3n) {
-    margin-right: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .bg-1 {
@@ -313,27 +85,6 @@ min-height: 600px;
 
 .bg-6 {
     background-image: url(<%= asset_url 'LLBS_image06.jpg' %>);
-}
-
-.description-group {
-    padding: 50px 5%;
-}
-
-.left-content {
-    width: 50%;
-    float: left;
-}
-
-.right-content {
-    width: 50%;
-    float: right;
-}
-
-.description-picture {
-    width: 400px;
-    height: 250px;
-    margin: 0 auto;
-    background-size: cover;
 }
 
 .desc-bg1 {
@@ -362,27 +113,6 @@ min-height: 600px;
     background-image: url(<%= asset_url 'desc_image6.jpg' %>);
 }
 
-.discription-title {
-    margin: 20px 0 5px 0;
-    font-size: 20px;
-}
-
-.discription-text {
-    font-size: 15px;
-}
-
-.discription-text-item {
-    font-size: 12px;
-}
-
-#profile {
-    background-color: #ECEFF1;
-}
-
-.profile-group {
-    padding: 30px 0 90px 0;
-}
-
 .my-face {
     width: 300px;
     height: 300px;
@@ -391,9 +121,3 @@ min-height: 600px;
     background-image: url(<%= asset_url 'profile2.jpg' %>);
     background-size: cover;
 }
-
-.contact-group {
-    padding: 30px 0 90px 0;
-    margin: 0 auto;
-}
-
