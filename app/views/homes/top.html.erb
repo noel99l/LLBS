@@ -1,41 +1,93 @@
 <% content_for :css do %>
-  <%= stylesheet_link_tag 'homes', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag 'homes', media: 'all', 'data-turbolinks-track': 'reload' %>
 <% end %>
 
 <% content_for(:html_title) { "トップページ" } %>
 <section class="clearfix" id="mv">
-  <div class="container">
-    <%= image_tag('LLBS_LOGO5.png', class:"mv-title") %>
-  </div>
+    <div class="container">
+        <%= image_tag('LLBS_LOGO5.png', class:"mv-title") %>
+    </div>
 </section>
-<section id="portfolio">
+<section id="current-events">
+    <div class="container">
+        <h2 class="heading">開催予定のイベント</h2>
+        <div class="event-wrapper">
+            <div class="event-card">
+                <div class="top-content">
+                    <%= image_tag('LLBS_image05.jpg', class:"event-image") %>
+                    <div class="date-container">
+                        <div class="event-status">
+                            <span>参加募集中</span>
+                        </div>
+                        <div class="date-status">
+                            <span class="month">6月</span>
+                            <span class="date">21</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-content">
+                    <div class="event-title">ラブライブ！バンドセッション 〜6th Anniversary〜</div>
+                    <div class="event-desc">
+                        <span class="event-desc__time">12:00~</span>
+                        <span class="event-desc__place">サウンドスタジオノア 学芸大店 1A</span>
+                    </div>
+                </div>
+            </div>
+            <div class="event-card">
+                <div class="top-content">
+                    <%= image_tag('LLBS_image03.jpg', class:"event-image") %>
+                    <div class="date-container">
+                        <div class="event-status">
+                            <span>参加募集中</span>
+                        </div>
+                        <div class="date-status">
+                            <span class="month">6月</span>
+                            <span class="date">21</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bottom-content">
+                    <div class="event-title">ラブライブ！バンドセッション 〜6th Anniversary〜</div>
+                    <div class="event-desc">
+                        <span class="event-desc__time">12:00~</span>
+                        <span class="event-desc__place">サウンドスタジオノア 学芸大店 1A</span>
+                    </div>
+                </div>
+            </div>
+            <%= link_to "すべてのイベントをみる", events_path, class:"btn top-btn" %>
+        </div>
+    </div>
+</section>
+<section id="description">
     <div class="container">
         <h2 class="heading">みんなで奏でる物語</h2>
-        <p class="heading-text">
-          憧れのアーティストのあの曲をバンドで演奏してみたい、そう思ったことはありませんか。<br>
-          <br class="sp-none">
-          「そもそもメンバーってどうやって集めれば？」<br>
-          「わざわざ固定バンドを組むのは少し面倒・・・」<br>
-          「気の合うメンバーとの出会いが欲しい！」<br>
-          <br class="sp-none">
-          LLBSはそんな音楽に強い想いを持った人たちの夢を叶えるお手伝いをします。
-        </p>
-        <div class="production-group clearfix">
-          <div class="production bg-1 sp-none"></div>
-          <div class="production bg-2"></div>
-          <div class="production bg-3 sp-none"></div>
-          <div class="production bg-4"></div>
-          <div class="production bg-5 sp-none"></div>
-          <div class="production bg-6"></div>
+        <div class="hero">
         </div>
-      </div>
+        <div class="desc-container">
+            <p class="heading-text">
+                憧れのアーティストのあの曲をバンドで演奏してみたい、そう思ったことはありませんか。<br>
+                <br class="sp-none">
+                「そもそもメンバーってどうやって集めれば？」<br>
+                「わざわざ固定バンドを組むのは少し面倒・・・」<br>
+                「気の合うメンバーとの出会いが欲しい！」<br>
+                <br class="sp-none">
+                LLBSはそんな音楽に強い想いを持った人たちの夢を叶えるお手伝いをします。
+            </p>
+            <%= link_to "使い方を詳しく見る", about_path, class:"btn top-btn" %>
+        </div>
+    </div>
+</section>
+<section id="question">
+    <div class="container">
+        <h2 class="heading">よくあるご質問</h2>
+    </div>
 </section>
 
-<section id="contact">
-  <div class="container">
-    <div class="contact-group clearfix">
-        <a class="twitter-timeline" data-lang="ja" data-width="400" data-height="500" href="https://twitter.com/LLBS_log?ref_src=twsrc%5Etfw">Tweets by LLBS_log</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
-        <a class="twitter-timeline" data-lang="ja" data-width="400" data-height="500" data-theme="light" href="https://twitter.com/noel99l?ref_src=twsrc%5Etfw">Tweets by noel99l</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<section id="sns">
+    <div class="container">
+        <div class="sns-group clearfix">
+            <a class="twitter-timeline" data-lang="ja" data-width="400" data-height="500" href="https://twitter.com/LLBS_log?ref_src=twsrc%5Etfw">Tweets by LLBS_log</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <a class="twitter-timeline" data-lang="ja" data-width="400" data-height="500" data-theme="light" href="https://twitter.com/noel99l?ref_src=twsrc%5Etfw">Tweets by noel99l</a> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+        </div>
     </div>
-  </div>
 </section>
