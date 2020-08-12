@@ -86,6 +86,14 @@ header {
         &:hover>a {
             color: $cBlack;
         }
+        &:hover::after {
+            content: "";
+            display: block;
+            width: 83px;
+            height: 5px;
+            margin: 7px 20px -12px auto;
+            background-color: $cPink;
+        }
         &.active {
             a {
                 color: $cBlack;

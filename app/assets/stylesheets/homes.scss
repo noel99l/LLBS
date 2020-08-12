@@ -45,7 +45,7 @@
     margin-bottom: 20px;
     box-shadow: 2px 2px 10px 5px $cGray;
     position: relative;
-    transition: all 500ms;
+    transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
     &:hover {
         box-shadow: 0px 0px 10px 0px $cGray;
     }
@@ -54,6 +54,7 @@
 .top-content {
     height: 55%;
     overflow: hidden;
+    position: relative;
     .event-image {
         width: 100%;
         height: auto;
@@ -101,6 +102,15 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    .event-status {
+        display: none;
+        background-color: $cPink;
+        color: $cWhite;
+        height: 28px;
+        width: 100px;
+        align-items: center;
+        justify-content: center;
+    }
     .event-title {
         font-size: 1.5em;
         font-weight: bold;
@@ -119,8 +129,8 @@
     border-radius: 40px;
     margin: 30px 0 80px;
     color: $cWhite;
-    box-shadow: 5px 5px 10px 0px $cDarkGray;
-    transition: all 500ms;
+    box-shadow: 3px 3px 10px 0px $cDarkGray;
+    transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
     &:hover {
         box-shadow: none;
         color: $cWhite;
@@ -168,6 +178,42 @@
 // Q&Aセクション
 #question {
     background-color: $cWhite;
+}
+
+.question-container {
+    font-size: 1.2em;
+    margin-bottom: 80px;
+    border-bottom: 2px solid $cGray;
+    .question {
+        border-top: 2px solid $cGray;
+        display: flex;
+        font-weight: 500;
+        align-items: center;
+        padding: 20px 10px;
+        .uil {
+            font-size: 1.5em;
+        }
+        .uil-question-circle {
+            color: $cMidGray;
+        }
+        span {
+            margin: 0 10px;
+        }
+        .uil-plus {
+            margin-left: auto;
+            color: $cPink;
+        }
+        .uil-minus {
+            margin-left: auto;
+            color: $cPink;
+        }
+    }
+    .answer {
+        padding: 0 54px 20px;
+        &.d-none {
+            display: none;
+        }
+    }
 }
 
 // SNSセクション

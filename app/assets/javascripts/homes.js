@@ -43,3 +43,8 @@ class HeroSlider {
         this.swiper.autoplay.stop();
     }
 }
+
+$('.question-list').on('click', function() {
+    $(this).children('.answer').toggleClass('d-none');
+    $(this).find('.toggleIcon').toggleClass('uil-plus').toggleClass('uil-minus');
+});

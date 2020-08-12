@@ -40,3 +40,49 @@ Stylesheet: 960px以上のモニタで適用
     margin: 0 !important;
     width: 45% !important;
 }
+
+// イベントセクション
+.event-card {
+    height: 200px;
+    display: flex;
+    flex-direction: row;
+}
+
+.top-content {
+    height: 100%;
+    width: 45%;
+    display: flex;
+    align-items: center;
+    .event-image {
+        width: 70%;
+        transform: none;
+    }
+    .date-container {
+        width: 70%;
+        position: static;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-right: 2px solid $cGray;
+        .event-status {
+            display: none;
+        }
+        .date-status {
+            border: none;
+        }
+    }
+}
+
+.bottom-content {
+    height: 100%;
+    width: 55%;
+    justify-content: center;
+    .event-status {
+        display: flex;
+        margin-bottom: 5px;
+    }
+    .event-title {
+        font-size: 1.6em;
+        margin-bottom: 5px;
+    }
+}
