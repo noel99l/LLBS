@@ -1,0 +1,26 @@
+<%= link_to event_path(event.friendly_url) do %>
+	<div class="event-card">
+		<div class="top-content">
+			<%= image_tag('LLBS_image'+event.date.strftime("%m")+'.jpg', class:"event-image") %>
+			<div class="date-container">
+				<div class="event-status">
+					<span>参加募集中</span>
+				</div>
+				<div class="date-status">
+					<span class="month"><%= event.date.strftime("%-m月") %></span>
+					<span class="date"><%= event.date.strftime("%e") %></span>
+				</div>
+			</div>
+		</div>
+		<div class="bottom-content">
+			<div class="event-status">
+				<span>参加募集中</span>
+			</div>
+			<div class="event-title"><%= event.event_name %></div>
+			<div class="event-desc">
+				<span class="event-desc__time"><%= event.meeting_time.to_s(:time) %>〜</span>
+				<span class="event-desc__place"><%= event.place %></span>
+			</div>
+		</div>
+	</div>
+<% end %>

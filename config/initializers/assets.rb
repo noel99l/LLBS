@@ -17,6 +17,7 @@ Rails.application.config.assets.precompile += %w(
     sns.scss
     homes.css
     about.css
+    events.css
     vendors/pace.js
     homes.js
- )
+)

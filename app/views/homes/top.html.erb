@@ -9,62 +9,18 @@
         <%= image_tag('LLBS_LOGO5.png', class:"mv-title") %>
     </div>
 </section>
+<% if @events.present? %>
 <section id="current-events">
     <div class="container">
         <h2 class="heading">開催予定のイベント</h2>
         <div class="event-wrapper">
-            <div class="event-card">
-                <div class="top-content">
-                    <%= image_tag('LLBS_image05.jpg', class:"event-image") %>
-                    <div class="date-container">
-                        <div class="event-status">
-                            <span>参加募集中</span>
-                        </div>
-                        <div class="date-status">
-                            <span class="month">6月</span>
-                            <span class="date">21</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="bottom-content">
-                    <div class="event-status">
-                        <span>参加募集中</span>
-                    </div>
-                    <div class="event-title">ラブライブ！バンドセッション 〜6th Anniversary〜</div>
-                    <div class="event-desc">
-                        <span class="event-desc__time">12:00~</span>
-                        <span class="event-desc__place">サウンドスタジオノア 学芸大店 1A</span>
-                    </div>
-                </div>
-            </div>
-            <div class="event-card">
-                <div class="top-content">
-                    <%= image_tag('LLBS_image03.jpg', class:"event-image") %>
-                    <div class="date-container">
-                        <div class="event-status">
-                            <span>参加募集中</span>
-                        </div>
-                        <div class="date-status">
-                            <span class="month">6月</span>
-                            <span class="date">21</span>
-                        </div>
-                    </div>
-                </div>
-                <div class="bottom-content">
-                    <div class="event-status">
-                        <span>参加募集中</span>
-                    </div>
-                    <div class="event-title">ラブライブ！バンドセッション 〜6th Anniversary〜</div>
-                    <div class="event-desc">
-                        <span class="event-desc__time">12:00~</span>
-                        <span class="event-desc__place">サウンドスタジオノア 学芸大店 1A</span>
-                    </div>
-                </div>
-            </div>
+            <%= render partial: 'events/event', collection: @events %>
             <%= link_to "すべてのイベントをみる", events_path, class:"btn top-btn" %>
         </div>
     </div>
 </section>
+<% else %>
+<% end %>
 <section id="description">
     <div class="container">
         <h2 class="heading">みんなで奏でる物語</h2>

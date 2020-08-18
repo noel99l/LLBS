@@ -1,7 +1,9 @@
 class HomesController < ApplicationController
-  def top
-  end
+    def top
+        now = Time.current
+        @events = Event.where('date >= ?', now)
+    end
 
-  def about
-  end
+    def about
+    end
 end

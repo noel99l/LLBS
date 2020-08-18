@@ -1,5 +1,9 @@
+<% content_for :css do %>
+    <%= stylesheet_link_tag 'events', media: 'all', 'data-turbolinks-track': 'reload' %>
+<% end %>
+
 <% content_for(:html_title) { "イベント一覧" } %>
-<div class="container Events">
+<div class="container">
     <div class="row">
     	<ul class="nav nav-tabs">
 			<li class="active col-xs-6"><a href="#sampleContentA" data-toggle="tab">開催予定のイベント</a></li>
@@ -8,14 +12,22 @@
 		<!-- タブ内容 -->
 		<div class="tab-content">
 			<div class="tab-pane fade in active" id="sampleContentA">
-				<% if @future_events.blank? %>
-					<h3>開催予定のイベントはありません</h3>
-				<% else %>
-					<%= render 'events/events', events: @future_events %>
-				<% end %>
+				<div class="container">
+					<% if @future_events.blank? %>
+						<h2 class="events-head">イベントはありません</h2>
+					<% else %>
+						<h2 class="events-head">イベント一覧</h2>
+						<div class="event-wrapper">
+							<%= render partial: 'events/event', collection: @future_events %>
+						</div>
+					<% end %>
+				</div>
 			</div>
 			<div class="tab-pane fade in" id="sampleContentB">
-				<%= render 'events/events', events: @past_events %>
+				<h2 class="events-head">イベント一覧</h2>
+				<div class="event-wrapper">
+					<%= render partial: 'events/event', collection: @past_events %>
+				</div>
 			</div>
 		</div>
 	</div>

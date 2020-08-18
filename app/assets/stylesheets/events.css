@@ -1,1 +1,265 @@
-/* No CSS *//*# sourceMappingURL=events.css.map */
+@charset "UTF-8";
+.events-head {
+  padding: 80px;
+  margin: 0 auto;
+  text-align: center;
+  font-weight: bold;
+}
+
+.event-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.event-wrapper > a {
+  text-decoration: none;
+  color: #2C2627;
+}
+
+.event-card {
+  width: 100%;
+  height: 320px;
+  margin-bottom: 20px;
+  -webkit-box-shadow: 2px 2px 10px 5px #E5E4E4;
+          box-shadow: 2px 2px 10px 5px #E5E4E4;
+  position: relative;
+  -webkit-transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.event-card:hover {
+  -webkit-box-shadow: 0px 0px 10px 0px #E5E4E4;
+          box-shadow: 0px 0px 10px 0px #E5E4E4;
+}
+
+.top-content {
+  height: 55%;
+  overflow: hidden;
+  position: relative;
+}
+
+.top-content .event-image {
+  width: 100%;
+  height: auto;
+  -webkit-transform: translateY(-20%);
+          transform: translateY(-20%);
+}
+
+.top-content .date-container {
+  position: absolute;
+  top: 25px;
+  left: 30px;
+  width: 100px;
+  height: 128px;
+}
+
+.top-content .date-container .event-status {
+  background-color: #EB6F8B;
+  color: white;
+  height: 28px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.top-content .date-container .date-status {
+  height: 100px;
+  border: 2px solid #E5E4E4;
+  background-color: white;
+}
+
+.top-content .date-container .date-status .month {
+  display: block;
+  text-align: center;
+  font-size: 1.2em;
+  font-weight: bold;
+  padding-top: 13px;
+}
+
+.top-content .date-container .date-status .date {
+  display: block;
+  text-align: center;
+  font-size: 3em;
+  font-weight: bold;
+  margin-top: -10px;
+}
+
+.bottom-content {
+  height: 45%;
+  padding: 20px 30px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+
+.bottom-content .event-status {
+  display: none;
+  background-color: #EB6F8B;
+  color: white;
+  height: 28px;
+  width: 100px;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.bottom-content .event-title {
+  font-size: 1.5em;
+  font-weight: bold;
+}
+
+.bottom-content .event-desc {
+  color: #707070;
+  font-size: 1.2em;
+}
+
+.top-btn {
+  background-color: #EB6F8B;
+  width: 70%;
+  font-size: 1.4em;
+  padding: 20px 0;
+  border-radius: 40px;
+  margin: 30px 0 80px;
+  color: white !important;
+  -webkit-box-shadow: 3px 3px 10px 0px #707070;
+          box-shadow: 3px 3px 10px 0px #707070;
+  -webkit-transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: all 500ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.top-btn:hover {
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: white;
+}
+
+@media (min-width: 960px) {
+  /******************************************************************
+
+Stylesheet: 960px以上のモニタで適用
+
+******************************************************************/
+  #mv {
+    height: 650px;
+  }
+  .main-content {
+    margin-top: 60px;
+  }
+  .mv-title {
+    -o-object-fit: contain;
+       object-fit: contain;
+    width: 70%;
+    height: auto;
+  }
+  #pc-menu {
+    display: block;
+  }
+  #mobile-menu__btn {
+    display: none;
+  }
+  .sns-group {
+    padding-top: 50px;
+    padding-bottom: 110px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
+  .twitter-timeline {
+    margin: 0 !important;
+    width: 45% !important;
+  }
+  .event-card {
+    height: 200px;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: row;
+            flex-direction: row;
+  }
+  .top-content {
+    height: 100%;
+    width: 45%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+  }
+  .top-content .event-image {
+    width: 70%;
+    -webkit-transform: none;
+            transform: none;
+  }
+  .top-content .date-container {
+    width: 70%;
+    position: static;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+    border-right: 2px solid #E5E4E4;
+  }
+  .top-content .date-container .event-status {
+    display: none;
+  }
+  .top-content .date-container .date-status {
+    border: none;
+  }
+  .bottom-content {
+    height: 100%;
+    width: 55%;
+    -webkit-box-pack: center;
+        -ms-flex-pack: center;
+            justify-content: center;
+  }
+  .bottom-content .event-status {
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    margin-bottom: 5px;
+  }
+  .bottom-content .event-title {
+    font-size: 1.6em;
+    margin-bottom: 5px;
+  }
+}
+/*# sourceMappingURL=events.css.map */
