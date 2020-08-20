@@ -1,5 +1,5 @@
 Admin.find_or_create_by!(email: 'admin@admin') do |admin|
-  admin.password = 'password'
+  	admin.password = 'password'
 end
 
 #レベルテーブル
@@ -10,9 +10,9 @@ Level.find_or_create_by!(threshold: 200)
 Level.find_or_create_by!(threshold: 250)
 # 6レベル以降はthresholdを緩やかに上げる
 100.times do |n|
-  id = n + 6
-  threshold = Level.find(id - 1).threshold + 50 + (id / 10).floor
-  Level.find_or_create_by!(threshold: threshold)
+	id = n + 6
+	threshold = Level.find(id - 1).threshold + 50 + (id / 10).floor
+	Level.find_or_create_by!(threshold: threshold)
 end
 
 #テストユーザー作成
@@ -30,15 +30,15 @@ User.create!({
 
 49.times { |n|
     User.find_or_create_by(name: Faker::Name.name) do |u|
-  	u.provider = 'twitter'
-  	u.email = Faker::Internet.email
-    u.nickname = "user#{n}"
-    u.introduction = "セッション参加は#{n}回目です。よろしくお願いします。"
-    u.password = 'password'
-    u.password_confirmation = 'password'
-    u.exp = 90
-    u.level_id = 2
-  end
+		u.provider = 'twitter'
+		u.email = "test#{n}@example.com"
+		u.nickname = "user#{n}"
+		u.introduction = "セッション参加は#{n}回目です。よろしくお願いします。"
+		u.password = 'password'
+		u.password_confirmation = 'password'
+		u.exp = 90
+		u.level_id = 2
+	end
 
 	Lyric.create do |l|
 		l.title = "LLBSmusic"
@@ -53,12 +53,12 @@ User.create!({
 		event.event_name = Faker::Music.genre + "セッション#{n}"
 		event.friendly_url = "LLBS#{n}"
 		event.overview = "第#{n}回目の開催となるセッションです。みなさま奮ってご参加ください。"
-		event.date = "2020-0#{n}-28"
-		event.meeting_time = "2020-0#{n}-31 12:00:00"
-		event.start_time = "2020-0#{n}-31 13:00:00"
-		event.finish_time = "2020-0#{n}-31 18:00:00"
-		event.entry_start_time = "2020-0#{n}-01 13:00:00"
-		event.entry_finish_time =  "2020-0#{n}-31 18:00:00"
+		event.date = "2021-0#{n}-10"
+		event.meeting_time = "2021-0#{n}-10 12:00:00"
+		event.start_time = "2021-0#{n}-10 13:00:00"
+		event.finish_time = "2021-0#{n}-10 18:00:00"
+		event.entry_start_time = "2021-0#{n}-10 13:00:00"
+		event.entry_finish_time =  "2021-0#{n}-10 18:00:00"
 		event.place = "ノアスタジオ学芸大学店#{n}号店"
 		event.place_url = 'https://www.studionoah.jp/shibuya1/'
 		event.performance_fee = 2500
